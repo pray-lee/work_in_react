@@ -5,6 +5,9 @@ const {
     fixBabelImports
 } = require('customize-cra')
 
+// theme
+const modifyVars = require('./theme')
+
 module.exports = override(
     // 按需加载
     fixBabelImports('import', {
@@ -16,9 +19,7 @@ module.exports = override(
     // less-loader
     addLessLoader({
         javascriptEnabled: true,
-        modifyVars: {
-            '@primary-color': '#3276c3'
-        }
+        modifyVars,
     }),
     // 装饰器
     addDecoratorsLegacy()
