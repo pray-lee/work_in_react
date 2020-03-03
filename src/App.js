@@ -5,19 +5,6 @@ import {
     Button
 } from 'antd'
 
-//test HOC
-const wrapperComponent = WrappedComponent => {
-    return function() {
-        return (
-            <>
-                <h1>高阶组件</h1>
-                <WrappedComponent></WrappedComponent>
-            </>
-        )
-    }
-}
-
-@wrapperComponent
 class App extends React.Component{
     render() {
         return (
