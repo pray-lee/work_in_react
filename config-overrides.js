@@ -5,7 +5,7 @@ const {
     fixBabelImports
 } = require('customize-cra')
 
-// theme
+// 主题配置文件
 const modifyVars = require('./theme')
 
 module.exports = override(
