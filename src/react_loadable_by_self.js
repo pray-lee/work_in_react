@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 // 实现一个简易的loadable
 
-const LoadableComponent = ({
+const Loadable = ({
                                loader,
                                loading: Loading
                            }) => {
@@ -13,21 +13,24 @@ const LoadableComponent = ({
             loader()
                 .then(res => {
                     this.setState({
-                        LoadableComponent: res.default
+                        LoadedComponent: res.default
                     })
                 })
         }
 
         render() {
+            const {
+                LoadedComponent
+            } = this.state
             return (
-                this.state.LoadedComponent
+                LoadedComponent
                     ?
-                    <LoadableComponent/>
+                    <LoadedComponent/>
                     :
-                    <Loading />
+                    <Loading/>
             )
         }
     }
 }
 
-export default LoadableComponent
+export default Loadable

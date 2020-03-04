@@ -1,4 +1,9 @@
-import LoadableComponent from "../react_loadable_by_self";
+// 这个是简易的loadable
+import Loadable from "../react_loadable_by_self";
+
+// 这个是官方的
+// import Loadable from 'react-loadable'
+
 import {
     Loading
 } from "../components";
@@ -7,12 +12,12 @@ import {
 // import Login from "./Login";
 
 // 路由懒加载方式
-const NotFound = LoadableComponent({
+const NotFound = Loadable({
     loader: () => import('./NotFound'),
     loading: Loading
 })
 
-const Login = LoadableComponent({
+const Login = Loadable({
     loader: () => import('./Login'),
     loading: Loading
 })
