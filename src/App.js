@@ -10,7 +10,7 @@ class App extends React.Component{
         return (
             <div className="App">
                 App
-                <Button type="primary" size="small" style={{marginLeft: '10px'}}>财咖-demo</Button>
+                <Button type="primary" size="large" style={{marginLeft: '10px'}}>财咖-demo</Button>
             </div>
         );
     }
