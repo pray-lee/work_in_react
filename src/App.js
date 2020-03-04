@@ -21,7 +21,7 @@ class App extends React.Component {
                         })
                     }
                     <Redirect to={adminRouter[0].pathname} from="/admin" exact/>
-                    <Redirect to="/404" />
+                    <Redirect to="/admin/404" />
                 </Switch>
             </div>
         );
