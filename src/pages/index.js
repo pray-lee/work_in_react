@@ -10,6 +10,8 @@ import {
 // 普通方式
 // import NotFound from "./NotFound";
 // import Login from "./Login";
+import A from './A'
+import B from './B'
 
 // 路由懒加载方式
 const NotFound = Loadable({
@@ -22,7 +24,10 @@ const Login = Loadable({
     loading: Loading
 })
 
+
 export {
     NotFound,
-    Login
+    Login,
+    A,
+    B
 }

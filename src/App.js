@@ -1,16 +1,28 @@
 import React from 'react';
+import {Route, Switch, Redirect} from 'react-router-dom'
+import {adminRouter} from './routes'
 
-// 按需加载组件和组件的样式，不用单独再引入了
-import {
-    Button
-} from 'antd'
-
-class App extends React.Component{
+class App extends React.Component {
     render() {
         return (
             <div className="App">
-                App
-                <Button type="primary" size="large" style={{marginLeft: '10px'}}>财咖-demo</Button>
+                {/*导航部分*/}
+                这里是导航部分
+                {/*右边视图部分*/}
+                <Switch>
+                    {
+                        adminRouter.map(item => {
+                            return <Route
+                                exact
+                                key={item.pathname}
+                                path={item.pathname}
+                                component={item.component}
+                            />
+                        })
+                    }
+                    <Redirect to={adminRouter[0].pathname} from="/admin" exact/>
+                    <Redirect to="/404" />
+                </Switch>
             </div>
         );
     }
