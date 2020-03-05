@@ -32,7 +32,7 @@ const adminRoutes = [
         component: Article,
         exact: true,
         isNav: true,
-        title: '文章列表'
+        title: '文章管理'
     },
     {
         pathname: '/admin/article/:id',

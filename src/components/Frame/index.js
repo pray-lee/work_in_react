@@ -2,6 +2,7 @@ import React from 'react'
 import {Layout, Menu} from 'antd';
 import { withRouter } from 'react-router-dom'
 import '../../components/Frame/index.less'
+import {PieChartOutlined} from '@ant-design/icons'
 
 const {Header, Content, Sider} = Layout
 
@@ -21,10 +22,12 @@ class Frame extends React.Component{
                         {/*左侧菜单*/}
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
+                            // 默认进来选中哪一个
+                            defaultSelectedKeys={[this.props.location.pathname]}
+                            // 选完之后选中哪一个
+                            selectedKeys={[this.props.location.pathname]}
                             style={{height: '100%', borderRight: 0}}
-                            theme="dark"
+                            theme="light"
                             onClick={this.handleMenuClick}
                         >
                             {
@@ -34,14 +37,16 @@ class Frame extends React.Component{
                                             key={item.pathname}
 
                                         >
-                                            {item.title}
+                                            <PieChartOutlined />
+                                            <span>{item.title}</span>
+
                                         </Menu.Item>
                                     )
                                 })
                             }
                         </Menu>
                     </Sider>
-                    <Layout style={{padding: '0 24px 24px'}}>
+                    <Layout style={{margin: '15px'}}>
                         <Content
                             className="site-layout-background"
                             style={{

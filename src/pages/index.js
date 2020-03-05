@@ -4,9 +4,10 @@
 // 这个是官方的
 import Loadable from 'react-loadable'
 
-import {
-    Loading
-} from "../components";
+import {Spin as Loading} from 'antd'
+// import {
+//     Loading
+// } from "../components";
 // 普通方式
 // 路由懒加载方式
 const NotFound = Loadable({
