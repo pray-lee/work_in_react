@@ -1,12 +1,14 @@
 import {
     NotFound,
     Login,
-    A,
-    B
+    Settings,
+    Article,
+    ArticleDetail,
+    Dashboard
 } from '../pages'
 
 // 注册， 登录， 全局404
-const mainRouter = [
+const mainRoutes = [
     {
         pathname: '/login',
         component: Login
@@ -18,14 +20,29 @@ const mainRouter = [
 ]
 
 // 右侧视图
-const adminRouter = [
+const adminRoutes = [
     {
-        pathname: '/admin/a',
-        component: A
+        pathname: '/admin/dashboard',
+        component: Dashboard,
+        isNav: true,
+        title: '仪表盘'
     },
     {
-        pathname: '/admin/b',
-        component: B
+        pathname: '/admin/article',
+        component: Article,
+        exact: true,
+        isNav: true,
+        title: '文章列表'
+    },
+    {
+        pathname: '/admin/article/:id',
+        component: ArticleDetail,
+    },
+    {
+        pathname: '/admin/settings',
+        component: Settings,
+        isNav: true,
+        title: '设置'
     },
     {
         pathname: '/admin/404',
@@ -34,6 +51,6 @@ const adminRouter = [
 ]
 
 export {
-    mainRouter,
-    adminRouter
+    mainRoutes,
+    adminRoutes
 }

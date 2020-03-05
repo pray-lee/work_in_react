@@ -1,29 +1,30 @@
 import React from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom'
-import {adminRouter} from './routes'
+import { adminRoutes } from './routes'
+import {Frame} from './components'
+
+// 处理导航路由
+const navRoutes = adminRoutes.filter(item => item.isNav === true)
 
 class App extends React.Component {
     render() {
         return (
-            <div className="App">
-                {/*导航部分*/}
-                这里是导航部分
-                {/*右边视图部分*/}
+            <Frame adminRoutes={navRoutes}>
                 <Switch>
                     {
-                        adminRouter.map(item => {
+                        adminRoutes.map(item => {
                             return <Route
-                                exact
+                                exact={item.exact}
                                 key={item.pathname}
                                 path={item.pathname}
                                 component={item.component}
                             />
                         })
                     }
-                    <Redirect to={adminRouter[0].pathname} from="/admin" exact/>
-                    <Redirect to="/admin/404" />
+                    <Redirect to={adminRoutes[0].pathname} from="/admin" exact/>
+                    <Redirect to="/admin/404"/>
                 </Switch>
-            </div>
+            </Frame>
         );
     }
 

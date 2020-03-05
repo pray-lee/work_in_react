@@ -1,18 +1,13 @@
 // 这个是简易的loadable
-import Loadable from "../react_loadable_by_self";
+// import Loadable from "../react_loadable_by_self";
 
 // 这个是官方的
-// import Loadable from 'react-loadable'
+import Loadable from 'react-loadable'
 
 import {
     Loading
 } from "../components";
 // 普通方式
-// import NotFound from "./NotFound";
-// import Login from "./Login";
-import A from './A'
-import B from './B'
-
 // 路由懒加载方式
 const NotFound = Loadable({
     loader: () => import('./NotFound'),
@@ -24,10 +19,30 @@ const Login = Loadable({
     loading: Loading
 })
 
+const Dashboard = Loadable({
+    loader: () => import('./Dashboard'),
+    loading: Loading
+})
 
+const Settings = Loadable({
+    loader: () => import('./Settings'),
+    loading: Loading
+})
+
+const Article = Loadable({
+    loader: () => import('./Article'),
+    loading: Loading,
+})
+
+const ArticleDetail = Loadable({
+    loader: () => import('./Article/Detail'),
+    loading: Loading
+})
 export {
     NotFound,
     Login,
-    A,
-    B
+    Settings,
+    Article,
+    ArticleDetail,
+    Dashboard
 }
