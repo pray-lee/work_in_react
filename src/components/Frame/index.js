@@ -2,7 +2,6 @@ import React from 'react'
 import {Layout, Menu} from 'antd';
 import { withRouter } from 'react-router-dom'
 import '../../components/Frame/index.less'
-import {PieChartOutlined} from '@ant-design/icons'
 
 const {Header, Content, Sider} = Layout
 
@@ -37,7 +36,7 @@ class Frame extends React.Component{
                                             key={item.pathname}
 
                                         >
-                                            <PieChartOutlined />
+                                            <item.icon />
                                             <span>{item.title}</span>
 
                                         </Menu.Item>

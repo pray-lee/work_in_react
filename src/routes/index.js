@@ -7,6 +7,13 @@ import {
     Dashboard
 } from '../pages'
 
+// 引入icon
+import {
+    PieChartOutlined,
+    BarChartOutlined,
+    DingdingOutlined
+} from '@ant-design/icons'
+
 // 注册， 登录， 全局404
 const mainRoutes = [
     {
@@ -24,15 +31,19 @@ const adminRoutes = [
     {
         pathname: '/admin/dashboard',
         component: Dashboard,
+        // 如果需要点击跳转加这个标识就可以
         isNav: true,
-        title: '仪表盘'
+        title: '仪表盘',
+        // 导航的icon
+        icon: PieChartOutlined
     },
     {
         pathname: '/admin/article',
         component: Article,
         exact: true,
         isNav: true,
-        title: '文章管理'
+        title: '文章管理',
+        icon: BarChartOutlined
     },
     {
         pathname: '/admin/article/:id',
@@ -42,7 +53,8 @@ const adminRoutes = [
         pathname: '/admin/settings',
         component: Settings,
         isNav: true,
-        title: '设置'
+        title: '设置',
+        icon: DingdingOutlined
     },
     {
         pathname: '/admin/404',
