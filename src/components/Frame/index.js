@@ -8,9 +8,12 @@ import Logo from './logo.jpg'
 
 const {Header, Content, Sider} = Layout
 
-const mapState = state => ({
-    notificationsCount: state.notifications.filter(item => !item.hasRead).length
-})
+const mapState = state => {
+    console.log(state.notifications.list)
+    return {
+        notificationsCount: state.notifications.list.filter(item => !item.hasRead).length
+    }
+}
 
 @connect(mapState)
 @withRouter
@@ -18,7 +21,8 @@ class Frame extends React.Component {
     handleMenuClick = ({key}) => {
         this.props.history.push(key)
     }
-    menu = (
+    // 设置成方法就可以动态更新notifications了。如果是属性的话不可以
+    setMenu = () => (
         <Menu onClick={this.handleMenuClick}>
             <Menu.Item key="/admin/notification">
                 <Badge dot={Boolean(this.props.notificationsCount)}>
@@ -41,11 +45,11 @@ class Frame extends React.Component {
                     <div className="logo">
                         <img src={Logo} alt=""/>
                     </div>
-                    <Dropdown overlay={this.menu}>
+                    <Dropdown overlay={this.setMenu()}>
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()} href="!#">
                             <Avatar style={{backgroundColor: '#87d068', margin: '0 10px'}} icon={<UserOutlined/>}/>
                             <span>欢迎您！</span>
-                            <Badge count={this.props.notificationsCount} overflowCount={10} offset={[8,-8]}>
+                            <Badge count={this.props.notificationsCount} overflowCount={10} offset={[8, -8]}>
                                 <span>demo</span>
                             </Badge>
                             <DownOutlined/>
