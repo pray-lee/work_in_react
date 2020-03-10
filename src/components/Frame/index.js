@@ -1,12 +1,18 @@
 import React from 'react'
 import {Layout, Menu, Dropdown, Avatar, Badge} from 'antd';
 import {DownOutlined, UserOutlined} from '@ant-design/icons';
+import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import '../../components/Frame/index.less'
 import Logo from './logo.jpg'
 
 const {Header, Content, Sider} = Layout
 
+const mapState = state => ({
+    notificationsCount: state.notifications.filter(item => !item.hasRead).length
+})
+
+@connect(mapState)
 @withRouter
 class Frame extends React.Component {
     handleMenuClick = ({key}) => {
@@ -15,7 +21,7 @@ class Frame extends React.Component {
     menu = (
         <Menu onClick={this.handleMenuClick}>
             <Menu.Item key="/admin/notification">
-                <Badge dot>
+                <Badge dot={Boolean(this.props.notificationsCount)}>
                     通知中心
                 </Badge>
             </Menu.Item>
@@ -39,7 +45,7 @@ class Frame extends React.Component {
                         <a className="ant-dropdown-link" onClick={e => e.preventDefault()} href="!#">
                             <Avatar style={{backgroundColor: '#87d068', margin: '0 10px'}} icon={<UserOutlined/>}/>
                             <span>欢迎您！</span>
-                            <Badge count={8} overflowCount={10} offset={[8,-8]}>
+                            <Badge count={this.props.notificationsCount} overflowCount={10} offset={[8,-8]}>
                                 <span>demo</span>
                             </Badge>
                             <DownOutlined/>

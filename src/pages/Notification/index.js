@@ -1,32 +1,19 @@
 import React from 'react'
-import {Card, Badge, Avatar, Button, List} from 'antd'
+import {useSelector, useDispatch} from 'react-redux'
+import {Card, Badge, Button, List} from 'antd'
 
 const Notification = () => {
-    const data = [
-        {
-            title: 'Ant Design Title 1',
-        },
-        {
-            title: 'Ant Design Title 2',
-        },
-        {
-            title: 'Ant Design Title 3',
-        },
-        {
-            title: 'Ant Design Title 4',
-        },
-    ];
+    const notifications = useSelector(state => state.notifications)
     return (
-        <Card title="通知中心" extra={<Badge dot><Button>全部标记为已读</Button></Badge>} bordered={false}>
+        <Card title="通知中心" extra={<Badge><Button disabled={notifications.every(item => !!item.hasRead)}>全部标记为已读</Button></Badge>} bordered={false}>
             <List
                 itemLayout="horizontal"
-                dataSource={data}
+                dataSource={notifications}
                 renderItem={item => (
-                    <List.Item actions={[<Button>标记为已读</Button>]}>
+                    <List.Item actions={[<Button disabled={item.hasRead}>标记为已读</Button>]}>
                         <List.Item.Meta
-                            avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"/>}
-                            title={<a href="!#">{<Badge dot>{item.title}</Badge>}</a>}
-                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                            title={<a href="!#">{<Badge dot={!item.hasRead}>{item.title}</Badge>}</a>}
+                            description={item.desc}
                         />
                     </List.Item>
                 )}
