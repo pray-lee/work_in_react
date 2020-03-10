@@ -12,6 +12,7 @@ class HttpRequest {
             baseURL: this.baseUrl,
             headers: {}
         }
+        return config
     }
     // 注册拦截器
     interceptors(instance) {

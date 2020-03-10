@@ -4,7 +4,8 @@ import {
     Settings,
     Article,
     ArticleDetail,
-    Dashboard
+    Dashboard,
+    Notification
 } from '../pages'
 
 // 引入icon
@@ -55,6 +56,10 @@ const adminRoutes = [
         isNav: true,
         title: '设置',
         icon: DingdingOutlined
+    },
+    {
+        pathname: '/admin/notification',
+        component: Notification,
     },
     {
         pathname: '/admin/404',

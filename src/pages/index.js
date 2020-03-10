@@ -38,11 +38,16 @@ const ArticleDetail = Loadable({
     loader: () => import('./Article/Detail'),
     loading: Loading
 })
+const Notification = Loadable({
+    loader: () => import('./Notification'),
+    loading: Loading
+})
 export {
     NotFound,
     Login,
     Settings,
     Article,
     ArticleDetail,
-    Dashboard
+    Dashboard,
+    Notification
 }
