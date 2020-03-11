@@ -5,31 +5,37 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import '../../components/Frame/index.less'
 import Logo from './logo.jpg'
+import {loginFailed} from "../../actions/user";
 
 const {Header, Content, Sider} = Layout
 
 const mapState = state => {
-    console.log(state.notifications.list)
     return {
-        notificationsCount: state.notifications.list.filter(item => !item.hasRead).length
+        notificationsCount: state.notifications.list.filter(item => !item.hasRead).length,
+        userInfo: state.user
     }
 }
 
-@connect(mapState)
+@connect(mapState, {loginFailed})
 @withRouter
 class Frame extends React.Component {
     handleMenuClick = ({key}) => {
         this.props.history.push(key)
     }
+    handleTopMenuClick = ({key}) => {
+        key === '/login' ?
+            this.props.loginFailed() :
+            this.props.history.push(key)
+    }
     // 设置成方法就可以动态更新notifications了。如果是属性的话不可以
     setMenu = () => (
-        <Menu onClick={this.handleMenuClick}>
-            <Menu.Item key="/admin/notification">
+        <Menu onClick={this.handleTopMenuClick}>
+            <Menu.Item key="/notification">
                 <Badge dot={Boolean(this.props.notificationsCount)}>
                     通知中心
                 </Badge>
             </Menu.Item>
-            <Menu.Item key="/admin/settings">
+            <Menu.Item key="/settings">
                 个人设置
             </Menu.Item>
             <Menu.Item key="/login">
@@ -50,7 +56,7 @@ class Frame extends React.Component {
                             <Avatar style={{backgroundColor: '#87d068', margin: '0 10px'}} icon={<UserOutlined/>}/>
                             <span>欢迎您！</span>
                             <Badge count={this.props.notificationsCount} overflowCount={10} offset={[8, -8]}>
-                                <span>demo</span>
+                                <span>{this.props.userInfo.username}</span>
                             </Badge>
                             <DownOutlined/>
                         </a>
@@ -66,7 +72,7 @@ class Frame extends React.Component {
                             // 选完之后选中哪一个
                             selectedKeys={[this.props.location.pathname]}
                             style={{height: '100%', borderRight: 0}}
-                            theme="light"
+                            theme="dark"
                             onClick={this.handleMenuClick}
                         >
                             {

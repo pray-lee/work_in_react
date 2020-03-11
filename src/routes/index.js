@@ -24,22 +24,22 @@ const mainRoutes = [
     {
         pathname: '/404',
         component: NotFound
-    }
+    },
 ]
 
 // 右侧视图
 const adminRoutes = [
     {
-        pathname: '/admin/dashboard',
+        pathname: '/dashboard',
         component: Dashboard,
         // 如果需要点击跳转加这个标识就可以
         isNav: true,
         title: '仪表盘',
         // 导航的icon
-        icon: PieChartOutlined
+        icon: PieChartOutlined,
     },
     {
-        pathname: '/admin/article',
+        pathname: '/article',
         component: Article,
         exact: true,
         isNav: true,
@@ -47,24 +47,24 @@ const adminRoutes = [
         icon: BarChartOutlined
     },
     {
-        pathname: '/admin/article/:id',
+        pathname: '/article/:id',
         component: ArticleDetail,
     },
     {
-        pathname: '/admin/settings',
+        pathname: '/settings',
         component: Settings,
         isNav: true,
         title: '设置',
         icon: DingdingOutlined
     },
     {
-        pathname: '/admin/notification',
+        pathname: '/notification',
         component: Notification,
     },
     {
-        pathname: '/admin/404',
-        component: NotFound
-    }
+        pathname: '/notFound',
+        component: NotFound,
+    },
 ]
 
 export {

@@ -19,10 +19,6 @@ ReactDOM.render(
         <ConfigProvider local={zhCN}>
             <Router>
                 <Switch>
-                    <Route path="/admin" render={routeProps => {
-                        // 做登录权限控制
-                        return <App {...routeProps}/>
-                    }}/>
                     {
                         mainRoutes.map(item => {
                             return (
@@ -30,8 +26,8 @@ ReactDOM.render(
                             )
                         })
                     }
-                    <Redirect to="/admin" from="/" exact/>
-                    <Redirect to="/404"/>
+                    <Route path="/" component={App}/>
+                    <Redirect to="/404" />
                 </Switch>
             </Router>
         </ConfigProvider>
