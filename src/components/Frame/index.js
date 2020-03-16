@@ -1,24 +1,37 @@
-import React from 'react'
-import {Layout, Menu, Dropdown, Avatar, Badge} from 'antd';
+import React, {Suspense} from 'react'
+import {Spin, Layout, Menu, Dropdown, Avatar, Badge} from 'antd';
 import {DownOutlined, UserOutlined} from '@ant-design/icons';
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {Switch, Route, Redirect, withRouter} from 'react-router-dom'
+import {NotFound} from "../../pages";
 import '../../components/Frame/index.less'
 import Logo from './logo.jpg'
 import {loginFailed} from "../../actions/user";
+import {getRouteConfig} from "../../actions/route";
 
 const {Header, Content, Sider} = Layout
+const {SubMenu} = Menu
 
 const mapState = state => {
     return {
         notificationsCount: state.notifications.list.filter(item => !item.hasRead).length,
-        userInfo: state.user
+        userInfo: state.user,
+        routeConfig: state.routeConfig
     }
 }
 
-@connect(mapState, {loginFailed})
+@connect(mapState, {loginFailed, getRouteConfig})
 @withRouter
 class Frame extends React.Component {
+    // state = {
+    //     openKeys: [this.props.routeConfig.navRoute.length && this.props.routeConfig.navRoute[0].pathname]
+    // }
+
+    componentDidMount() {
+        // 请求菜单
+        this.props.getRouteConfig()
+    }
+
     handleMenuClick = ({key}) => {
         this.props.history.push(key)
     }
@@ -43,6 +56,51 @@ class Frame extends React.Component {
             </Menu.Item>
         </Menu>
     )
+    // 点击当前菜单，关闭其他菜单
+    // rootSubmenuKeys = () => {
+    //     return this.props.routeConfig.navRoute.length && this.props.routeConfig.navRoute.map(item => {
+    //         if (!!item.children && item.children.length) {
+    //             return item.pathname
+    //         }
+    //     })
+    // }
+    // onOpenChange = openKeys => {
+    //     const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    //     if (this.rootSubmenuKeys().indexOf(latestOpenKey) === -1) {
+    //         this.setState({openKeys});
+    //     } else {
+    //         this.setState({
+    //             openKeys: latestOpenKey ? [latestOpenKey] : [],
+    //         });
+    //     }
+    // }
+
+    // 递归渲染菜单
+    createMenuListMap = (list) => {
+        return !!list && list.map((item) => {
+            if (item.children) {
+                return (
+                    <SubMenu
+                        key={item.pathname}
+                        title={
+                            <span>{item.title}</span>
+                        }
+                    >
+                        {
+                            // 根据当前菜单的 children 去生成其子菜单，由于菜单项 menuList 是个有终结的数据，且嵌套层数并不复杂，所以这里不用担心递归会造成栈溢出的问题
+                            this.createMenuListMap(item.children)
+                        }
+                    </SubMenu>
+                );
+            } else {
+                return (
+                    <Menu.Item key={item.pathname}>
+                        <span>{item.title}</span>
+                    </Menu.Item>
+                );
+            }
+        });
+    }
 
     render() {
         return (
@@ -65,31 +123,21 @@ class Frame extends React.Component {
                 <Layout>
                     <Sider width={200} className="site-layout-background">
                         {/*左侧菜单*/}
-                        <Menu
-                            mode="inline"
-                            // 默认进来选中哪一个
-                            defaultSelectedKeys={[this.props.location.pathname]}
-                            // 选完之后选中哪一个
-                            selectedKeys={[this.props.location.pathname]}
-                            style={{height: '100%', borderRight: 0}}
-                            theme="dark"
-                            onClick={this.handleMenuClick}
-                        >
-                            {
-                                this.props.adminRoutes.map(item => {
-                                    return (
-                                        <Menu.Item
-                                            key={item.pathname}
+                        {
+                            this.props.routeConfig.navRoute &&
+                            <Menu
+                                mode="vertical"
+                                theme="dark"
+                                selectedKeys={[this.props.location.pathname]}
+                                // openKeys={this.state.openKeys}
+                                // onOpenChange={this.onOpenChange}
+                                onClick={this.handleMenuClick}
+                            >
 
-                                        >
-                                            <item.icon/>
-                                            <span>{item.title}</span>
+                                {this.createMenuListMap(this.props.routeConfig.navRoute)}
+                            </Menu>
+                        }
 
-                                        </Menu.Item>
-                                    )
-                                })
-                            }
-                        </Menu>
                     </Sider>
                     <Layout style={{margin: '15px'}}>
                         <Content
@@ -101,8 +149,24 @@ class Frame extends React.Component {
                                 background: '#fff'
                             }}
                         >
-                            {/*写路由的地方*/}
-                            {this.props.children}
+                            <Switch>
+                                {!!this.props.routeConfig.pageRoute.length
+                                && this.props.routeConfig.pageRoute.map(item => {
+                                    return (<Route
+                                        path={item.pathname}
+                                        key={item.pathname}
+                                        render={routeProps => (
+                                            <Suspense fallback={<div>loading...</div>}>
+                                                <item.component/>
+                                            </Suspense>)}
+                                    >
+                                    </Route>)
+                                })
+                                }
+                                {/*404*/}
+                                <Redirect to="/dashboard/Dashboard" from="/" exact/>
+                                <Route component={NotFound}></Route>
+                            </Switch>
                         </Content>
                     </Layout>
                 </Layout>

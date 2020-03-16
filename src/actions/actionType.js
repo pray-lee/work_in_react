@@ -7,4 +7,5 @@ export default {
     LOGIN_START: 'login_start',
     LOGIN_SUCCESS: 'login_success',
     LOGIN_FAILED: 'login_failed',
+    GET_ROUTE_CONFIG: 'get_route_config'
 }

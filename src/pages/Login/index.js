@@ -5,7 +5,6 @@ import {useSelector, useDispatch} from 'react-redux'
 import {requestLogin} from '../../actions/user'
 import {Redirect} from 'react-router-dom'
 import './login.less'
-
 const Login = () => {
     const dispatch = useDispatch()
     const {isLoading, isLogin} = useSelector(state => state.user)
@@ -79,7 +78,7 @@ const Login = () => {
                     <Button loading={isLoading} type="primary" htmlType="submit" className="login-form-button">
                         登陆
                     </Button>
-                    Or <a style={{fontWeight: 'bold'}}>立即注册</a>
+                    {/*Or <a style={{fontWeight: 'bold'}}>立即注册</a>*/}
                 </Form.Item>
             </Form>
             :

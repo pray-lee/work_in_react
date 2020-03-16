@@ -20,7 +20,7 @@ export const loginFailed = () => {
     }
 }
 
-export const requestLogin = (userInfo) => {
+export const requestLogin = userInfo => {
     return dispatch => {
         dispatch(loginStart())
         setTimeout(() => {

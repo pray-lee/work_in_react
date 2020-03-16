@@ -1,19 +1,5 @@
-import {
-    NotFound,
-    Login,
-    Settings,
-    Article,
-    ArticleDetail,
-    Dashboard,
-    Notification
-} from '../pages'
-
-// 引入icon
-import {
-    PieChartOutlined,
-    BarChartOutlined,
-    DingdingOutlined
-} from '@ant-design/icons'
+import React from 'react'
+import {Login, NotFound} from "../pages";
 
 // 注册， 登录， 全局404
 const mainRoutes = [
@@ -28,44 +14,22 @@ const mainRoutes = [
 ]
 
 // 右侧视图
-const adminRoutes = [
-    {
-        pathname: '/dashboard',
-        component: Dashboard,
-        // 如果需要点击跳转加这个标识就可以
-        isNav: true,
-        title: '仪表盘',
-        // 导航的icon
-        icon: PieChartOutlined,
-    },
-    {
-        pathname: '/article',
-        component: Article,
-        exact: true,
-        isNav: true,
-        title: '文章管理',
-        icon: BarChartOutlined
-    },
-    {
-        pathname: '/article/:id',
-        component: ArticleDetail,
-    },
-    {
-        pathname: '/settings',
-        component: Settings,
-        isNav: true,
-        title: '设置',
-        icon: DingdingOutlined
-    },
-    {
-        pathname: '/notification',
-        component: Notification,
-    },
-    {
-        pathname: '/notFound',
-        component: NotFound,
-    },
-]
+const ROUTE_CONFIG = []
+const adminRoutes = routes => {
+    routes.forEach(route => {
+        if (route.children && route.children.length) {
+            adminRoutes(route.children, ROUTE_CONFIG)
+        } else {
+            ROUTE_CONFIG.push({
+                pathname: route.pathname,
+                component: React.lazy(() => import(`../pages/${route.pathname.split('/').pop()}`))
+            })
+        }
+    })
+    return ROUTE_CONFIG
+}
+
+
 
 export {
     mainRoutes,

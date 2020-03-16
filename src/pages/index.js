@@ -1,5 +1,6 @@
 // 这个是简易的loadable
 // import Loadable from "../react_loadable_by_self";
+import React from 'react'
 
 // 这个是官方的
 import Loadable from 'react-loadable'
@@ -42,6 +43,7 @@ const Notification = Loadable({
     loader: () => import('./Notification'),
     loading: Loading
 })
+
 export {
     NotFound,
     Login,
