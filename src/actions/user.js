@@ -32,7 +32,6 @@ export const requestLogin = userInfo => {
                 window.sessionStorage.setItem('authToken', userInfo.authToken)
                 window.sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
             }
-            console.log(userInfo)
             dispatch(loginSuccess(userInfo))
             // 如果失败
             // dispatch(loginFailed())
