@@ -50,6 +50,6 @@ export const getRouteConfig = () => {
                   routeConfig
               }
           })
-       }, 1000)
+       }, 666)
     }
 }

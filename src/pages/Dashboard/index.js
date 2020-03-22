@@ -1,13 +1,17 @@
 import React, {useEffect} from "react";
+import OperatorButtons from "../../components/OperatorButtons";
 import axiosTest from '../../request/test'
-export default () => {
+
+export default props => {
     useEffect(() => {
-        
         setTimeout(() => {
             axiosTest()
         }, 2000)
     }, [])
+    console.log(props, 'Dashboard')
     return (
-        <h1>dashboard</h1>
+        <>
+           <OperatorButtons/>
+        </>
     )
 }

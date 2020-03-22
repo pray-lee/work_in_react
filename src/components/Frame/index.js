@@ -74,13 +74,13 @@ class Frame extends React.Component {
                     {/*<Sider*/}
                     <LeftNav {...this.props}/>
                     {/*</Sider>*/}
-                    <Layout style={{margin: '15px'}}>
+                    <Layout>
                         <Content
                             className="site-layout-background"
                             style={{
-                                padding: 24,
+                                padding: 12,
                                 margin: 0,
-                                minHeight: 280,
+                                minHeight: '100%',
                                 background: '#fff'
                             }}
                         >
