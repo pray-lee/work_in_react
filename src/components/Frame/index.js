@@ -24,22 +24,11 @@ const mapState = state => {
 @withRouter
 class Frame extends React.Component {
     state = {
-        openKeys: [this.props.routeConfig.navRoute.length && this.props.routeConfig.navRoute[0].pathname],
         collapsed: false
     }
-
     componentDidMount() {
         // 请求菜单
         this.props.getRouteConfig()
-    }
-
-    onCollapse = collapsed => {
-        this.setState({
-            collapsed
-        })
-    }
-    handleMenuClick = ({key}) => {
-        this.props.history.push(key)
     }
     handleTopMenuClick = ({key}) => {
         key === '/login' ?
