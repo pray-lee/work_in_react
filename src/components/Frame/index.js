@@ -10,7 +10,7 @@ import {loginFailed} from "../../actions/user";
 import {getRouteConfig} from "../../actions/route";
 import LeftNav from "../LeftNav";
 
-const {Header, Content, Sider} = Layout
+const {Header, Content} = Layout
 
 const mapState = state => {
     return {

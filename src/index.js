@@ -10,13 +10,13 @@ import {
     Redirect
 } from "react-router-dom";
 // 设置中文
-import zhCN from 'antd/es/locale/zh_CN';
 import {ConfigProvider} from 'antd'
+import zhCN from 'antd/es/locale/zh_CN';
 import {mainRoutes} from "./routes";
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ConfigProvider local={zhCN}>
+    <ConfigProvider locale={zhCN}>
+        <Provider store={store}>
             <Router>
                 <Switch>
                     {
@@ -27,11 +27,12 @@ ReactDOM.render(
                         })
                     }
                     <Route path="/" component={App}/>
-                    <Redirect to="/404" />
+                    <Redirect to="/404"/>
                 </Switch>
             </Router>
-        </ConfigProvider>
-    </Provider>,
-    document.getElementById('root')
-);
+        </Provider>
+    </ConfigProvider>,
+document.getElementById('root')
+)
+;
 

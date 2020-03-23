@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import OperatorButtons from "../../components/OperatorButtons";
+import Table from '../../components/Table'
 import axiosTest from '../../request/test'
 
 export default props => {
@@ -12,6 +13,7 @@ export default props => {
     return (
         <>
            <OperatorButtons/>
+           <Table />
         </>
     )
 }
