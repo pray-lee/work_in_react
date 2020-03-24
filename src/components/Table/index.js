@@ -55,22 +55,15 @@ for (let i = 1; i <= 100; i++) {
 // const expandable = {
 //     expandedRowRender: record => <p>{record.description}</p>,
 // };
-// 分页配置
-const pagination = {
-    position: 'bottom',
-    showSizeChanger: true,
-    pageSizeOptions: ['10', '20', '40', '50'],
-    // hideOnSinglePage: true,
-};
 // 选择功能配置, 就是单选和多选的那些
 const rowSelection = {
-    type: 'checkbox'
+    type: 'checkbox',
+    fixed: true
 }
 
 // component
 export default class TableComponent extends React.Component {
     state = {
-        pagination,
         ellipsis: false,
         // expandable,
         rowSelection, // 默认值checkbox ,如果不需要设置为undefined
@@ -84,6 +77,7 @@ export default class TableComponent extends React.Component {
                 dataIndex: 'name',
                 key: 'name',
                 width: 200,
+                fixed: 'left',
                 render: text => <a>{text}</a>,
             },
             {
@@ -137,6 +131,7 @@ export default class TableComponent extends React.Component {
             {
                 title: 'Action',
                 key: 'action',
+                fixed: 'right',
                 width: 200,
                 render: () => (
                     <span>
@@ -155,6 +150,19 @@ export default class TableComponent extends React.Component {
         header: {
             cell: ResizeableTitle,
         },
+    }
+    // 分页配置
+    pagination = {
+        position: 'bottom',
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '40', '50'],
+        // hideOnSinglePage: true,
+    };
+    scroll = {
+        // 这个属性只有fix header的时候才能生效
+        scrollToFirstRowOnChange: true,
+        // 表格滚动高度，当头部固定是才能用
+        y: 'calc(100vh - 64px - 96px - 24px - 39px - 57px - 20px)'
     }
     handleResize = index => (e, {size}) => {
         this.setState(({columns}) => {
@@ -180,33 +188,7 @@ export default class TableComponent extends React.Component {
     };
 
     render() {
-        const {xScroll, yScroll, ...state} = this.state;
-
-        const scroll = {
-            // 这个属性只有fix header的时候才能生效
-            scrollToFirstRowOnChange: true
-        };
-
-        // 表格滚动高度，当头部固定是才能用
-        if (yScroll) {
-            scroll.y = '75vh';
-        }
-        // 这个没必要加，让他自己适应就好了。
-        // if (xScroll) {
-        //     let scrollX = null
-        //     this.state.columns.forEach(item => {
-        //         scrollX += item.width
-        //     })
-        //     scroll.x = scrollX
-        // }
-
-        const tableColumns = this.state.columns.map(item => ({...item, ellipsis: state.ellipsis}));
-        // 固定两端
-        if (xScroll === 'fixed') {
-            tableColumns[0].fixed = 'left';
-            tableColumns[tableColumns.length - 1].fixed = 'right';
-        }
-
+        const tableColumns = this.state.columns.map(item => ({...item, ellipsis: this.state.ellipsis}));
         // 可伸缩表头数据设置
         const resizableColumns = tableColumns.map((col, index) => {
             return {
@@ -225,31 +207,22 @@ export default class TableComponent extends React.Component {
                     className="components-table-demo-control-bar"
                     style={{ paddingBottom: 16 }}
                 >
-                    <Form.Item label="Fixed Header">
-                        <Switch checked={!!yScroll} onChange={this.handleYScrollChange} />
-                    </Form.Item>
-                    <Form.Item label="Size">
-                        <Radio.Group value={state.size} onChange={this.handleSizeChange}>
-                            <Radio.Button value="default">Default</Radio.Button>
-                            <Radio.Button value="middle">Middle</Radio.Button>
-                            <Radio.Button value="small">Small</Radio.Button>
-                        </Radio.Group>
-                    </Form.Item>
-                    <Form.Item label="Table Scroll">
-                        <Radio.Group value={xScroll} onChange={this.handleXScrollChange}>
-                            <Radio.Button value={undefined}>Unset</Radio.Button>
-                            <Radio.Button value="scroll">Scroll</Radio.Button>
-                            <Radio.Button value="fixed">Fixed Columns</Radio.Button>
-                        </Radio.Group>
-                    </Form.Item>
+                    {/*<Form.Item label="Size">*/}
+                    {/*    <Radio.Group value={this.state.size} onChange={this.handleSizeChange}>*/}
+                    {/*        <Radio.Button value="default">Default</Radio.Button>*/}
+                    {/*        <Radio.Button value="middle">Middle</Radio.Button>*/}
+                    {/*        <Radio.Button value="small">Small</Radio.Button>*/}
+                    {/*    </Radio.Group>*/}
+                    {/*</Form.Item>*/}
                 </Form>
                 <Table
                     bordered
                     {...this.state}
+                    pagination={this.pagination}
                     components={this.components}
                     columns={resizableColumns}
-                    dataSource={state.hasData ? data : null}
-                    scroll={scroll}
+                    dataSource={this.state.hasData ? data : null}
+                    scroll={this.scroll}
                 />
             </div>
         );
