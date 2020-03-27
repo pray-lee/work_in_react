@@ -64,87 +64,21 @@ const rowSelection = {
 // component
 export default class TableComponent extends React.Component {
     state = {
-        ellipsis: false,
+        ellipsis: false, //省略号
         // expandable,
         rowSelection, // 默认值checkbox ,如果不需要设置为undefined
         size: 'small',
-        scroll: undefined,
-        hasData: true,
+        scroll: undefined, // 表格允许滚动
         tableLayout: 'fixed',
-        columns: [
-            {
-                title: 'Name',
-                dataIndex: 'name',
-                key: 'name',
-                width: 200,
-                fixed: 'left',
-                render: text => <a>{text}</a>,
-            },
-            {
-                title: 'Age',
-                dataIndex: 'age',
-                key: 'age',
-                width: 200,
-            },
-            {
-                title: 'Address',
-                dataIndex: 'address',
-                key: 'address',
-                width: 200,
-            },
-            {
-                title: 'A',
-                dataIndex: 'a',
-                key: 'a',
-                width: 200,
-            },
-            {
-                title: 'B',
-                dataIndex: 'b',
-                key: 'b',
-                width: 200,
-            },
-            {
-                title: 'C',
-                dataIndex: 'c',
-                key: 'c',
-                width: 200,
-            },
-            {
-                title: 'D',
-                dataIndex: 'd',
-                key: 'd',
-                width: 200,
-            },
-            {
-                title: 'F',
-                dataIndex: 'f',
-                key: 'f',
-                width: 200,
-            },
-            {
-                title: 'E',
-                dataIndex: 'e',
-                key: 'e',
-                width: 200,
-            },
-            {
-                title: 'Action',
-                key: 'action',
-                fixed: 'right',
-                width: 200,
-                render: () => (
-                    <span>
-                            <a style={{marginRight: 16}}>Delete</a>
-                            <a className="ant-dropdown-link">
-
-                                More actions <DownOutlined/>
-                            </a>
-                      </span>
-                ),
-            },
-        ]
+        columns: []
     };
+    componentDidMount() {
+        const columns = this.props.columns.slice()
+        this.setState({
+            columns
+        })
+    }
+
     // 可伸缩表头配置
     components = {
         header: {
@@ -161,7 +95,7 @@ export default class TableComponent extends React.Component {
     scroll = {
         // 这个属性只有fix header的时候才能生效
         scrollToFirstRowOnChange: true,
-        // 表格滚动高度，当头部固定是才能用
+        // 表格滚动高度，想设置头部固定的话，设置这个属性就可以了。
         y: 'calc(100vh - 64px - 96px - 24px - 39px - 57px - 20px)'
     }
     handleResize = index => (e, {size}) => {
@@ -221,7 +155,7 @@ export default class TableComponent extends React.Component {
                     pagination={this.pagination}
                     components={this.components}
                     columns={resizableColumns}
-                    dataSource={this.state.hasData ? data : null}
+                    dataSource={data}
                     scroll={this.scroll}
                 />
             </div>
