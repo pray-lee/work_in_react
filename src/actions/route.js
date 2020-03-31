@@ -32,17 +32,6 @@ export const getRouteConfig = () => {
                        }
                    ]
                },
-               {
-                   title: '消息管理',
-                   pathname: '/messageManager',
-                   component: 'MessageManager',
-                   children: [
-                       {
-                           title: '通知中心',
-                           pathname: '/messageManager/Notification'
-                       }
-                   ]
-               }
            ]
           dispatch({
               type: actionType.GET_ROUTE_CONFIG,

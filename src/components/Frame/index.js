@@ -38,16 +38,16 @@ class Frame extends React.Component {
     // 设置成方法就可以动态更新notifications了。如果是属性的话不可以
     setMenu = () => (
         <Menu onClick={this.handleTopMenuClick}>
-            <Menu.Item key="/messageManager/Notification">
+            <Menu.Item key="/Notification">
                 <Badge dot={Boolean(this.props.notificationsCount)}>
                     通知中心
                 </Badge>
             </Menu.Item>
-            <Menu.Item key="/settings">
-                个人设置
+            <Menu.Item key="/ResetPassword">
+                修改密码
             </Menu.Item>
             <Menu.Item key="/login">
-                退出登陆
+                注销
             </Menu.Item>
         </Menu>
     )
