@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState, useCallback} from "react";
 import {DownOutlined} from '@ant-design/icons'
 import OperatorButtons from "../../components/OperatorButtons";
 import Table from '../../components/Table'
+import Drawer from '../../components/Drawer'
 
 export default props => {
     const columns = [
@@ -76,10 +77,46 @@ export default props => {
             ),
         },
     ]
+    // state
+    const [visible, setVisible] = useState(false)
+    const [hasFooter, setHasFooter] = useState(true)
+    const onClose = () => {
+        setVisible(false)
+    }
+    const onShow = () => {
+        setVisible(true)
+    }
+    // 按钮类型
+    const [type, setType] = useState('')
+    // 权限
+    const permissions = ['add', 'edit', 'view']
+    // 按钮操作
+    const events = {
+        view: () => {
+            onShow()
+            setType('view')
+            setHasFooter(false)
+        }
+    }
+    const drawerContent = type => {
+        switch (type) {
+            case 'view':
+                return <div>view</div>
+                break
+            case 'add':
+                return <div>add</div>
+            default:
+                return null
+        }
+
+    }
     return (
         <>
-           <OperatorButtons/>
-           <Table columns={columns}/>
+            <OperatorButtons permissions={permissions} events={events}/>
+            <Table columns={columns}/>
+            <Drawer visible={visible} hasFooter={hasFooter} title="查看" onClose={onClose}>
+                {drawerContent(type)}
+            </Drawer>
         </>
     )
 }

@@ -31,10 +31,17 @@ import './index.less'
 @WrapperComponent
 class OperatorButtons extends React.Component {
     render() {
+        console.log(this.props.permissions)
+        const {events} = this.props
         return (
             <Row>
                 <Col span={24} className="operator-btn">
-                    <Button size="small" icon={<FilterOutlined/>}>筛选</Button>
+                    {/*{*/}
+                    {/*    permissions.indexOf('add') !== -1 ?*/}
+                    {/*        <Button size="small" icon={<FilterOutlined/>}>筛选</Button>*/}
+                    {/*        :*/}
+                    {/*        null*/}
+                    {/*}*/}
                     <Button size="small" icon={<ReloadOutlined/>}>刷新</Button>
                     <Button size="small" icon={<SelectOutlined/>}>全选</Button>
                     <Button size="small" icon={<PlusOutlined/>}>新增</Button>
@@ -42,7 +49,7 @@ class OperatorButtons extends React.Component {
                     <Button size="small" type="primary" danger>红冲</Button>
                     <Button size="small" icon={<VerticalAlignBottomOutlined/>}>下推</Button>
                     <Button size="small" icon={<EditOutlined/>}>编辑</Button>
-                    <Button size="small" icon={<SearchOutlined/>}>查看</Button>
+                    <Button size="small" icon={<SearchOutlined/>} onClick={events.view}>查看</Button>
                     <Button size="small" icon={<CheckCircleOutlined/>}>提交</Button>
                     <Button size="small" icon={<CheckCircleOutlined/>}>审批</Button>
                     <Button size="small" icon={<RollbackOutlined/>} danger>反审批</Button>
@@ -84,4 +91,5 @@ class OperatorButtons extends React.Component {
     }
 
 }
+
 export default OperatorButtons

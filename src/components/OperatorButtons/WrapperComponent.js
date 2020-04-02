@@ -5,7 +5,7 @@ export default WrappedComponent => {
         render() {
             // 数据重组一下,再返回
             return (
-                <WrappedComponent/>
+                <WrappedComponent {...this.props}/>
             )
         }
     }
