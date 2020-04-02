@@ -6,3 +6,4 @@ export default () => {
         <h1>articleDetail {params.id}</h1>
     )
 }
+
