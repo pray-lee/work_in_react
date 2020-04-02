@@ -19,7 +19,7 @@ const ROUTE_CONFIG = []
 const adminRoutes = routes => {
     routes.forEach(route => {
         if (route.children && route.children.length) {
-            adminRoutes(route.children, ROUTE_CONFIG)
+            adminRoutes(route.children)
         } else {
             ROUTE_CONFIG.push({
                 pathname: route.pathname,

@@ -1,7 +1,7 @@
 import React from 'react'
-import {Table, Switch, Radio, Form} from 'antd';
+import {Table, Form} from 'antd';
 import {Resizable} from 'react-resizable'
-import {DownOutlined} from '@ant-design/icons';
+// import {DownOutlined} from '@ant-design/icons';
 import './index.less'
 
 // 配置可伸缩表头

@@ -6,7 +6,7 @@ export const getRouteConfig = () => {
            const routeConfig = [
                {
                    title: '我的单据',
-                   pathname: '/dashboard',
+                   pathname: '/',
                    children: [
                        {
                            title: '我的应收',
@@ -39,6 +39,6 @@ export const getRouteConfig = () => {
                   routeConfig
               }
           })
-       }, 666)
+       }, 2000)
     }
 }

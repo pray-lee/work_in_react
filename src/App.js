@@ -17,7 +17,7 @@ class App extends React.Component {
         return (
             this.props.user.isLogin
                 ?
-                <Spin spinning={!this.props.routeConfig.navRoute.length}>
+                <Spin spinning={!this.props.routeConfig.navRoute.length} size="large">
                     <Frame></Frame>
                 </Spin>
                 :

@@ -91,7 +91,7 @@ class Frame extends React.Component {
                                         path={item.pathname}
                                         key={item.pathname}
                                         render={routeProps => (
-                                            <Suspense fallback={<div>loading...</div>}>
+                                            <Suspense fallback={null}>
                                                 <item.component/>
                                             </Suspense>)}
                                     >

@@ -2,21 +2,20 @@ import React from 'react'
 import {
     Form,
     Input,
-    Tooltip,
-    Cascader,
-    Select,
-    Row,
-    Col,
-    Checkbox,
     Button,
-    AutoComplete,
 } from 'antd';
 
 export default props => {
     const [form] = Form.useForm()
+    // 提交
     const onFinish = values => {
         console.log(values)
     }
+    // 重置
+    const onReset = () => {
+        form.resetFields()
+    }
+    // 表单样式
     const formItemLayout = {
         labelCol: {
             xs: { span: 2 },
@@ -27,6 +26,7 @@ export default props => {
             sm: { span: 8 },
         },
     };
+    // 表单item的样式
     const submitWrapperCol = {
         offset:2,
         span: 8
@@ -34,6 +34,7 @@ export default props => {
     return (
         <Form
             {...formItemLayout}
+            form={form}
             onFinish={onFinish}
             style={{padding: 24}}
         >
@@ -89,7 +90,7 @@ export default props => {
                 <Button type="primary" htmlType="submit">
                     提交
                 </Button>
-                <Button type="" style={{marginLeft: 25}}>
+                <Button type="primary" danger style={{marginLeft: 25}} onClick={onReset}>
                     重置
                 </Button>
             </Form.Item>
