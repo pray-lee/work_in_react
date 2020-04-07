@@ -1,8 +1,8 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useEffect } from "react";
 import {DownOutlined} from '@ant-design/icons'
-import OperatorButtons from "../../components/OperatorButtons";
-import Table from '../../components/Table'
-import Drawer from '../../components/Drawer'
+import OperatorButtons from "../../../components/OperatorButtons";
+import Table from '../../../components/Table'
+import Drawer from '../../../components/Drawer'
 
 export default props => {
     const columns = [
@@ -80,41 +80,68 @@ export default props => {
     // state
     const [visible, setVisible] = useState(false)
     const [hasFooter, setHasFooter] = useState(true)
-    const onClose = () => {
+    const [title, setTitle] = useState('查看')
+    const [type, setType] = useState('查看')
+    let [events, setEvents] = useState({})
+    const onClose = useCallback(() => {
         setVisible(false)
-    }
-    const onShow = () => {
+    })
+    const onShow = useCallback(() => {
         setVisible(true)
-    }
-    // 按钮类型
-    const [type, setType] = useState('')
-    // 权限
-    const permissions = ['add', 'edit', 'view']
-    // 按钮操作
-    const events = {
-        view: () => {
-            onShow()
-            setType('view')
-            setHasFooter(false)
+    })
+    //这里要定义点击事件传递给OperatorButtons======================================================
+    const view = useCallback(() => {
+        setTitle('查看')
+        setType('view')
+        setHasFooter(false)
+        onShow()
+    },[])
+    const edit = useCallback(() => {
+        setTitle('编辑')
+        setType('edit')
+        setHasFooter(true)
+        onShow()
+    },[])
+    const add = useCallback(() => {
+        setTitle('新增')
+        setType('add')
+        setHasFooter(true)
+        onShow()
+    },[])
+    // 装载完成把方法赋值进去
+    useEffect(() => {
+        setEvents({
+            view,
+            edit,
+            add
+        })
+        return () => {
+            setEvents = {}
         }
-    }
-    const drawerContent = type => {
+    }, [])
+
+    // 侧滑框的视图
+    function drawerContent(type) {
         switch (type) {
             case 'view':
                 return <div>view</div>
                 break
             case 'add':
                 return <div>add</div>
+                break
+            case 'edit':
+                return <div>edit</div>
+                break
             default:
-                return null
+                return <div>view-default</div>
         }
-
     }
+
     return (
         <>
-            <OperatorButtons permissions={permissions} events={events}/>
-            <Table columns={columns}/>
-            <Drawer visible={visible} hasFooter={hasFooter} title="查看" onClose={onClose}>
+            <OperatorButtons events={events}/>
+            <Table columns={columns} />
+            <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose}>
                 {drawerContent(type)}
             </Drawer>
         </>

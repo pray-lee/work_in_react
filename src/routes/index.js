@@ -23,20 +23,9 @@ const adminRoutes = routes => {
         } else {
             ROUTE_CONFIG.push({
                 pathname: route.pathname,
-                component: React.lazy(() => import(`../pages/${route.pathname.split('/').pop()}`))
+                component: React.lazy(() => import(`../pages${route.pathname}`))
             })
         }
-    })
-    // 这里手动增加不是导航点击的路由
-    // reset password
-    ROUTE_CONFIG.push({
-        pathname: '/ResetPassword',
-        component: React.lazy(() => import(`../pages/ResetPassword`))
-    })
-    // notification
-    ROUTE_CONFIG.push({
-        pathname: '/Notification',
-        component: React.lazy(() => import(`../pages/Notification`))
     })
     return ROUTE_CONFIG
 }

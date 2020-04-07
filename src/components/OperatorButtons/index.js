@@ -29,26 +29,21 @@ import './index.less'
 
 
 @WrapperComponent
-class OperatorButtons extends React.Component {
+class OperatorButtons extends React.PureComponent {
     render() {
-        console.log(this.props.permissions)
         const {events} = this.props
+        console.log(12)
         return (
             <Row>
                 <Col span={24} className="operator-btn">
-                    {/*{*/}
-                    {/*    permissions.indexOf('add') !== -1 ?*/}
-                    {/*        <Button size="small" icon={<FilterOutlined/>}>筛选</Button>*/}
-                    {/*        :*/}
-                    {/*        null*/}
-                    {/*}*/}
+                    <Button size="small" icon={<FilterOutlined/>}>筛选</Button>
                     <Button size="small" icon={<ReloadOutlined/>}>刷新</Button>
                     <Button size="small" icon={<SelectOutlined/>}>全选</Button>
-                    <Button size="small" icon={<PlusOutlined/>}>新增</Button>
+                    <Button size="small" icon={<PlusOutlined/>} onClick={events.add}>新增</Button>
                     <Button size="small" icon={<CopyOutlined/>}>复制</Button>
                     <Button size="small" type="primary" danger>红冲</Button>
                     <Button size="small" icon={<VerticalAlignBottomOutlined/>}>下推</Button>
-                    <Button size="small" icon={<EditOutlined/>}>编辑</Button>
+                    <Button size="small" icon={<EditOutlined/>} onClick={events.edit}>编辑</Button>
                     <Button size="small" icon={<SearchOutlined/>} onClick={events.view}>查看</Button>
                     <Button size="small" icon={<CheckCircleOutlined/>}>提交</Button>
                     <Button size="small" icon={<CheckCircleOutlined/>}>审批</Button>

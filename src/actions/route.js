@@ -6,15 +6,15 @@ export const getRouteConfig = () => {
            const routeConfig = [
                {
                    title: '我的单据',
-                   pathname: '/',
+                   pathname: '/DanJu',
                    children: [
                        {
                            title: '我的应收',
-                           pathname: '/dashboard/Dashboard',
+                           pathname: '/DanJu/Yingshou',
                        },
                        {
                            title: '我的开票申请',
-                           pathname: '/dashboard/Article',
+                           pathname: '/DanJu/Kaipiao',
                        }
                    ]
                },

@@ -99,7 +99,7 @@ class Frame extends React.Component {
                                 })
                                 }
                                 {/*如果是根目录，跳转到第一个菜单页*/}
-                                <Redirect to="/dashboard/Dashboard" from="/" exact/>
+                                <Redirect to="/DanJu/Yingshou" from="/" exact/>
                                 {/*404*/}
                                 <Route component={NotFound}></Route>
                             </Switch>
