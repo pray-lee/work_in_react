@@ -86,39 +86,33 @@ export default props => {
     let [events, setEvents] = useState({})
     const onClose = useCallback(() => {
         setVisible(false)
-    })
-    const onShow = useCallback(() => {
-        setVisible(true)
-    })
-    //这里要定义点击事件传递给OperatorButtons======================================================
-    const view = useCallback(() => {
-        setTitle('查看应收单')
-        setType('view')
-        setHasFooter(false)
-        onShow()
-    },[])
-    const edit = useCallback(() => {
-        setTitle('编辑应收单')
-        setType('edit')
-        setHasFooter(true)
-        onShow()
-    },[])
-    const add = useCallback(() => {
-        setTitle('新增应收单')
-        setType('add')
-        setHasFooter(true)
-        onShow()
-    },[])
+    }, [])
     // 装载完成把方法赋值进去
     useEffect(() => {
+        //这里要定义点击事件传递给OperatorButtons======================================================
+        const view = () => {
+            setTitle('查看应收单')
+            setType('view')
+            setHasFooter(false)
+            setVisible(true)
+        }
+        const edit = () => {
+            setTitle('编辑应收单')
+            setType('edit')
+            setHasFooter(true)
+            setVisible(true)
+        }
+        const add = () => {
+            setTitle('新增应收单')
+            setType('add')
+            setHasFooter(true)
+            setVisible(true)
+        }
         setEvents({
             view,
             edit,
             add
         })
-        return () => {
-            setEvents = {}
-        }
     }, [])
 
     // 侧滑框的视图

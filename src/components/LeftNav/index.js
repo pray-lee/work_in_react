@@ -20,6 +20,7 @@ const LeftNav = props => {
             if (!!item.children && item.children.length) {
                 return item.pathname
             }
+            return undefined
         })
     }
     const openChange = openKeys => {

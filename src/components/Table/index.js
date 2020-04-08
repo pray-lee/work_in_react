@@ -1,36 +1,36 @@
 import React from 'react'
 import {Table, Form} from 'antd';
-import {Resizable} from 'react-resizable'
+// import {Resizable} from 'react-resizable'
 // import {DownOutlined} from '@ant-design/icons';
 import './index.less'
 
 // 配置可伸缩表头
-const ResizeableTitle = props => {
-    const {onResize, width, ...restProps} = props;
-
-    if (!width) {
-        return <th {...restProps} />;
-    }
-
-    return (
-        <Resizable
-            width={width}
-            height={0}
-            handle={resizeHandle => (
-                <span
-                    className={`react-resizable-handle react-resizable-handle-${resizeHandle}`}
-                    onClick={e => {
-                        e.stopPropagation();
-                    }}
-                />
-            )}
-            onResize={onResize}
-            draggableOpts={{enableUserSelectHack: false}}
-        >
-            <th {...restProps} />
-        </Resizable>
-    );
-}
+// const ResizeableTitle = props => {
+//     const {onResize, width, ...restProps} = props;
+//
+//     if (!width) {
+//         return <th {...restProps} />;
+//     }
+//
+//     return (
+//         <Resizable
+//             width={width}
+//             height={0}
+//             handle={resizeHandle => (
+//                 <span
+//                     className={`react-resizable-handle react-resizable-handle-${resizeHandle}`}
+//                     onClick={e => {
+//                         e.stopPropagation();
+//                     }}
+//                 />
+//             )}
+//             onResize={onResize}
+//             draggableOpts={{enableUserSelectHack: false}}
+//         >
+//             <th {...restProps} />
+//         </Resizable>
+//     );
+// }
 
 
 // 展示数据
@@ -80,11 +80,11 @@ export default class TableComponent extends React.Component {
     }
 
     // 可伸缩表头配置
-    components = {
-        header: {
-            cell: ResizeableTitle,
-        },
-    }
+    // components = {
+    //     header: {
+    //         cell: ResizeableTitle,
+    //     },
+    // }
     // 分页配置
     pagination = {
         position: 'bottom',
@@ -98,41 +98,29 @@ export default class TableComponent extends React.Component {
         // 表格滚动高度，想设置头部固定的话，设置这个属性就可以了。
         y: 'calc(100vh - 64px - 96px - 24px - 39px - 57px - 20px)'
     }
-    handleResize = index => (e, {size}) => {
-        this.setState(({columns}) => {
-            const nextColumns = [...columns];
-            nextColumns[index] = {
-                ...nextColumns[index],
-                width: size.width,
-            };
-            return {columns: nextColumns};
-        });
-    }
-
-    handleSizeChange = e => {
-        this.setState({size: e.target.value});
-    };
-
-    handleYScrollChange = enable => {
-        this.setState({yScroll: enable});
-    };
-
-    handleXScrollChange = e => {
-        this.setState({xScroll: e.target.value});
-    };
+    // handleResize = index => (e, {size}) => {
+    //     this.setState(({columns}) => {
+    //         const nextColumns = [...columns];
+    //         nextColumns[index] = {
+    //             ...nextColumns[index],
+    //             width: size.width,
+    //         };
+    //         return {columns: nextColumns};
+    //     });
+    // }
 
     render() {
         const tableColumns = this.state.columns.map(item => ({...item, ellipsis: this.state.ellipsis}));
         // 可伸缩表头数据设置
-        const resizableColumns = tableColumns.map((col, index) => {
-            return {
-                ...col,
-                onHeaderCell: column => ({
-                    width: column.width,
-                    onResize: this.handleResize(index),
-                }),
-            }
-        });
+        // const resizableColumns = tableColumns.map((col, index) => {
+        //     return {
+        //         ...col,
+        //         onHeaderCell: column => ({
+        //             width: column.width,
+        //             onResize: this.handleResize(index),
+        //         }),
+        //     }
+        // });
 
         return (
             <div>
@@ -153,8 +141,8 @@ export default class TableComponent extends React.Component {
                     bordered
                     {...this.state}
                     pagination={this.pagination}
-                    components={this.components}
-                    columns={resizableColumns}
+                    // components={this.components}
+                    columns={tableColumns}
                     dataSource={data}
                     scroll={this.scroll}
                 />

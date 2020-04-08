@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
     Form,
     Input,
@@ -7,8 +7,9 @@ import {
     Tabs,
     DatePicker,
     Select,
-    Radio
+    Radio,
 } from 'antd'
+import Tab1 from './Tab1'
 
 export default props => {
     const [form] = Form.useForm()
@@ -190,7 +191,9 @@ export default props => {
                 defaultActiveKey="1"
                 onChange={callback}
             >
-                <TabPane key="1" tab="应收详情表">a</TabPane>
+                <TabPane key="1" tab="应收详情表">
+                    <Tab1></Tab1>
+                </TabPane>
                 <TabPane key="2" tab="上传附件">b</TabPane>
             </Tabs>
         </>
