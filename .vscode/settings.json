@@ -1,4 +1,3 @@
 {
-    "vim.cursorStylePerMode.insert": "line",
-    "vim.cursorStylePerMode.normal": "block"
+    "editor.fontSize": 13
 }

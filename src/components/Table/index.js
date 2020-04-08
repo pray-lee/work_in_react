@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table, Form} from 'antd';
+import {Table} from 'antd';
 // import {Resizable} from 'react-resizable'
 // import {DownOutlined} from '@ant-design/icons';
 import './index.less'
@@ -124,19 +124,6 @@ export default class TableComponent extends React.Component {
 
         return (
             <div>
-                <Form
-                    layout="inline"
-                    className="components-table-demo-control-bar"
-                    style={{ paddingBottom: 16 }}
-                >
-                    {/*<Form.Item label="Size">*/}
-                    {/*    <Radio.Group value={this.state.size} onChange={this.handleSizeChange}>*/}
-                    {/*        <Radio.Button value="default">Default</Radio.Button>*/}
-                    {/*        <Radio.Button value="middle">Middle</Radio.Button>*/}
-                    {/*        <Radio.Button value="small">Small</Radio.Button>*/}
-                    {/*    </Radio.Group>*/}
-                    {/*</Form.Item>*/}
-                </Form>
                 <Table
                     bordered
                     {...this.state}

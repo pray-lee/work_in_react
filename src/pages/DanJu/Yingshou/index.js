@@ -1,11 +1,12 @@
 import React, {useState, useCallback, useEffect } from "react";
+import {Form} from 'antd'
 import {DownOutlined} from '@ant-design/icons'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/Table'
 import Drawer from '../../../components/Drawer'
 import DrawerAdd from './add'
 
-export default props => {
+export default () => {
     const columns = [
         {
             title: 'Name',
@@ -66,6 +67,7 @@ export default props => {
         {
             title: 'Action',
             key: 'action',
+            fixed: 'right',
             width: 200,
             render: () => (
                 <span>
@@ -84,6 +86,16 @@ export default props => {
     const [title, setTitle] = useState('查看')
     const [type, setType] = useState('查看')
     let [events, setEvents] = useState({})
+    // form
+    const [form] = Form.useForm()
+    const formLayout = {
+        labelCol: {
+            span: 6,
+        },
+        wrapperCol: {
+            span: 18
+        }
+    }
     const onClose = useCallback(() => {
         setVisible(false)
     }, [])
@@ -122,7 +134,7 @@ export default props => {
                 return <div>view</div>
                 break
             case 'add':
-                return <DrawerAdd />
+                return <DrawerAdd form={form}/>
                 break
             case 'edit':
                 return <div>edit</div>
@@ -137,7 +149,9 @@ export default props => {
             <OperatorButtons events={events}/>
             <Table columns={columns} />
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose}>
-                {drawerContent(type)}
+                <Form {...formLayout} form={form}>
+                    {drawerContent(type)}
+                </Form>
             </Drawer>
         </>
     )
