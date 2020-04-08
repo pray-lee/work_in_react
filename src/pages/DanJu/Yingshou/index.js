@@ -3,6 +3,7 @@ import {DownOutlined} from '@ant-design/icons'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/Table'
 import Drawer from '../../../components/Drawer'
+import DrawerAdd from './add'
 
 export default props => {
     const columns = [
@@ -91,19 +92,19 @@ export default props => {
     })
     //这里要定义点击事件传递给OperatorButtons======================================================
     const view = useCallback(() => {
-        setTitle('查看')
+        setTitle('查看应收单')
         setType('view')
         setHasFooter(false)
         onShow()
     },[])
     const edit = useCallback(() => {
-        setTitle('编辑')
+        setTitle('编辑应收单')
         setType('edit')
         setHasFooter(true)
         onShow()
     },[])
     const add = useCallback(() => {
-        setTitle('新增')
+        setTitle('新增应收单')
         setType('add')
         setHasFooter(true)
         onShow()
@@ -127,7 +128,7 @@ export default props => {
                 return <div>view</div>
                 break
             case 'add':
-                return <div>add</div>
+                return <DrawerAdd />
                 break
             case 'edit':
                 return <div>edit</div>

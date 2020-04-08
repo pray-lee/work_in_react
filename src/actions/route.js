@@ -39,6 +39,6 @@ export const getRouteConfig = () => {
                   routeConfig
               }
           })
-       }, 2000)
+       }, 200)
     }
 }

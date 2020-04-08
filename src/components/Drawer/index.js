@@ -6,7 +6,7 @@ export default props => {
     return (
         <Drawer
             title={title}
-            width={900}
+            width={"70vw"}
             onClose={onClose}
             visible={visible}
             bodyStyle={{paddingBottom: 80}}

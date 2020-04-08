@@ -13,6 +13,8 @@ import {
 import {ConfigProvider} from 'antd'
 import zhCN from 'antd/es/locale/zh_CN';
 import {mainRoutes} from "./routes";
+// 日期组件中文化
+import 'moment/locale/zh-cn';
 
 ReactDOM.render(
     <ConfigProvider locale={zhCN}>
