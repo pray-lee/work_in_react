@@ -26,12 +26,14 @@ class HttpRequest {
             // code 0 1  success failed
             // msg   all messages will be take in here!
             // data   json data will be take in this field
-            const result = response.data
-            if (result.code === 0) {
-                return result
-            }else{
-                message.error(result.msg)
-            }
+
+            // const result = response.data
+            // if (result.code === 0) {
+            //     return result
+            // }else{
+            //     message.error(result.msg)
+            // }
+            return response.data
         }, err => {
             Promise.reject(err)
         })

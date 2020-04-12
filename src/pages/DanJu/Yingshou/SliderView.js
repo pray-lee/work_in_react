@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
     Form,
     Input,
@@ -10,6 +10,7 @@ import {
     Radio,
 } from 'antd'
 import Tab1 from './Tab1'
+import Tab2 from './Tab2'
 export default React.memo(props => {
     const {type} = props
     // tabs
@@ -189,7 +190,9 @@ export default React.memo(props => {
                     <TabPane key="1" tab="应收详情表">
                         <Tab1 form={props.form} disabled={type === 'view'}></Tab1>
                     </TabPane>
-                    <TabPane key="2" tab="上传附件">b</TabPane>
+                    <TabPane key="2" tab="上传附件">
+                        <Tab2></Tab2>
+                    </TabPane>
                 </Tabs>
         </>
     )
