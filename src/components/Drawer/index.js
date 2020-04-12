@@ -3,9 +3,6 @@ import {Drawer, Button} from 'antd'
 
 export default props => {
     const {visible, title, onClose, hasFooter} = props
-    const onClick = () => {
-        console.log(props.children)
-    }
     return (
         <Drawer
             title={title}
@@ -24,7 +21,7 @@ export default props => {
                 >
                     取消
                 </Button>
-                <Button onClick={onClick} type="primary">
+                <Button onClick={props.onSubmit} type="primary">
                     提交
                 </Button>
             </div>) : null}

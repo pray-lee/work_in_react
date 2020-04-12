@@ -51,6 +51,7 @@ const EditableCell = ({
 };
 
 const EditableTable = props => {
+    const {disabled} = props
     const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
     const [deleteKeys, setDeleteKeys] = useState([])
@@ -165,6 +166,8 @@ const EditableTable = props => {
                 return editable ? (
                     <span>
             <a
+                disabled={disabled}
+                href="#"
                 onClick={() => save(record.key)}
                 style={{
                     marginRight: 8,
@@ -172,10 +175,10 @@ const EditableTable = props => {
             >
               Save
             </a>
-              <a onClick={cancel}>Cancel</a>
+              <a onClick={cancel} disabled={disabled}>Cancel</a>
           </span>
                 ) : (
-                    <a disabled={editingKey !== ''} onClick={() => edit(record)}>
+                    <a disabled={editingKey !== '' || disabled} onClick={() => edit(record)}>
                         Edit
                     </a>
                 );
@@ -200,8 +203,8 @@ const EditableTable = props => {
     });
     return (
         <div>
-            <Button type="primary" onClick={add}>添加</Button>
-            <Button danger onClick={del}>删除</Button>
+            <Button type="primary" onClick={add} disabled={disabled}>添加</Button>
+            <Button danger onClick={del} disabled={disabled}>删除</Button>
             <Table
                 components={{
                     body: {

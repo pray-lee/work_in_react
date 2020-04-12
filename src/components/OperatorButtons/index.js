@@ -32,7 +32,6 @@ import './index.less'
 class OperatorButtons extends React.PureComponent {
     render() {
         const {events} = this.props
-        console.log(12)
         return (
             <Row>
                 <Col span={24} className="operator-btn">

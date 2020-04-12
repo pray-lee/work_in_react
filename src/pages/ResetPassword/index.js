@@ -84,7 +84,7 @@ export default props => {
                     }),
                 ]}
             >
-                <Input.Password />
+                <Input.Password/>
             </Form.Item>
             <Form.Item wrapperCol={submitWrapperCol}>
                 <Button type="primary" htmlType="submit">

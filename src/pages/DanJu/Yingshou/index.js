@@ -1,10 +1,11 @@
 import React, {useState, useCallback, useEffect } from "react";
 import {Form} from 'antd'
 import {DownOutlined} from '@ant-design/icons'
+import moment from 'moment'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/Table'
 import Drawer from '../../../components/Drawer'
-import DrawerAdd from './add'
+import SliderView from './SliderView'
 
 export default () => {
     const columns = [
@@ -96,8 +97,18 @@ export default () => {
             span: 18
         }
     }
+    // initialValues
+    const initialValues = {
+        danjubianhao: '123',
+        date: moment('2020-04-01', 'YYYY-MM-DD')
+    }
+    // 关闭
     const onClose = useCallback(() => {
         setVisible(false)
+    }, [])
+    // 提交
+    const onSubmit = useCallback(() => {
+        console.log(form.getFieldsValue())
     }, [])
     // 装载完成把方法赋值进去
     useEffect(() => {
@@ -131,16 +142,16 @@ export default () => {
     function drawerContent(type) {
         switch (type) {
             case 'view':
-                return <div>view</div>
+                return <SliderView form={form} type="view"/>
                 break
             case 'add':
-                return <DrawerAdd form={form}/>
+                return <SliderView form={form} type="add"/>
                 break
             case 'edit':
-                return <div>edit</div>
+                return <SliderView form={form} type="edit" />
                 break
             default:
-                return <div>view-default</div>
+                return <SliderView form={form} type="view" />
         }
     }
 
@@ -148,8 +159,8 @@ export default () => {
         <>
             <OperatorButtons events={events}/>
             <Table columns={columns} />
-            <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose}>
-                <Form {...formLayout} form={form}>
+            <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
+                <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}
                 </Form>
             </Drawer>
