@@ -1,8 +1,8 @@
 // 这个是简易的loadable
-// import Loadable from "../react_loadable_by_self";
+import Loadable from "../react_loadable_by_self";
 
 // 这个是官方的
-import Loadable from 'react-loadable'
+// import Loadable from 'react-loadable'
 
 import {
     Loading

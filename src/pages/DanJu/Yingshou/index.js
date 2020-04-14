@@ -109,7 +109,7 @@ export default () => {
     // 提交
     const onSubmit = useCallback(() => {
         console.log(form.getFieldsValue())
-    }, [])
+    }, [form])
     // 装载完成把方法赋值进去
     useEffect(() => {
         //这里要定义点击事件传递给OperatorButtons======================================================

@@ -166,8 +166,8 @@ const EditableTable = props => {
                 return editable ? (
                     <span>
             <a
+                href={null}
                 disabled={disabled}
-                href="#"
                 onClick={() => save(record.key)}
                 style={{
                     marginRight: 8,
