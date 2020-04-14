@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Form, Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+import axios from '../../../request'
 
 class AliyunOSSUpload extends React.Component {
     state = {
@@ -15,6 +16,7 @@ class AliyunOSSUpload extends React.Component {
     init = async () => {
         try {
             const OSSData = await this.mockGetOSSData();
+            console.log(OSSData)
 
             this.setState({
                 OSSData,
@@ -27,6 +29,10 @@ class AliyunOSSUpload extends React.Component {
     // Mock get OSS api
     // https://help.aliyun.com/document_detail/31988.html
     mockGetOSSData = () => {
+        // return axios.request({
+        //     url: 'https://www.caika.net/Test/aliyunController.do?getSignature',
+        //     method: 'get'
+        // })
         return {
             dir: 'user-dir/',
             expire: '1577811661',
