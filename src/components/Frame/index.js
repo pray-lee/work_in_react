@@ -60,7 +60,7 @@ class Frame extends React.Component {
                         <img src={Logo} alt=""/>
                     </div>
                     <Dropdown overlay={this.setMenu()}>
-                        <a className="ant-dropdown-link" onClick={e => e.preventDefault()} href="!#">
+                        <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                             <Avatar style={{backgroundColor: '#87d068', margin: '0 10px'}} icon={<UserOutlined/>}/>
                             <span>欢迎您！</span>
                             <Badge count={this.props.notificationsCount} overflowCount={10} offset={[8, -8]}>
