@@ -1,5 +1,6 @@
 import actionType from "./actionType";
-// import {message} from 'antd'
+import {message} from 'antd'
+import axios from '../request'
 
 export const loginStart = () => ({
     type: actionType.LOGIN_START
@@ -23,20 +24,26 @@ export const loginFailed = () => {
 export const requestLogin = userInfo => {
     return dispatch => {
         dispatch(loginStart())
-        setTimeout(() => {
-            // 请求成功之后，在这里就要加持久化存储了
-            if(userInfo.remember) {
-                window.localStorage.setItem('authToken', userInfo.authToken)
-                window.localStorage.setItem('userInfo', JSON.stringify(userInfo))
-            }else {
-                window.sessionStorage.setItem('authToken', userInfo.authToken)
-                window.sessionStorage.setItem('userInfo', JSON.stringify(userInfo))
+        axios.request({
+            url: `/oauth/token?grant_type=password&username=${userInfo.username}&password=${userInfo.password}&client_id=webClient&client_secret=web123456`,
+            method: 'get'
+        }).then(res => {
+            // 汇总用户信息
+            const userLoginedInfo = Object.assign({}, {...userInfo}, {...res})
+            if (!!res && res.access_token) {
+                if(userInfo.remember) {
+                    window.localStorage.setItem('authToken', res.access_token)
+                    window.localStorage.setItem('userInfo', JSON.stringify(userLoginedInfo))
+                }else{
+                    window.sessionStorage.setItem('authToken', res.access_token)
+                    window.sessionStorage.setItem('userInfo', JSON.stringify(userLoginedInfo))
+                }
+                dispatch(loginSuccess(userLoginedInfo))
+            }else{
+                dispatch(loginFailed())
+                message.error('用户名或密码错误')
             }
-            dispatch(loginSuccess(userInfo))
-            // 如果失败
-            // dispatch(loginFailed())
-            // message.error('token过期')
-        }, 1000)
+        })
     }
 }
 

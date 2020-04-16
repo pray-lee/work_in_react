@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { baseURL } from '../config'
-import { message } from 'antd'
 
 // HttpRequest class
 class HttpRequest {

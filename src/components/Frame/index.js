@@ -53,6 +53,7 @@ class Frame extends React.Component {
     )
 
     render() {
+        console.log(this.props.userInfo)
         return (
             <Layout className="my-layout">
                 <Header className="header ck-header">

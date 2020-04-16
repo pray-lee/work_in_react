@@ -1,20 +1,35 @@
 import React, {useState} from 'react';
-import {Message, Table, Input, InputNumber, Form, Button} from 'antd';
+import {Table, Message, Input, InputNumber, Form, Button} from 'antd';
+import {Resizable} from 'react-resizable'
+// 配置可伸缩表头
+const ResizeableTitle = props => {
+    const {onResize, width, ...restProps} = props;
 
-const originData = [];
+    if (!width) {
+        return <th {...restProps} />;
+    }
 
-for (let i = 0; i < 2; i++) {
-    originData.push({
-        key: i.toString(),
-        name: `Edrward ${i}`,
-        num: 32,
-        price: `London Park no. ${i}`,
-        totalPrice: `London Park no. ${i}`,
-        id: Math.random(),
-        remark: 'aalskdjfalksjdf'
-    });
+    return (
+        <Resizable
+            width={width}
+            height={0}
+            handle={resizeHandle => (
+                <span
+                    className={`react-resizable-handle react-resizable-handle-${resizeHandle}`}
+                    onClick={e => {
+                        e.stopPropagation();
+                    }}
+                />
+            )}
+            onResize={onResize}
+            draggableOpts={{enableUserSelectHack: false}}
+        >
+            <th {...restProps} />
+        </Resizable>
+    );
 }
 
+// 可伸缩列
 const EditableCell = ({
                           editing,
                           dataIndex,
@@ -50,13 +65,110 @@ const EditableCell = ({
     );
 };
 
+const originData = [];
+
+for (let i = 0; i < 2; i++) {
+    originData.push({
+        key: i.toString(),
+        name: `Edrward ${i}`,
+        num: 32,
+        price: `London Park no. ${i}`,
+        totalPrice: `London Park no. ${i}`,
+        id: Math.random(),
+        remark: 'aalskdjfalksjdf'
+    });
+}
+
 const EditableTable = props => {
     const {disabled} = props
     const [data, setData] = useState(originData);
     const [editingKey, setEditingKey] = useState('');
     const [deleteKeys, setDeleteKeys] = useState([])
+    const [columns, setColumns] = useState([
+        {
+            title: '销售类型',
+            dataIndex: 'name',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '核算维度',
+            dataIndex: 'num',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '预算类型',
+            dataIndex: 'price',
+            editable: true,
+            width: 200
+        }, {
+            title: '含税销售金额',
+            dataIndex: 'totalPrice',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '未开票申请金额',
+            dataIndex: 'id',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '本期申请开票金额',
+            dataIndex: 'remark',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '开票内容',
+            dataIndex: 'content',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '操作',
+            fixed: 'right',
+            width: 200,
+            dataIndex: 'operation',
+            render: (_, record) => {
+                const editable = isEditing(record);
+                console.log(editable, record)
+                console.log(editingKey)
+                return editable ? (
+                    <span>
+            <a
+                href={null}
+                disabled={disabled}
+                onClick={() => save(record.key)}
+                style={{
+                    marginRight: 8,
+                }}
+            >
+              Save
+            </a>
+              <a onClick={cancel} disabled={disabled}>Cancel</a>
+          </span>
+                ) : (
+                    <a disabled={editingKey !== '' || disabled} onClick={() => edit(record)}>
+                        Edit
+                    </a>
+                );
+            },
+        },
+    ])
 
     const isEditing = record => record.key === editingKey;
+    const handleResize = index => (e, {size}) => {
+        setColumns(columns => {
+            const nextColumns = [...columns];
+            nextColumns[index] = {
+                ...nextColumns[index],
+                width: size.width,
+            };
+            return nextColumns;
+        });
+    }
 
     const edit = record => {
         props.form.setFieldsValue({...record});
@@ -120,72 +232,6 @@ const EditableTable = props => {
         setData(newData)
     }
 
-    const columns = [
-        {
-            title: '产品或服务名称',
-            dataIndex: 'name',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '计价数量',
-            dataIndex: 'num',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '含税单价',
-            dataIndex: 'price',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '价税合计',
-            dataIndex: 'totalPrice',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '合同编号',
-            dataIndex: 'id',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '备注',
-            dataIndex: 'remark',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '操作',
-            fixed: 'right',
-            width: 200,
-            dataIndex: 'operation',
-            render: (_, record) => {
-                const editable = isEditing(record);
-                return editable ? (
-                    <span>
-            <a
-                href={null}
-                disabled={disabled}
-                onClick={() => save(record.key)}
-                style={{
-                    marginRight: 8,
-                }}
-            >
-              Save
-            </a>
-              <a onClick={cancel} disabled={disabled}>Cancel</a>
-          </span>
-                ) : (
-                    <a disabled={editingKey !== '' || disabled} onClick={() => edit(record)}>
-                        Edit
-                    </a>
-                );
-            },
-        },
-    ];
     const mergedColumns = columns.map(col => {
         if (!col.editable) {
             return col;
@@ -202,6 +248,15 @@ const EditableTable = props => {
             }),
         };
     });
+    const resizableColumns = mergedColumns.map((col, index) => {
+        return {
+            ...col,
+            onHeaderCell: column => ({
+                width: column.width,
+                onResize: handleResize(index),
+            }),
+        }
+    });
     return (
         <div>
             <Button type="primary" onClick={add} disabled={disabled}>添加</Button>
@@ -211,11 +266,14 @@ const EditableTable = props => {
                     body: {
                         cell: EditableCell,
                     },
+                    header: {
+                        cell: ResizeableTitle
+                    }
                 }}
                 size="small"
                 bordered
                 dataSource={data}
-                columns={mergedColumns}
+                columns={resizableColumns}
                 rowClassName="editable-row"
                 pagination={false}
                 tableLayout="fixed"

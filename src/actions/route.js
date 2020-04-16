@@ -15,6 +15,10 @@ export const getRouteConfig = () => {
                        {
                            title: '我的开票申请',
                            pathname: '/DanJu/Kaipiao',
+                       },
+                       {
+                           title: '我的应付',
+                           pathname: '/DanJu/Yingfu'
                        }
                    ]
                },

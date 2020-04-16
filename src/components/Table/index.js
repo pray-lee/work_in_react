@@ -64,7 +64,7 @@ const rowSelection = {
 // component
 export default class TableComponent extends React.Component {
     state = {
-        ellipsis: false, //省略号
+        ellipsis: true, //省略号
         // expandable,
         rowSelection, // 默认值checkbox ,如果不需要设置为undefined
         size: 'small',

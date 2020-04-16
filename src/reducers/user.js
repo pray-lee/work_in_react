@@ -25,8 +25,6 @@ export default (state = initState, action) => {
             }
         case actionType.LOGIN_FAILED:
             return {
-                id: '',
-                username: '',
                 isLogin: false,
                 isLoading: false
             }

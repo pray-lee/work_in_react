@@ -5,7 +5,23 @@ import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/Table'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
-
+// 展示数据
+const data = [];
+for (let i = 1; i <= 100; i++) {
+    data.push({
+        key: i,
+        name: 'John Brown',
+        age: `${i}2`,
+        address: `New York No. ${i} Lake Park`,
+        a: `${i}2askldjflasjdfjaskjfjasdjfasdj`,
+        b: `${i}askldjflasjdfjaskjfjasdjfasdj2`,
+        c: `${i}askldjflasjdfjaskjfjasdjfasdj2`,
+        d: `${i}askldjflasjdfjaskjfjasdjfasdj2`,
+        e: `${i}askldjflasjdfjaskjfjasdjfasdj2`,
+        f: `${i}askldjflasjdfjaskjfjasdjfasdj2`,
+        description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
+    });
+}
 export default () => {
     const columns = [
         {
@@ -196,7 +212,7 @@ export default () => {
     return (
         <>
             <OperatorButtons events={events}/>
-            <Table columns={columns} />
+            <Table columns={columns} data={data}/>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

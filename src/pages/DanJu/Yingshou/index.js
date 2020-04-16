@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect } from "react";
+import React, {useState, useCallback, useEffect} from "react";
 import {Form} from 'antd'
 import {DownOutlined} from '@ant-design/icons'
 import moment from 'moment'
@@ -10,7 +10,7 @@ import SliderView from './SliderView'
 export default () => {
     const columns = [
         {
-            title: 'Name',
+            title: '单据编号',
             dataIndex: 'name',
             key: 'name',
             width: 200,
@@ -18,65 +18,98 @@ export default () => {
             render: text => <a>{text}</a>,
         },
         {
-            title: 'Age',
+            title: '销售组织',
             dataIndex: 'age',
             key: 'age',
             width: 200,
         },
         {
-            title: 'Address',
+            title: '销售部门',
             dataIndex: 'address',
             key: 'address',
             width: 200,
         },
         {
-            title: 'A',
+            title: '客户名称',
             dataIndex: 'a',
             key: 'a',
             width: 200,
         },
         {
-            title: 'B',
+            title: '发票类型',
             dataIndex: 'b',
             key: 'b',
             width: 200,
         },
         {
-            title: 'C',
+            title: '销售类型',
             dataIndex: 'c',
             key: 'c',
             width: 200,
         },
         {
-            title: 'D',
+            title: '预算类型',
             dataIndex: 'd',
             key: 'd',
             width: 200,
         },
         {
-            title: 'F',
+            title: '核算维度',
             dataIndex: 'f',
             key: 'f',
             width: 200,
         },
         {
-            title: 'E',
+            title: '税率（%）',
             dataIndex: 'e',
             key: 'e',
             width: 200,
         },
         {
-            title: 'Action',
+            title: '价税合计',
+            dataIndex: 'g',
+            key: 'g',
+            width: 200,
+        },
+        {
+            title: '未申请开票金额',
+            dataIndex: 'h',
+            key: 'h',
+            width: 200,
+        },
+        {
+            title: '提交日期',
+            dataIndex: 'i',
+            key: 'i',
+            width: 200,
+        },
+        {
+            title: '单据状态',
+            dataIndex: 'j',
+            key: 'j',
+            width: 200,
+        },
+        {
+            title: '业务日期',
+            dataIndex: 'j',
+            key: 'j',
+            width: 200,
+        },
+        {
+            title: '备注',
+            dataIndex: 'o',
+            key: 'o',
+            width: 200,
+        },
+        {
+            title: '操作',
             key: 'action',
             fixed: 'right',
             width: 200,
-            render: () => (
+            render: (text, record) => (
                 <span>
-                            <a style={{marginRight: 16}}>Delete</a>
-                            <a className="ant-dropdown-link">
-
-                                More actions <DownOutlined/>
-                            </a>
+                            <a style={{marginRight: 16,color:'#ff5252'}} onClick={() => recordClick(record.id)}>删除</a>
+                    <a>提交</a>
                       </span>
             ),
         },
@@ -110,6 +143,11 @@ export default () => {
     const onSubmit = useCallback(() => {
         console.log(form.getFieldsValue())
     }, [form])
+
+    // 删除行
+    const recordClick = id => {
+        console.log(id)
+    }
     // 装载完成把方法赋值进去
     useEffect(() => {
         //这里要定义点击事件传递给OperatorButtons======================================================
@@ -148,17 +186,17 @@ export default () => {
                 return <SliderView form={form} type="add"/>
                 break
             case 'edit':
-                return <SliderView form={form} type="edit" />
+                return <SliderView form={form} type="edit"/>
                 break
             default:
-                return <SliderView form={form} type="view" />
+                return <SliderView form={form} type="view"/>
         }
     }
 
     return (
         <>
             <OperatorButtons events={events}/>
-            <Table columns={columns} />
+            <Table columns={columns}/>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

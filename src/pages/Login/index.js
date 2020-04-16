@@ -9,9 +9,6 @@ const Login = () => {
     const dispatch = useDispatch()
     const {isLoading, isLogin} = useSelector(state => state.user)
     const onFinish = values => {
-        // fake token
-        values.authToken = 'asdkljflasjdfljasdfklajsdlfjasdjfasldkjfklasjdjfasdfj'
-        values.id = '1'
         dispatch(requestLogin(values))
     };
     return (

@@ -122,38 +122,43 @@ const EditableTable = props => {
 
     const columns = [
         {
-            title: '产品或服务名称',
+            title: '销售类型',
             dataIndex: 'name',
             editable: true,
             width: 200
         },
         {
-            title: '计价数量',
+            title: '核算维度',
             dataIndex: 'num',
             editable: true,
             width: 200
         },
         {
-            title: '含税单价',
+            title: '预算类型',
             dataIndex: 'price',
             editable: true,
             width: 200
-        },
-        {
-            title: '价税合计',
+        }, {
+            title: '含税销售金额',
             dataIndex: 'totalPrice',
             editable: true,
             width: 200
         },
         {
-            title: '合同编号',
+            title: '未开票申请金额',
             dataIndex: 'id',
             editable: true,
             width: 200
         },
         {
-            title: '备注',
+            title: '本期申请开票金额',
             dataIndex: 'remark',
+            editable: true,
+            width: 200
+        },
+        {
+            title: '开票内容',
+            dataIndex: 'content',
             editable: true,
             width: 200
         },
