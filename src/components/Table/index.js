@@ -1,41 +1,41 @@
 import React from 'react'
 import {Table} from 'antd';
-// import {Resizable} from 'react-resizable'
+import {Resizable} from 'react-resizable'
 // import {DownOutlined} from '@ant-design/icons';
 import './index.less'
 
 // 配置可伸缩表头
-// const ResizeableTitle = props => {
-//     const {onResize, width, ...restProps} = props;
-//
-//     if (!width) {
-//         return <th {...restProps} />;
-//     }
-//
-//     return (
-//         <Resizable
-//             width={width}
-//             height={0}
-//             handle={resizeHandle => (
-//                 <span
-//                     className={`react-resizable-handle react-resizable-handle-${resizeHandle}`}
-//                     onClick={e => {
-//                         e.stopPropagation();
-//                     }}
-//                 />
-//             )}
-//             onResize={onResize}
-//             draggableOpts={{enableUserSelectHack: false}}
-//         >
-//             <th {...restProps} />
-//         </Resizable>
-//     );
-// }
+const ResizeableTitle = props => {
+    const {onResize, width, ...restProps} = props;
+
+    if (!width) {
+        return <th {...restProps} />;
+    }
+
+    return (
+        <Resizable
+            width={width}
+            height={0}
+            handle={resizeHandle => (
+                <span
+                    className={`react-resizable-handle react-resizable-handle-${resizeHandle}`}
+                    onClick={e => {
+                        e.stopPropagation();
+                    }}
+                />
+            )}
+            onResize={onResize}
+            draggableOpts={{enableUserSelectHack: false}}
+        >
+            <th {...restProps} />
+        </Resizable>
+    );
+}
 
 
 // 展示数据
 const data = [];
-for (let i = 1; i <= 100; i++) {
+for (let i = 1; i <= 1000; i++) {
     data.push({
         key: i,
         name: 'John Brown',
@@ -80,56 +80,56 @@ export default class TableComponent extends React.Component {
     }
 
     // 可伸缩表头配置
-    // components = {
-    //     header: {
-    //         cell: ResizeableTitle,
-    //     },
-    // }
+    components = {
+        header: {
+            cell: ResizeableTitle,
+        },
+    }
     // 分页配置
-    pagination = {
-        position: 'bottom',
-        showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '40', '50'],
-        // hideOnSinglePage: true,
-    };
+    // pagination = {
+    //     position: 'bottom',
+    //     showSizeChanger: true,
+    //     pageSizeOptions: ['10', '20', '40', '50'],
+    //     // hideOnSinglePage: true,
+    // };
     scroll = {
         // 这个属性只有fix header的时候才能生效
         scrollToFirstRowOnChange: true,
         // 表格滚动高度，想设置头部固定的话，设置这个属性就可以了。
         y: 'calc(100vh - 64px - 96px - 24px - 39px - 57px - 20px)'
     }
-    // handleResize = index => (e, {size}) => {
-    //     this.setState(({columns}) => {
-    //         const nextColumns = [...columns];
-    //         nextColumns[index] = {
-    //             ...nextColumns[index],
-    //             width: size.width,
-    //         };
-    //         return {columns: nextColumns};
-    //     });
-    // }
+    handleResize = index => (e, {size}) => {
+        this.setState(({columns}) => {
+            const nextColumns = [...columns];
+            nextColumns[index] = {
+                ...nextColumns[index],
+                width: size.width,
+            };
+            return {columns: nextColumns};
+        });
+    }
 
     render() {
         const tableColumns = this.state.columns.map(item => ({...item, ellipsis: this.state.ellipsis}));
         // 可伸缩表头数据设置
-        // const resizableColumns = tableColumns.map((col, index) => {
-        //     return {
-        //         ...col,
-        //         onHeaderCell: column => ({
-        //             width: column.width,
-        //             onResize: this.handleResize(index),
-        //         }),
-        //     }
-        // });
+        const resizableColumns = tableColumns.map((col, index) => {
+            return {
+                ...col,
+                onHeaderCell: column => ({
+                    width: column.width,
+                    onResize: this.handleResize(index),
+                }),
+            }
+        });
 
         return (
             <div>
                 <Table
                     bordered
                     {...this.state}
-                    pagination={this.pagination}
-                    // components={this.components}
-                    columns={tableColumns}
+                    pagination={false}
+                    components={this.components}
+                    columns={resizableColumns}
                     dataSource={data}
                     scroll={this.scroll}
                 />

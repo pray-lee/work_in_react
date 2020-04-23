@@ -3,7 +3,8 @@ import {Form} from 'antd'
 import {DownOutlined} from '@ant-design/icons'
 import moment from 'moment'
 import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/Table'
+// import Table from '../../../components/Table'
+import Table from '../../../components/AgGrid'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
 
@@ -108,7 +109,7 @@ export default () => {
             width: 200,
             render: (text, record) => (
                 <span>
-                            <a style={{marginRight: 16,color:'#ff5252'}} onClick={() => recordClick(record.id)}>删除</a>
+                            <a style={{marginRight: 16,color:'#ff5252'}} onClick={() => recordClick(record.key)}>删除</a>
                     <a>提交</a>
                       </span>
             ),
@@ -196,7 +197,8 @@ export default () => {
     return (
         <>
             <OperatorButtons events={events}/>
-            <Table columns={columns}/>
+            {/*<Table columns={columns}/>*/}
+            <Table></Table>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}
