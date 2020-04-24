@@ -2,124 +2,100 @@ import React, {useState, useCallback, useEffect } from "react";
 import {Form} from 'antd'
 import moment from 'moment'
 import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/Table'
+import Table from '../../../components/AgGrid'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
-
+// 展示数据
+const rowData = [];
+for (let i = 1; i <= 100; i++) {
+    rowData.push({
+        a: Math.random(),
+        b: Math.random(),
+        c: Math.random(),
+        d: Math.random(),
+        e: Math.random(),
+        f: Math.random(),
+        g: Math.random(),
+        h: Math.random(),
+        i: Math.random(),
+        j: Math.random(),
+        k: Math.random(),
+        l: Math.random(),
+        m: Math.random(),
+        n: Math.random(),
+        o: Math.random(),
+        p: Math.random(),
+    });
+}
 export default () => {
     const columns = [
         {
-            title: '单据编号',
-            dataIndex: 'name',
-            key: 'name',
-            width: 200,
-            fixed: 'left',
-            render: text => <a>{text}</a>,
+            headerName: '单据编号',
+            field: 'a'
         },
         {
-            title: '销售组织',
-            dataIndex: 'age',
-            key: 'age',
-            width: 200,
+            headerName: '销售组织',
+            field: 'b'
         },
         {
-            title: '销售部门',
-            dataIndex: 'address',
-            key: 'address',
-            width: 200,
+            headerName: '销售部门',
+            field: 'c'
         },
         {
-            title: '客户名称',
-            dataIndex: 'a',
-            key: 'a',
-            width: 200,
+            headerName: '客户名称',
+            field: 'd'
         },
         {
-            title: '发票类型',
-            dataIndex: 'b',
-            key: 'b',
-            width: 200,
+            headerName: '发票类型',
+            field: 'e'
         },
         {
-            title: '税率（%）',
-            dataIndex: 'c',
-            key: 'c',
-            width: 200,
+            headerName: '税率（%）',
+            field: 'f'
         },
         {
-            title: '价税合计',
-            dataIndex: 'd',
-            key: 'd',
-            width: 200,
+            headerName: '价税合计',
+            field: 'g'
         },
         {
-            title: '未开票金额',
-            dataIndex: 'f',
-            key: 'f',
-            width: 200,
+            headerName: '未开票金额',
+            field: 'h'
         },
         {
-            title: '未核销应收金额',
-            dataIndex: 'e',
-            key: 'e',
-            width: 200,
+            headerName: '未核销应收金额',
+            field: 'i'
         },
         {
-            title: '提交日期',
-            dataIndex: 'g',
-            key: 'g',
-            width: 200,
+            headerName: '提交日期',
+            field: 'j'
         },
         {
-            title: '收件人',
-            dataIndex: 'h',
-            key: 'h',
-            width: 200,
+            headerName: '收件人',
+            field: 'k'
         },
         {
-            title: '电话',
-            dataIndex: 'i',
-            key: 'i',
-            width: 200,
+            headerName: '电话',
+            field: 'l'
         },
         {
-            title: '地址',
-            dataIndex: 'j',
-            key: 'j',
-            width: 200,
+            headerName: '地址',
+            field: 'm'
         },
         {
-            title: '单据状态',
-            dataIndex: 'k',
-            key: 'k',
-            width: 200,
+            headerName: '单据状态',
+            field: 'n'
         },
         {
-            title: '业务日期',
-            dataIndex: 'l',
-            key: 'l',
-            width: 200,
+            headerName: '业务日期',
+            field: 'o'
         },
         {
-            title: '备注',
-            dataIndex: 'j',
-            key: 'j',
-            width: 200,
-        },
-        {
-            title: '操作',
-            key: 'action',
-            fixed: 'right',
-            width: 200,
-            render: () => (
-                <span>
-                            <a style={{marginRight: 16,color: '#ff5252'}}>删除</a>
-                            <a>提交</a>
-                      </span>
-            ),
+            headerName: '备注',
+            field: 'p'
         },
     ]
     // state
+    const [agInstance, setAgInstance] = useState(null)
     const [visible, setVisible] = useState(false)
     const [hasFooter, setHasFooter] = useState(true)
     const [title, setTitle] = useState('查看')
@@ -148,6 +124,10 @@ export default () => {
     const onSubmit = useCallback(() => {
         console.log(form.getFieldsValue())
     }, [form])
+    // 获取ag实例
+    const getAgInstance = useCallback(instance => {
+        setAgInstance(instance)
+    }, [agInstance])
     // 装载完成把方法赋值进去
     useEffect(() => {
         //这里要定义点击事件传递给OperatorButtons======================================================
@@ -196,7 +176,7 @@ export default () => {
     return (
         <>
             <OperatorButtons events={events}/>
-            <Table columns={columns} />
+            <Table columns={columns} rowData={rowData} getAgInstance={getAgInstance} />
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

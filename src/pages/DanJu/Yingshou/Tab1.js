@@ -1,236 +1,92 @@
-import React, {useState} from 'react';
-import {Message, Table, Input, InputNumber, Form, Button} from 'antd';
+import React from 'react'
+import {Button} from 'antd'
+import Table from '../../../components/AgGrid'
 
-const originData = [];
-
-for (let i = 0; i < 2; i++) {
-    originData.push({
-        key: i.toString(),
-        name: `Edrward ${i}`,
-        num: 32,
-        price: `London Park no. ${i}`,
-        totalPrice: `London Park no. ${i}`,
-        id: Math.random(),
-        remark: 'aalskdjfalksjdf'
-    });
-}
-
-const EditableCell = ({
-                          editing,
-                          dataIndex,
-                          title,
-                          inputType,
-                          record,
-                          index,
-                          children,
-                          ...restProps
-                      }) => {
-    const inputNode = inputType === 'number' ? <InputNumber/> : <Input/>;
-    return (
-        <td {...restProps}>
-            {editing ? (
-                <Form.Item
-                    name={dataIndex}
-                    style={{
-                        margin: 0,
-                    }}
-                    rules={[
-                        {
-                            required: true,
-                            message: `请输入${title}!`,
-                        },
-                    ]}
-                >
-                    {inputNode}
-                </Form.Item>
-            ) : (
-                children
-            )}
-        </td>
-    );
-};
-
-const EditableTable = props => {
-    const {disabled} = props
-    const [data, setData] = useState(originData);
-    const [editingKey, setEditingKey] = useState('');
-    const [deleteKeys, setDeleteKeys] = useState([])
-
-    const isEditing = record => record.key === editingKey;
-
-    const edit = record => {
-        props.form.setFieldsValue({...record});
-        setEditingKey(record.key);
-    };
-
-    const cancel = () => {
-        setEditingKey('');
-    };
-
-    const save = async key => {
-        try {
-            const row = await props.form.validateFields();
-            const newData = [...data];
-            const index = newData.findIndex(item => key === item.key);
-
-            if (index > -1) {
-                const item = newData[index];
-                newData.splice(index, 1, {...item, ...row});
-                setData(newData);
-                setEditingKey('');
-            } else {
-                newData.push(row);
-                setData(newData);
-                setEditingKey('');
-            }
-
-        } catch (errInfo) {
-            Message.error('请检查必填信息是否填上')
-            console.log('Validate Failed:', errInfo);
-        }
-    };
-    const add = () => {
-        const newData = [...data]
-        newData.unshift({
-            key: Math.random(),
-            id: '',
-            num: '',
-            name: '',
-            price: '',
-            totalPrice: '',
-            remark: ''
-        })
-        setData(newData)
-    };
-
-
-    const del = () => {
-        let newData = data.slice()
-        let newDataTemp = []
-        deleteKeys.forEach(item => {
-            for(let i = 0; i < newData.length; i++){
-                if(newData[i].key !== item) {
-                    newDataTemp.push(newData[i])
-                }
-
-            }
-            newData = newDataTemp
-            newDataTemp = []
-        })
-        setData(newData)
+export default class Tab1 extends React.Component {
+    constructor(props) {
+        super(props);
     }
-
-    const columns = [
-        {
-            title: '产品或服务名称',
-            dataIndex: 'name',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '计价数量',
-            dataIndex: 'num',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '含税单价',
-            dataIndex: 'price',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '价税合计',
-            dataIndex: 'totalPrice',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '合同编号',
-            dataIndex: 'id',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '备注',
-            dataIndex: 'remark',
-            editable: true,
-            width: 200
-        },
-        {
-            title: '操作',
-            fixed: 'right',
-            width: 200,
-            dataIndex: 'operation',
-            render: (_, record) => {
-                const editable = isEditing(record);
-                return editable ? (
-                    <span>
-            <a
-                href={null}
-                disabled={disabled}
-                onClick={() => save(record.key)}
-                style={{
-                    marginRight: 8,
-                }}
-            >
-              Save
-            </a>
-              <a onClick={cancel} disabled={disabled}>Cancel</a>
-          </span>
-                ) : (
-                    <a disabled={editingKey !== '' || disabled} onClick={() => edit(record)}>
-                        Edit
-                    </a>
-                );
+    state={
+        columns: [
+            {
+                headerName: '',//选择列头部显示的文字，可以为空
+                checkboxSelection: true,//设置为ture显示为复选框
+                headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
+                'pinned': 'left', //固定再左边
+                width: 80 //列的宽度
             },
-        },
-    ];
-    const mergedColumns = columns.map(col => {
-        if (!col.editable) {
-            return col;
+            {
+                headerName: '产品或服务名称',
+                field: 'name',
+            },
+            {
+                headerName: '计价数量',
+                field: 'num',
+            },
+            {
+                headerName: '含税单价',
+                field: 'price',
+            },
+            {
+                headerName: '价税合计',
+                field: 'priceTotal',
+            },
+            {
+                headerName: '合同编号',
+                field: 'contract',
+            },
+            {
+                headerName: '备注',
+                field: 'remark',
+            },
+        ],
+        rowData: [],
+        agInstance: null
+    }
+    // ag instance
+    getAgInstance = instance => {
+        this.setState({
+            agInstance: instance
+        })
+    }
+    // 添加行
+    add = () => {
+        const rowData = [{
+            name: '',
+            num: '',
+            price: '',
+            priceTotal: '',
+            contract: '',
+            remark: ''
+        }]
+        this.state.agInstance.api.updateRowData({
+            add: rowData,
+            addIndex: 0
+        })
+    }
+    // 删除行
+    del = () => {
+        const selectedRows = this.state.agInstance.api.getSelectedRows()
+        this.state.agInstance.api.updateRowData({
+            remove: selectedRows
+        })
+    }
+    render() {
+        const {type} = this.props
+        // 如果是新增，就清空数据, 保证每次新增进来都没有数据
+        if(type === 'add' && !!this.state.agInstance) {
+            this.state.agInstance.api.setRowData([])
         }
-
-        return {
-            ...col,
-            onCell: record => ({
-                record,
-                inputType: (col.dataIndex === 'num') || (col.dataIndex === 'price') || (col.dataIndex === 'totalPrice') ? 'number' : 'text',
-                dataIndex: col.dataIndex,
-                title: col.title,
-                editing: isEditing(record),
-            }),
-        };
-    });
-    return (
-        <div>
-            <Button type="primary" onClick={add} disabled={disabled}>添加</Button>
-            <Button danger onClick={del} disabled={disabled}>删除</Button>
-            <Table
-                components={{
-                    body: {
-                        cell: EditableCell,
-                    },
-                }}
-                size="small"
-                bordered
-                dataSource={data}
-                columns={mergedColumns}
-                rowClassName="editable-row"
-                pagination={false}
-                tableLayout="fixed"
-                rowSelection={
-                    {
-                        type: 'checkbox',
-                        fixed: true,
-                        onChange: function(selectedRowKeys, selectedRows) {
-                            setDeleteKeys(selectedRowKeys)
-                        }
-                    }
-                }
-            />
-        </div>
-    );
-};
-
-export default EditableTable
+        return (
+            <>
+                <div className="button-area">
+                    <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
+                    <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
+                    <div style={{height: '55vh'}}>
+                        <Table columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
+                    </div>
+                </div>
+            </>
+        )
+    }
+}

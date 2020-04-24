@@ -68,7 +68,7 @@ export default props => {
                 name="check-password"
                 label="新密码确认"
                 dependencies={['new-password']}
-                hasFeedback
+                // hasFeedback
                 rules={[
                     {
                         required: true,

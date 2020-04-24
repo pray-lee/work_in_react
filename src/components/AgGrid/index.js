@@ -1,69 +1,15 @@
-import React, {Component} from 'react'
-import {Button} from 'antd'
+import React, {PureComponent} from 'react'
 import {AgGridReact} from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
 import './index.less'
 
-export default class AgGridDemo extends Component {
+export default class AgGridDemo extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            columnDefs: [
-                // {
-                //     headerName: '',//选择列头部显示的文字，可以为空
-                //     checkboxSelection: true,//设置为ture显示为复选框
-                //     headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
-                //     'pinned': 'left', //固定再左边
-                //     width: 80 //列的宽度
-                // },
-                {
-                    headerName: '最顶层分组'
-                    , children: [
-                        {
-                            headerName: '分组A',
-                            children: [
-                                {headerName: '姓名', field: 'name', sortable: true, children: [
-                                        {headerName: 'a', field: 'a'},
-                                        {headerName: 'b', field: 'b'}
-                                    ]},
-                                {
-                                    headerName: '性别',
-                                    field: 'sex',
-                                    // editable: true,
-                                    // sortable: true,
-                                    cellEditor: 'agSelectCellEditor',
-                                    cellEditorParams: {
-                                        values: ['男', '女', '不是人']
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            headerName: '分组B',
-                            children: [
-                                {
-                                    headerName: '借',
-                                    field: 'age',
-                                    type: "numericColumn",
-                                    cellStyle: params => {
-                                        if(params.value >= 8000) {
-                                            return {
-                                                color: '#fff',
-                                                background:'#3276c3'
-                                            }
-                                        }
-                                        return null
-                                    }},
-                                {headerName: '籍贯', field: 'jg'},
-                                {headerName: '省份', field: 'sf'},
-                                {headerName: '地址', field: 'dz'}
-                            ]
-                        }]
-                },
-            ],
-            rowData: [],
+            columnDefs: [],
         }
     }
 
@@ -133,24 +79,33 @@ export default class AgGridDemo extends Component {
         copyWithHeaders: "携带表头复制",
         ctrlC: "ctrl + C",
         paste: "粘贴",
-        ctrlV: "ctrl + V"
+        ctrlV: "ctrl + V",
+        chartRange: '图表展示',
+        Column: 'a',
+        data: '数据筛选',
+        settings: '图表类型',
+        rangeChartTitle: '图表展示',
+        categories: '横坐标',
+        series: '纵坐标'
     }
 
     onGridReady(params) {
         this.gridApi = params.api
         this.columnApi = params.columnApi
         this.gridApi.sizeColumnsToFit() // 调整表格大小自适应
+        // 把实例传递给父组件
+        this.props.getAgInstance(params)
     }
 
-    onButtonClick = () => {
-        const selectedNodes = this.gridApi.getSelectedNodes()
-        const selectedData = selectedNodes.map(node => node.data)
-        const selectedDataStringPresentation = selectedData.map(node => node.name + '' + node.sex).join(', ')
-        console.log(selectedDataStringPresentation)
-        console.log(selectedNodes, 'nodes')
-        console.log(selectedData, 'data')
-        console.log(this.columnApi.getColumn('1'))
-    }
+    // onButtonClick = () => {
+    //     const selectedNodes = this.gridApi.getSelectedNodes()
+    //     const selectedData = selectedNodes.map(node => node.data)
+    //     const selectedDataStringPresentation = selectedData.map(node => node.name + '' + node.sex).join(', ')
+    //     console.log(selectedDataStringPresentation)
+    //     console.log(selectedNodes, 'nodes')
+    //     console.log(selectedData, 'data')
+    //     console.log(this.columnApi.getColumn('1'))
+    // }
 
     // 键盘操作
     onCellKeyDown = e => {
@@ -172,25 +127,46 @@ export default class AgGridDemo extends Component {
             // rowNode.setSelected(newSelection)
         }
     }
+    // 右侧菜单
+    getContextMenuItems = params => {
+        return [
+            // {
+            //     name: '删除',
+            //     action: () => {
+            //         const arr = []
+            //         arr.push(params.node.data)
+            //         params.api.updateRowData({remove: arr})
+            //     }
+            // },
+            'copy',
+            'copyWithHeaders',
+            'chartRange',
+            'export',
+            'autoSizeAll'
+        ]
+    }
+
+    // 图表相关
+    getChartToolbarItems = () => {
+        return ['chartData', 'chartSettings']
+    }
 
     componentDidMount() {
-        const rowData = []
-        for (let i = 0; i < 500; i++) {
-            rowData.push({name: '张三', sex: '男', age: Math.floor(Math.random()*10000 + 10), 'jg': '中国', 'sf': '浙江', 'dz': '杭州市古墩路1号', 'a': 'a', 'b': 'b'})
-        }
+        const columnDefs = this.props.columns.slice()
         this.setState({
-            rowData
+            columnDefs
         })
     }
 
     render() {
         return (
-            <div className="ag-theme-balham" style={{width: '100%', height: '70vh'}}>
-                <Button onClick={this.onButtonClick}>get selected rows</Button>
+            <div className="ag-theme-balham" style={{width: '100%', height: '100%'}}>
+                {/*<Button onClick={this.onButtonClick}>get row</Button>*/}
                 <AgGridReact
                     alwaysShowVerticalScroll={true}
                     columnDefs={this.state.columnDefs}
-                    rowData={this.state.rowData}
+                    rowData={this.props.rowData}
+                    enableCharts={true}
                     rowSelection="multiple"
                     // 点击不选中单元格
                     // suppressCellSelection={true}
@@ -225,6 +201,10 @@ export default class AgGridDemo extends Component {
                         var itxst = JSON.stringify(event.data);
                         console.log(itxst)
                     }}
+                    // 图表相关
+                    getChartToolbarItems={this.getChartToolbarItems}
+                    // 右侧菜单封装
+                    getContextMenuItems={this.getContextMenuItems}
                 >
                 </AgGridReact>
             </div>

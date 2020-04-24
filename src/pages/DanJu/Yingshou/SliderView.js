@@ -11,7 +11,7 @@ import {
 } from 'antd'
 import Tab1 from './Tab1'
 import Tab2 from './Tab2'
-export default React.memo(props => {
+export default props => {
     const {type} = props
     // tabs
     const { TabPane } = Tabs
@@ -188,7 +188,7 @@ export default React.memo(props => {
                     onChange={callback}
                 >
                     <TabPane key="1" tab="应收详情表">
-                        <Tab1 form={props.form} disabled={type === 'view'}></Tab1>
+                        <Tab1 form={props.form} type={type}></Tab1>
                     </TabPane>
                     <TabPane key="2" tab="上传附件">
                         <Tab2></Tab2>
@@ -196,4 +196,4 @@ export default React.memo(props => {
                 </Tabs>
         </>
     )
-})
+}
