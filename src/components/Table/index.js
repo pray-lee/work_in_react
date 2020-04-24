@@ -35,7 +35,7 @@ const ResizeableTitle = props => {
 
 // 展示数据
 const data = [];
-for (let i = 1; i <= 1000; i++) {
+for (let i = 1; i <= 10; i++) {
     data.push({
         key: i,
         name: 'John Brown',

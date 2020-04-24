@@ -61,7 +61,7 @@ export default class AgGridDemo extends Component {
                                 {headerName: '地址', field: 'dz'}
                             ]
                         }]
-                }
+                },
             ],
             rowData: [],
         }
@@ -188,6 +188,7 @@ export default class AgGridDemo extends Component {
             <div className="ag-theme-balham" style={{width: '100%', height: '70vh'}}>
                 <Button onClick={this.onButtonClick}>get selected rows</Button>
                 <AgGridReact
+                    alwaysShowVerticalScroll={true}
                     columnDefs={this.state.columnDefs}
                     rowData={this.state.rowData}
                     rowSelection="multiple"
@@ -197,6 +198,7 @@ export default class AgGridDemo extends Component {
                     // rowMultiSelectWithClick={true}
                     // 单机不选择行，必须点checkbox
                     suppressRowClickSelection={true}
+                    suppressHorizontalScroll={true}
                     // 始终显示列菜单按钮，默认鼠标移入才显示
                     suppressMenuHide={true}
                     // 范围选择
@@ -212,7 +214,8 @@ export default class AgGridDemo extends Component {
                     defaultColDef={{
                         editable: true,
                         filter: true,
-                        resizable: true
+                        resizable: true,
+                        sortable: true,
                     }}
                     // 键盘操作
                     onCellKeyDown={this.onCellKeyDown}
