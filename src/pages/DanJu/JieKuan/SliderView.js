@@ -37,41 +37,11 @@ export default props => {
                     </Form.Item>
                 </Col>
                 <Col span={8}>
-                    <Form.Item label="提交人">
-                        <Input placeholder="提交人" disabled={type === 'view'}/>
-                    </Form.Item>
-                </Col>
-            </Row>
-            <Row gutter={32}>
-                <Col span={8}>
-                    <Form.Item label="提交日期">
-                        <DatePicker disabled={type === 'view'}/>
-                    </Form.Item>
-                </Col>
-                <Col span={8}>
-                    <Form.Item label="采购组织">
+                    <Form.Item label="申请组织">
                         <Select
                             showSearch
                             style={{width: '100%'}}
-                            placeholder="请选择采购组织"
-                            optionFilterProp="children"
-                            filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
-                            disabled={type === 'view'}
-                        >
-                            <Option value="1">Jack</Option>
-                            <Option value="2">Lucy</Option>
-                            <Option value="3">Tom</Option>
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={8}>
-                    <Form.Item label="采购部门">
-                        <Select
-                            showSearch
-                            style={{width: '100%'}}
-                            placeholder="请选择采购部门"
+                            placeholder="请选择申请组织"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -87,11 +57,11 @@ export default props => {
             </Row>
             <Row gutter={32}>
                 <Col span={8}>
-                    <Form.Item label="采购类型">
+                    <Form.Item label="申请部门">
                         <Select
                             showSearch
                             style={{width: '100%'}}
-                            placeholder="请选择采购类型"
+                            placeholder="请选择申请部门"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -105,11 +75,11 @@ export default props => {
                     </Form.Item>
                 </Col>
                 <Col span={8}>
-                    <Form.Item label="预算类型">
+                    <Form.Item label="借款单位类型">
                         <Select
                             showSearch
                             style={{width: '100%'}}
-                            placeholder="请选择预算类型"
+                            placeholder="请选择借款单位类型"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -123,11 +93,11 @@ export default props => {
                     </Form.Item>
                 </Col>
                 <Col span={8}>
-                    <Form.Item label="供应商名称">
+                    <Form.Item label="借款单位">
                         <Select
                             showSearch
                             style={{width: '100%'}}
-                            placeholder="请选择供应商名称"
+                            placeholder="请选择借款单位"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -143,19 +113,21 @@ export default props => {
             </Row>
             <Row gutter={32}>
                 <Col span={8}>
-                    <Form.Item label="发票类型">
-                        <Radio.Group disabled={type === 'view'}>
-                            <Radio value={1}>普票</Radio>
-                            <Radio value={2}>专票</Radio>
-                        </Radio.Group>
+                    <Form.Item label="收款银行">
+                        <Input disabled={type === 'view'} placeholder="请输入收款银行"/>
                     </Form.Item>
                 </Col>
                 <Col span={8}>
-                    <Form.Item label="税率">
+                    <Form.Item label="收款账号">
+                        <Input disabled={type === 'view'} placeholder="请输入收款账号"/>
+                    </Form.Item>
+                </Col>
+                <Col span={8}>
+                    <Form.Item label="借款类型">
                         <Select
                             showSearch
                             style={{width: '100%'}}
-                            placeholder="请选择销售组织"
+                            placeholder="请选择借款类型"
                             optionFilterProp="children"
                             filterOption={(input, option) =>
                                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -166,18 +138,63 @@ export default props => {
                             <Option value="2">Lucy</Option>
                             <Option value="3">Tom</Option>
                         </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={8}>
-                    <Form.Item label="价税总计">
-                        <Input disabled={type === 'view'} placeholder="价税总计"/>
                     </Form.Item>
                 </Col>
             </Row>
             <Row gutter={32}>
                 <Col span={8}>
                     <Form.Item label="核算维度">
-                        <Input placeholder="" disabled={type==='view'}/>
+                        <Input disabled={type === 'view'} placeholder="请输入核算维度"/>
+                    </Form.Item>
+                </Col>
+                <Col span={8}>
+                    <Form.Item label="资金计划类型">
+                        <Select
+                            showSearch
+                            style={{width: '100%'}}
+                            placeholder="请选择资金计划类型"
+                            optionFilterProp="children"
+                            filterOption={(input, option) =>
+                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            disabled={type === 'view'}
+                        >
+                            <Option value="1">Jack</Option>
+                            <Option value="2">Lucy</Option>
+                            <Option value="3">Tom</Option>
+                        </Select>
+                    </Form.Item>
+                </Col>
+                <Col span={8}>
+                    <Form.Item label="借款合计">
+                        <Input disabled={type === 'view'} placeholder="请输入借款合计"/>
+                    </Form.Item>
+                </Col>
+            </Row>
+            <Row gutter={32}>
+                <Col span={8}>
+                    <Form.Item label="是否有发票">
+                        <Radio.Group disabled={type === 'view'}>
+                            <Radio value={1}>是</Radio>
+                            <Radio value={2}>否</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+                </Col>
+                <Col span={8}>
+                    <Form.Item label="合同编号">
+                        <Input disabled={type === 'view'} placeholder="请输入合同编号"/>
+                    </Form.Item>
+                </Col>
+                <Col span={8}>
+                    <Form.Item label="提交人">
+                        <Input disabled={type === 'view'} placeholder="请输入提交人"/>
+                    </Form.Item>
+                </Col>
+            </Row>
+            <Row gutter={32}>
+                <Col span={8}>
+                    <Form.Item label="提交日期">
+                        <DatePicker disabled={type==='view'}/>
                     </Form.Item>
                 </Col>
                 <Col span={16}>
@@ -190,7 +207,7 @@ export default props => {
                 defaultActiveKey="1"
                 onChange={callback}
             >
-                <TabPane key="1" tab="应付详情">
+                <TabPane key="1" tab="借款详情">
                     <Tab1 form={props.form} type={type}></Tab1>
                 </TabPane>
                 <TabPane key="2" tab="上传附件">

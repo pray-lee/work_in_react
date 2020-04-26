@@ -9,7 +9,6 @@ export default props => {
             width={"70vw"}
             onClose={onClose}
             visible={visible}
-            bodyStyle={{paddingBottom: 80}}
             footer={hasFooter ? (<div
                 style={{
                     textAlign: 'right',

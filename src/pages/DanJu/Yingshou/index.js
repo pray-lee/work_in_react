@@ -40,6 +40,7 @@ export default () => {
         {
             headerName: '单据编号',
             field: 'a',
+            hide: true
         },
         {
             headerName: '销售组织',
@@ -136,6 +137,11 @@ export default () => {
         console.log(form.getFieldsValue())
     }, [form])
 
+    console.log(agInstance)
+    if(!!agInstance){
+        console.log(agInstance.columnApi.getColumnState())
+    }
+
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
@@ -191,7 +197,7 @@ export default () => {
         <>
             <OperatorButtons events={events}/>
             <div style={{height: '85vh'}}>
-                <Table columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
+                <Table name="Yingshou" columns={columns} rowData={rowData} getAgInstance={getAgInstance} name="Yingshou"></Table>
             </div>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>

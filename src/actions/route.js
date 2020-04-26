@@ -19,21 +19,45 @@ export const getRouteConfig = () => {
                        {
                            title: '我的应付',
                            pathname: '/DanJu/Yingfu'
+                       },
+                       {
+                           title: '我的付款申请',
+                           pathname: '/DanJu/FuKuanShenQing'
+                       },
+                       {
+                           title: '我的借款',
+                           pathname: '/DanJu/JieKuan'
+                       },
+                       {
+                           title: '我的报销单',
+                           pathname: '/DanJu/BaoXiaoDan'
                        }
                    ]
                },
                {
-                   title: '财务管理',
-                   pathname: '/caiwuguanli',
+                   title: '应收管理',
+                   pathname: '/YingShou',
                    children: [
                        {
-                           title: '凭证管理',
-                           pathname: '/caiwuguanli/Settings',
+                           title: '应收管理',
+                           pathname: '/YingShou/Yingshou',
                        },
                        {
-                           title: '我的开票申请',
-                           pathname: '/caiwuguanli/Article',
-                       }
+                           title: '开票申请管理',
+                           pathname: '/YingShou/Kaipiaoshenqing',
+                       },
+                       {
+                           title: '开票申请核销',
+                           pathname: '/YingShou/Yingshou',
+                       },
+                       {
+                           title: '收款核销',
+                           pathname: '/YingShou/Yingshou',
+                       },
+                       {
+                           title: '开票管理',
+                           pathname: '/YingShou/Kaipiao',
+                       },
                    ]
                },
            ]

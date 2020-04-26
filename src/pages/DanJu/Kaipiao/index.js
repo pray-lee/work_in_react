@@ -176,7 +176,7 @@ export default () => {
     return (
         <>
             <OperatorButtons events={events}/>
-            <Table columns={columns} rowData={rowData} getAgInstance={getAgInstance} />
+            <Table name="Kaipiao" columns={columns} rowData={rowData} getAgInstance={getAgInstance} />
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

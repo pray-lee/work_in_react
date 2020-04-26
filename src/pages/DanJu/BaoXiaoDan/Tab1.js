@@ -16,24 +16,36 @@ export default class Tab1 extends React.Component {
                 width: 80 //列的宽度
             },
             {
-                headerName: '产品或服务名称',
+                headerName: '费用类型',
                 field: 'name',
             },
             {
-                headerName: '计价数量',
+                headerName: '核算维度',
                 field: 'num',
             },
             {
-                headerName: '含税单价',
+                headerName: '预算类型',
                 field: 'price',
             },
             {
-                headerName: '价税合计',
+                headerName: '预算维度',
                 field: 'priceTotal',
             },
             {
-                headerName: '合同编号',
+                headerName: '附加信息',
                 field: 'contract',
+            },
+            {
+                headerName: '申请报销金额',
+                field: 'bx',
+            },
+            {
+                headerName: '发票类型',
+                field: 'invoiceType',
+            },
+            {
+                headerName: '税率',
+                field: 'shuilv',
             },
             {
                 headerName: '备注',
@@ -57,7 +69,10 @@ export default class Tab1 extends React.Component {
             price: '',
             priceTotal: '',
             contract: '',
-            remark: ''
+            remark: '',
+            shuilv: '',
+            bx: '',
+            invoiceType: ''
         }]
         this.state.agInstance.api.updateRowData({
             add: rowData,
@@ -83,7 +98,7 @@ export default class Tab1 extends React.Component {
                     <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
                     <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
                     <div style={{height: '55vh'}}>
-                        <Table name="YingshouTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
+                        <Table name="BaoXiaoDanTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
                     </div>
                 </div>
             </>

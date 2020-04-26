@@ -16,23 +16,7 @@ export default class Tab1 extends React.Component {
                 width: 80 //列的宽度
             },
             {
-                headerName: '产品或服务名称',
-                field: 'name',
-            },
-            {
-                headerName: '计价数量',
-                field: 'num',
-            },
-            {
-                headerName: '含税单价',
-                field: 'price',
-            },
-            {
-                headerName: '价税合计',
-                field: 'priceTotal',
-            },
-            {
-                headerName: '合同编号',
+                headerName: '借款金额',
                 field: 'contract',
             },
             {
@@ -52,10 +36,6 @@ export default class Tab1 extends React.Component {
     // 添加行
     add = () => {
         const rowData = [{
-            name: '',
-            num: '',
-            price: '',
-            priceTotal: '',
             contract: '',
             remark: ''
         }]
@@ -83,7 +63,7 @@ export default class Tab1 extends React.Component {
                     <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
                     <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
                     <div style={{height: '55vh'}}>
-                        <Table name="YingshouTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
+                        <Table name="JieKuanTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
                     </div>
                 </div>
             </>

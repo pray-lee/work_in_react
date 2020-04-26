@@ -1,3 +1,4 @@
+// name 属性是用来在LocalStorage里存储表头信息时用到的标识，看是哪一个组件表格
 import React, {PureComponent} from 'react'
 import {AgGridReact} from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -95,6 +96,11 @@ export default class AgGridDemo extends PureComponent {
         this.gridApi.sizeColumnsToFit() // 调整表格大小自适应
         // 把实例传递给父组件
         this.props.getAgInstance(params)
+        // 如果本地有用户存储过得表头信息，就重新设置表头
+        const userColumns = window.localStorage.getItem(this.props.name)
+        if(!!userColumns) {
+            this.columnApi.setColumnState(JSON.parse(userColumns))
+        }
     }
 
     // onButtonClick = () => {
@@ -150,6 +156,11 @@ export default class AgGridDemo extends PureComponent {
     getChartToolbarItems = () => {
         return ['chartData', 'chartSettings']
     }
+    // 用户设置表头隐藏列相关
+    onColumnVisible = () => {
+        // console.log(this.columnApi.getColumnState())
+        window.localStorage.setItem(this.props.name, JSON.stringify(this.columnApi.getColumnState()))
+    }
 
     componentDidMount() {
         const columnDefs = this.props.columns.slice()
@@ -174,7 +185,8 @@ export default class AgGridDemo extends PureComponent {
                     // rowMultiSelectWithClick={true}
                     // 单机不选择行，必须点checkbox
                     suppressRowClickSelection={true}
-                    suppressHorizontalScroll={true}
+                    // 不显示横向滚动条
+                    // suppressHorizontalScroll={true}
                     // 始终显示列菜单按钮，默认鼠标移入才显示
                     suppressMenuHide={true}
                     // 范围选择
@@ -205,6 +217,8 @@ export default class AgGridDemo extends PureComponent {
                     getChartToolbarItems={this.getChartToolbarItems}
                     // 右侧菜单封装
                     getContextMenuItems={this.getContextMenuItems}
+                    // 用户隐藏表头操作触发的回调
+                    onColumnVisible={this.onColumnVisible}
                 >
                 </AgGridReact>
             </div>
