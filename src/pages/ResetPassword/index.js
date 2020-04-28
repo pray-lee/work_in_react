@@ -18,8 +18,8 @@ export default props => {
     // 表单样式
     const formItemLayout = {
         labelCol: {
-            xs: { span: 2 },
-            sm: { span: 2 },
+            xs: { span: 3 },
+            sm: { span: 3 },
         },
         wrapperCol: {
             xs: { span: 8 },
