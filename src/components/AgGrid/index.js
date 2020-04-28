@@ -99,7 +99,8 @@ export default class AgGridDemo extends PureComponent {
         // 如果本地有用户存储过得表头信息，就重新设置表头
         const userColumns = window.localStorage.getItem(this.props.name)
         if(!!userColumns) {
-            this.columnApi.setColumnState(JSON.parse(userColumns))
+            const columnState = JSON.parse(userColumns)
+            this.columnApi.setColumnState(columnState)
         }
     }
 
@@ -159,7 +160,8 @@ export default class AgGridDemo extends PureComponent {
     // 用户设置表头隐藏列相关
     onColumnVisible = () => {
         // console.log(this.columnApi.getColumnState())
-        window.localStorage.setItem(this.props.name, JSON.stringify(this.columnApi.getColumnState()))
+        const columnState = JSON.stringify(this.columnApi.getColumnState())
+        window.localStorage.setItem(this.props.name, columnState)
     }
 
     componentDidMount() {
@@ -197,6 +199,7 @@ export default class AgGridDemo extends PureComponent {
                     localeText={this.localeText}
                     // 分页相关
                     // pagination={true}
+                    // suppressPaginationPanel={true}
                     // paginationAutoPageSize={true}
                     // floatingFilter={true}
                     defaultColDef={{

@@ -38,12 +38,27 @@ class OperatorButtons extends React.PureComponent {
                     <Button size="small" icon={<FilterOutlined/>}>筛选</Button>
                     <Button size="small" icon={<ReloadOutlined/>}>刷新</Button>
                     <Button size="small" icon={<SelectOutlined/>}>全选</Button>
-                    <Button size="small" icon={<PlusOutlined/>} onClick={events.add}>新增</Button>
+                    {
+                        !!events ?
+                            <Button size="small" icon={<PlusOutlined/>} onClick={events.add}>新增</Button>
+                            :
+                            null
+                    }
                     <Button size="small" icon={<CopyOutlined/>}>复制</Button>
                     <Button size="small" type="primary" danger>红冲</Button>
                     <Button size="small" icon={<VerticalAlignBottomOutlined/>}>下推</Button>
-                    <Button size="small" icon={<EditOutlined/>} onClick={events.edit}>编辑</Button>
-                    <Button size="small" icon={<SearchOutlined/>} onClick={events.view}>查看</Button>
+                    {
+                        !!events ?
+                            <Button size="small" icon={<EditOutlined/>} onClick={events.edit}>编辑</Button>
+                            :
+                            null
+                    }
+                    {
+                        !!events ?
+                            <Button size="small" icon={<SearchOutlined/>} onClick={events.view}>查看</Button>
+                            :
+                            null
+                    }
                     <Button size="small" icon={<CheckCircleOutlined/>}>提交</Button>
                     <Button size="small" icon={<CheckCircleOutlined/>}>审批</Button>
                     <Button size="small" icon={<RollbackOutlined/>} danger>反审批</Button>

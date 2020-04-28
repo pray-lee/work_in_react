@@ -83,7 +83,7 @@ export default class Tab1 extends React.Component {
                     <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
                     <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
                     <div style={{height: '55vh'}}>
-                        <Table name="YingshouTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
+                        <Table name="WodeyingshouTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
                     </div>
                 </div>
             </>

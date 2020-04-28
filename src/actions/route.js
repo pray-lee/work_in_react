@@ -48,15 +48,15 @@ export const getRouteConfig = () => {
                        },
                        {
                            title: '开票申请核销',
-                           pathname: '/YingShou/Yingshou',
+                           pathname: '/YingShou/Shenqinghexiao',
                        },
                        {
                            title: '收款核销',
-                           pathname: '/YingShou/Yingshou',
+                           pathname: '/YingShou/Shoukuanhexiao',
                        },
                        {
                            title: '开票管理',
-                           pathname: '/YingShou/Kaipiao',
+                           pathname: '/YingShou/Kaipiaoguanli',
                        },
                    ]
                },

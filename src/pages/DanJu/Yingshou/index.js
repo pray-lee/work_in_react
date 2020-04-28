@@ -197,7 +197,7 @@ export default () => {
         <>
             <OperatorButtons events={events}/>
             <div style={{height: '85vh'}}>
-                <Table name="Yingshou" columns={columns} rowData={rowData} getAgInstance={getAgInstance} name="Yingshou"></Table>
+                <Table name="Wodeyingshou" columns={columns} rowData={rowData} getAgInstance={getAgInstance} name="Yingshou"></Table>
             </div>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>

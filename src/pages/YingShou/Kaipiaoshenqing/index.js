@@ -1,10 +1,9 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/AgGrid'
-import { Pagination } from 'antd'
 
 // rowData
-let rowData = []
+const rowData = []
 for(var i = 0; i < 5000; i++) {
     rowData.push({
         a: Math.random(),
@@ -17,7 +16,6 @@ for(var i = 0; i < 5000; i++) {
         h: Math.random(),
         i: Math.random(),
         j: Math.random(),
-        k: Math.random(),
         l: Math.random(),
         m: Math.random(),
         n: Math.random(),
@@ -29,14 +27,14 @@ for(var i = 0; i < 5000; i++) {
 export default () => {
     const columns = [
         {
-            headerName: '选择',
+            headerName: '',
             checkboxSelection: true,
             headerCheckboxSelection: true,
             'pinned': 'left',
             width: 100
         },
         {
-           headerName: '单据编号',
+            headerName: '单据编号',
             field: 'a'
         },
         {
@@ -56,18 +54,6 @@ export default () => {
             field: 'e'
         },
         {
-            headerName: '销售类型',
-            field: 'f'
-        },
-        {
-            headerName: '预算类型',
-            field: 'g'
-        },
-        {
-            headerName: '核算维度',
-            field: 'h'
-        },
-        {
             headerName: '税率（%）',
             field: 'i'
         },
@@ -76,16 +62,24 @@ export default () => {
             field: 'j'
         },
         {
-            headerName: '未核销金额',
-            field: 'k'
-        },
-        {
             headerName: '提交人',
             field: 'l'
         },
         {
             headerName: '提交日期',
             field: 'm'
+        },
+        {
+            headerName: '收件人',
+            field: 'f'
+        },
+        {
+            headerName: '电话',
+            field: 'g'
+        },
+        {
+            headerName: '地址',
+            field: 'h'
         },
         {
             headerName: '单据状态',
@@ -102,44 +96,16 @@ export default () => {
     ]
     // state
     const [agInstance, setAgInstance] = useState(null)
-    const [currentPage, setCurrentPage] = useState(1)
-    console.log(agInstance)
-    // 获取ag实例
+
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance, currentPage])
-
-    // 设置页数
-    const setCurrentPageFn = page => {
-        setCurrentPage(page)
-        rowData = []
-        rowData.push({
-            a: Math.floor(Math.random() * (10, 100)),
-            b: Math.floor(Math.random() * (10, 100)),
-            c: Math.floor(Math.random() * (10, 100)),
-            d: Math.floor(Math.random() * (10, 100)),
-            e: Math.floor(Math.random() * (10, 100)),
-            f: Math.floor(Math.random() * (10, 100)),
-            g: Math.floor(Math.random() * (10, 100)),
-            h: Math.floor(Math.random() * (10, 100)),
-            i: Math.floor(Math.random() * (10, 100)),
-            j: Math.floor(Math.random() * (10, 100)),
-            k: Math.floor(Math.random() * (10, 100)),
-            l: Math.floor(Math.random() * (10, 100)),
-            m: Math.floor(Math.random() * (10, 100)),
-            n: Math.floor(Math.random() * (10, 100)),
-            o: Math.floor(Math.random() * (10, 100)),
-            p: Math.floor(Math.random() * (10, 100)),
-        })
-
-    }
+    }, [agInstance])
     return (
         <>
             <OperatorButtons />
-            <div style={{height: '60vh'}}>
-                <Table name="Yingshouguanli" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
+            <div style={{height: '85vh'}}>
+                <Table name="Kaipiaoshenqing" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
             </div>
-            <Pagination current={currentPage} onChange={setCurrentPageFn} total={50}/>
         </>
     )
 }
