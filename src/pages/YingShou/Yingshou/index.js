@@ -29,7 +29,7 @@ for(var i = 0; i < 5000; i++) {
 export default () => {
     const columns = [
         {
-            headerName: '选择',
+            headerName: '',
             checkboxSelection: true,
             headerCheckboxSelection: true,
             'pinned': 'left',
@@ -103,7 +103,6 @@ export default () => {
     // state
     const [agInstance, setAgInstance] = useState(null)
     const [currentPage, setCurrentPage] = useState(1)
-    console.log(agInstance)
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)

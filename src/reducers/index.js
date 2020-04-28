@@ -7,3 +7,4 @@ export default combineReducers({
     user,
     routeConfig
 })
+
