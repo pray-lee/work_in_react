@@ -36,7 +36,7 @@ export default () => {
             width: 100
         },
         {
-           headerName: '单据编号',
+            headerName: '单据编号',
             field: 'a'
         },
         {
@@ -56,18 +56,6 @@ export default () => {
             field: 'e'
         },
         {
-            headerName: '销售类型',
-            field: 'f'
-        },
-        {
-            headerName: '预算类型',
-            field: 'g'
-        },
-        {
-            headerName: '核算维度',
-            field: 'h'
-        },
-        {
             headerName: '税率（%）',
             field: 'i'
         },
@@ -76,28 +64,36 @@ export default () => {
             field: 'j'
         },
         {
-            headerName: '未核销金额',
+            headerName: '未开票金额',
             field: 'k'
         },
         {
-            headerName: '提交人',
-            field: 'l'
-        },
-        {
-            headerName: '提交日期',
-            field: 'm'
+            headerName: '未核销应收金额',
+            field: 'p'
         },
         {
             headerName: '单据状态',
             field: 'n'
         },
         {
+            headerName: '提交日期',
+            field: 'm'
+        },
+        {
             headerName: '业务日期',
             field: 'o'
         },
         {
-            headerName: '备注',
-            field: 'p'
+            headerName: '收件人',
+            field: 'l'
+        },
+        {
+            headerName: '地址',
+            field: 'g'
+        },
+        {
+            headerName: '电话',
+            field: 'h'
         },
     ]
     // state

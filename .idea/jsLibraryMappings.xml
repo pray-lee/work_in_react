@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="PROJECT" libraries="{@types/7zip-min}" />
+    <file url="PROJECT" libraries="{@types/7zip-min, @types/ali-oss, @types/bootstrap, @types/express, @types/jquery, @types/koa, @types/lodash, @types/mongodb, @types/node, @types/react, @types/react-native, @types/react-redux, @types/react-router-dom, @types/rrc, @types/styled-components}" />
     <includedPredefinedLibrary name="HTTP Response Handler" />
   </component>
 </project>
