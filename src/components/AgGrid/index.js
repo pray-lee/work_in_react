@@ -98,7 +98,7 @@ export default class AgGridDemo extends PureComponent {
         this.props.getAgInstance(params)
         // 如果本地有用户存储过得表头信息，就重新设置表头
         const userColumns = window.localStorage.getItem(this.props.name)
-        if(!!userColumns) {
+        if (!!userColumns) {
             const columnState = JSON.parse(userColumns)
             this.columnApi.setColumnState(columnState)
         }

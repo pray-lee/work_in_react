@@ -5,7 +5,7 @@ import { Pagination } from 'antd'
 
 // rowData
 let rowData = []
-for(let i = 0; i < 5000; i++) {
+for(let i = 0; i < 500000; i++) {
     rowData.push({
         a: Math.random(),
         b: Math.random(),
