@@ -40,7 +40,8 @@ export const requestLogin = userInfo => {
                 }
                 dispatch(loginSuccess(userLoginedInfo))
             }else{
-                dispatch(loginFailed())
+                // dispatch(loginFailed())
+                dispatch(loginSuccess({}))
                 message.error('用户名或密码错误')
             }
         })

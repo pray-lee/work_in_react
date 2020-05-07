@@ -6,6 +6,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
 import './index.less'
 
+
 export default class AgGridDemo extends PureComponent {
     constructor(props) {
         super(props);
@@ -93,7 +94,7 @@ export default class AgGridDemo extends PureComponent {
     onGridReady(params) {
         this.gridApi = params.api
         this.columnApi = params.columnApi
-        this.gridApi.sizeColumnsToFit() // 调整表格大小自适应
+        // this.gridApi.sizeColumnsToFit() // 调整表格大小自适应
         // 把实例传递给父组件
         this.props.getAgInstance(params)
         // 如果本地有用户存储过得表头信息，就重新设置表头
@@ -164,6 +165,11 @@ export default class AgGridDemo extends PureComponent {
         window.localStorage.setItem(this.props.name, columnState)
     }
 
+    // 单机行
+    onRowDoubleClicked = e => {
+        console.log('rowDoubleClicked', e)
+    }
+
     componentDidMount() {
         const columnDefs = this.props.columns.slice()
         this.setState({
@@ -172,6 +178,7 @@ export default class AgGridDemo extends PureComponent {
     }
 
     render() {
+        console.log('render aginstance')
         return (
             <div className="ag-theme-balham" style={{width: '100%', height: '100%'}}>
                 {/*<Button onClick={this.onButtonClick}>get row</Button>*/}
@@ -203,7 +210,7 @@ export default class AgGridDemo extends PureComponent {
                     // paginationAutoPageSize={true}
                     // floatingFilter={true}
                     defaultColDef={{
-                        editable: true,
+                        // editable: true,
                         filter: true,
                         resizable: true,
                         sortable: true,
@@ -222,9 +229,18 @@ export default class AgGridDemo extends PureComponent {
                     getContextMenuItems={this.getContextMenuItems}
                     // 用户隐藏表头操作触发的回调
                     onColumnVisible={this.onColumnVisible}
+                    // 双击行
+                    onRowDoubleClicked={this.props.onRowDoubleClick}
                 >
                 </AgGridReact>
             </div>
         )
     }
+}
+
+// 表格默认属性
+AgGridDemo.defaultProps = {
+    onRowDoubleClick: () => {console.log('rowDoubleCLicke')},
+    getAgInstance: () => {console.log('getAgInstance')}
+
 }

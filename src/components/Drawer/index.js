@@ -1,12 +1,12 @@
 import React from 'react'
 import {Drawer, Button} from 'antd'
 
-export default props => {
-    const {visible, title, onClose, hasFooter} = props
+const DrawerComponent = props => {
+    const {visible, title, onClose, hasFooter, width} = props
     return (
         <Drawer
             title={title}
-            width={"70vw"}
+            width={width}
             onClose={onClose}
             visible={visible}
             footer={hasFooter ? (<div
@@ -29,3 +29,9 @@ export default props => {
         </Drawer>
     )
 }
+
+DrawerComponent.defaultProps = {
+    width: "70vw"
+}
+
+export default DrawerComponent
