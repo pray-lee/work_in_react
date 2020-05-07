@@ -22,7 +22,7 @@ const mapState = state => {
 
 @connect(mapState, {loginFailed, getRouteConfig})
 @withRouter
-class Frame extends React.Component {
+class Frame extends React.PureComponent {
     state = {
         collapsed: false
     }
@@ -53,7 +53,6 @@ class Frame extends React.Component {
     )
 
     render() {
-        console.log(this.props.userInfo)
         return (
             <Layout className="my-layout">
                 <Header className="header ck-header">
@@ -110,7 +109,6 @@ class Frame extends React.Component {
             </Layout>
         )
     }
-
 }
 
 export default Frame

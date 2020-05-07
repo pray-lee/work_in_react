@@ -60,6 +60,32 @@ export const getRouteConfig = () => {
                        },
                    ]
                },
+               {
+                   title: '应付管理',
+                   pathname: '/YingFu',
+                   children: [
+                       {
+                           title: '应付管理',
+                           pathname: '/YingFu/Yingfuguanli',
+                       },
+                       {
+                           title: '付款管理',
+                           pathname: '/YingFu/Fukuanguanli',
+                       },
+                       {
+                           title: '付款核销',
+                           pathname: '/YingFu/Fukuanhexiao',
+                       },
+                       {
+                           title: '采购发票管理',
+                           pathname: '/YingFu/Caigoufapiaoguanli',
+                       },
+                       {
+                           title: '采购发票核销',
+                           pathname: '/YingFu/Caigoufapiaohexiao',
+                       },
+                   ]
+               },
            ]
           dispatch({
               type: actionType.GET_ROUTE_CONFIG,

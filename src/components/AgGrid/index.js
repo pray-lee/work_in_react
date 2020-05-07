@@ -83,7 +83,28 @@ export default class AgGridDemo extends PureComponent {
         paste: "粘贴",
         ctrlV: "ctrl + V",
         chartRange: '图表展示',
-        Column: 'a',
+        columnChart: '条形图',
+        groupedColumn: '分组',
+        stackedColumn: '堆叠',
+        normalizedColumn: '100%堆叠',
+        barChart: '柱状图',
+        groupedBar: '分组',
+        stackedBar: '堆叠',
+        normalizedBar: '100%堆叠',
+        pieChart: '饼状图',
+        pie: '饼状',
+        doughnut: "同心圆",
+        line: '折线图',
+        groupedLine: '分组',
+        stackedLine: '堆叠',
+        normalizedLine: '100%堆叠',
+        areaChart: '区域图',
+        groupedArea: '分组',
+        stackedArea: '堆叠',
+        normalizedArea: '100%堆叠',
+        xyChart: '坐标图',
+        scatter: '分散',
+        bubble: '气泡',
         data: '数据筛选',
         settings: '图表类型',
         rangeChartTitle: '图表展示',
@@ -94,7 +115,7 @@ export default class AgGridDemo extends PureComponent {
     onGridReady(params) {
         this.gridApi = params.api
         this.columnApi = params.columnApi
-        // this.gridApi.sizeColumnsToFit() // 调整表格大小自适应
+        this.gridApi.sizeColumnsToFit() // 调整表格大小自适应
         // 把实例传递给父组件
         this.props.getAgInstance(params)
         // 如果本地有用户存储过得表头信息，就重新设置表头
@@ -165,12 +186,8 @@ export default class AgGridDemo extends PureComponent {
         window.localStorage.setItem(this.props.name, columnState)
     }
 
-    // 单机行
-    onRowDoubleClicked = e => {
-        console.log('rowDoubleClicked', e)
-    }
-
     componentDidMount() {
+        console.log(this.props, '--------------------------')
         const columnDefs = this.props.columns.slice()
         this.setState({
             columnDefs

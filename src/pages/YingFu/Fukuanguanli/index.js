@@ -1,11 +1,10 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/AgGrid'
-import { Pagination } from 'antd'
+import PaginationTable from '../../../components/PaginationAgGrid'
 
 // rowData
 let rowData = []
-for(let i = 0; i < 500000; i++) {
+for(let i = 0; i < 10; i++) {
     rowData.push({
         a: Math.random(),
         b: Math.random(),
@@ -23,6 +22,7 @@ for(let i = 0; i < 500000; i++) {
         n: Math.random(),
         o: Math.random(),
         p: Math.random(),
+        s: Math.random(),
     })
 }
 
@@ -32,68 +32,92 @@ export default () => {
             headerName: '',
             checkboxSelection: true,
             headerCheckboxSelection: true,
-            'pinned': 'left',
+            pinned: 'left',
             width: 100
         },
         {
-            headerName: '单据编号',
+           headerName: '付款单编号',
             field: 'a'
         },
         {
-            headerName: '销售组织',
+            headerName: '源单据编号',
             field: 'b'
         },
         {
-            headerName: '销售部门',
+            headerName: '申请组织',
             field: 'c'
         },
         {
-            headerName: '客户名称',
+            headerName: '申请部门',
             field: 'd'
         },
         {
-            headerName: '发票类型',
+            headerName: '往来单位类型',
             field: 'e'
         },
         {
-            headerName: '税率（%）',
+            headerName: '往来单位',
+            field: 'f'
+        },
+        {
+            headerName: '收款银行',
+            field: 'g'
+        },
+        {
+            headerName: '收款账号',
+            field: 'h'
+        },
+        {
+            headerName: '付款银行',
             field: 'i'
         },
         {
-            headerName: '价税合计',
+            headerName: '付款账号',
             field: 'j'
         },
         {
-            headerName: '未开票金额',
+            headerName: '申请金额',
             field: 'k'
         },
         {
-            headerName: '未核销应收金额',
+            headerName: '提交金额',
+            field: 'l'
+        },
+        {
+            headerName: '业务日期',
+            field: 'm'
+        },
+        {
+            headerName: '申请日期',
+            field: 'n'
+        },
+        {
+            headerName: '付款提交日期',
+            field: 'o'
+        },
+        {
+            headerName: '付款确认日期',
+            field: 's'
+        },
+        {
+            headerName: '付款提交人',
+            field: 'p'
+        },
+        {
+            headerName: '申请人',
+            field: 'p'
+        },
+        {
+            headerName: '备注',
+            field: 'p'
+        },
+        {
+            headerName: '提交备注',
             field: 'p'
         },
         {
             headerName: '单据状态',
-            field: 'n'
-        },
-        {
-            headerName: '提交日期',
-            field: 'm'
-        },
-        {
-            headerName: '业务日期',
-            field: 'o'
-        },
-        {
-            headerName: '收件人',
-            field: 'l'
-        },
-        {
-            headerName: '地址',
-            field: 'g'
-        },
-        {
-            headerName: '电话',
-            field: 'h'
+            field: 'p'
         },
     ]
     // state
@@ -130,10 +154,18 @@ export default () => {
     return (
         <>
             <OperatorButtons />
-            <div style={{height: '60vh'}}>
-                <Table name="Yingshouguanli" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
+            <div style={{height: '65vh'}}>
+                <PaginationTable
+                    name="Yingshouguanli"
+                    columns={columns}
+                    rowData={rowData}
+                    getAgInstance={getAgInstance}
+                    total="1000"
+                    setCurrentPageFn={setCurrentPageFn}
+                    currentPage={currentPage}
+                >
+                </PaginationTable>
             </div>
-            <Pagination current={currentPage} onChange={setCurrentPageFn} total={50}/>
         </>
     )
 }

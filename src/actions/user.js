@@ -24,27 +24,27 @@ export const loginFailed = () => {
 export const requestLogin = userInfo => {
     return dispatch => {
         dispatch(loginStart())
-        axios.request({
-            url: `/oauth/token?grant_type=password&username=${userInfo.username}&password=${userInfo.password}&client_id=webClient&client_secret=web123456`,
-            method: 'get'
-        }).then(res => {
-            // 汇总用户信息
-            const userLoginedInfo = Object.assign({}, {...userInfo}, {...res})
-            if (!!res && res.access_token) {
-                if(userInfo.remember) {
-                    window.localStorage.setItem('authToken', res.access_token)
-                    window.localStorage.setItem('userInfo', JSON.stringify(userLoginedInfo))
-                }else{
-                    window.sessionStorage.setItem('authToken', res.access_token)
-                    window.sessionStorage.setItem('userInfo', JSON.stringify(userLoginedInfo))
-                }
-                dispatch(loginSuccess(userLoginedInfo))
-            }else{
-                // dispatch(loginFailed())
-                dispatch(loginSuccess({}))
-                message.error('用户名或密码错误')
-            }
-        })
+        // axios.request({
+        //     url: `/oauth/token?grant_type=password&username=${userInfo.username}&password=${userInfo.password}&client_id=webClient&client_secret=web123456`,
+        //     method: 'get'
+        // }).then(res => {
+        //     // 汇总用户信息
+        //     const userLoginedInfo = Object.assign({}, {...userInfo}, {...res})
+        //     if (!!res && res.access_token) {
+        //         if(userInfo.remember) {
+        //             window.localStorage.setItem('authToken', res.access_token)
+        //             window.localStorage.setItem('userInfo', JSON.stringify(userLoginedInfo))
+        //         }else{
+        //             window.sessionStorage.setItem('authToken', res.access_token)
+        //             window.sessionStorage.setItem('userInfo', JSON.stringify(userLoginedInfo))
+        //         }
+        //         dispatch(loginSuccess(userLoginedInfo))
+        //     }else{
+        //         dispatch(loginFailed())
+        //         message.error('用户名或密码错误')
+        //     }
+        // })
+        dispatch(loginSuccess({}))
     }
 }
 
