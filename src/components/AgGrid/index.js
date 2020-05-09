@@ -270,7 +270,7 @@ export default class AgGridDemo extends PureComponent {
                     onColumnVisible={this.onColumnVisible}
                     // 双击行
                     onRowDoubleClicked={this.props.onRowDoubleClick}
-                    // 渲染器，返回组件
+                    // 渲染器，返回组件,渲染器设置好了以后，直接去对应的表头信息里加字符串就好了
                     context={{
                         componentParent: this
                     }}
@@ -290,6 +290,7 @@ export default class AgGridDemo extends PureComponent {
                                     remove: [props.data]
                                 })
                             }
+                            // ********************这里还有个条件渲染************************
                             return (
                                 <>
                                     <Button onClick={handleClick} type="primary" size="small">删除</Button>
