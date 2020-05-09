@@ -1,6 +1,6 @@
 // name 属性是用来在LocalStorage里存储表头信息时用到的标识，看是哪一个组件表格
 import React, {PureComponent} from 'react'
-import {AgGridReact} from 'ag-grid-react'
+import { AgGridReact } from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
@@ -126,16 +126,6 @@ export default class AgGridDemo extends PureComponent {
         }
     }
 
-    // onButtonClick = () => {
-    //     const selectedNodes = this.gridApi.getSelectedNodes()
-    //     const selectedData = selectedNodes.map(node => node.data)
-    //     const selectedDataStringPresentation = selectedData.map(node => node.name + '' + node.sex).join(', ')
-    //     console.log(selectedDataStringPresentation)
-    //     console.log(selectedNodes, 'nodes')
-    //     console.log(selectedData, 'data')
-    //     console.log(this.columnApi.getColumn('1'))
-    // }
-
     // 键盘操作
     onCellKeyDown = e => {
         console.log('onCellKeyDown', e)
@@ -187,7 +177,6 @@ export default class AgGridDemo extends PureComponent {
     }
 
     componentDidMount() {
-        console.log(this.props, '--------------------------')
         const columnDefs = this.props.columns.slice()
         this.setState({
             columnDefs

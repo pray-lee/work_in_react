@@ -156,7 +156,7 @@ export default () => {
             <OperatorButtons />
             <div style={{height: '65vh'}}>
                 <PaginationTable
-                    name="Yingshouguanli"
+                    name="Fukuanguanli"
                     columns={columns}
                     rowData={rowData}
                     getAgInstance={getAgInstance}
