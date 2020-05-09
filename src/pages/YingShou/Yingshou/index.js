@@ -37,7 +37,12 @@ export default () => {
         },
         {
            headerName: '单据编号',
-            field: 'a'
+            field: 'a',
+            // cellClassRules: {
+            //    'warning': function(params) {
+            //        return params.value > 0.5
+            //    }
+            // }
         },
         {
             headerName: '销售组织',

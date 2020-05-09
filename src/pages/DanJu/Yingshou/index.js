@@ -8,7 +8,7 @@ import SliderView from './SliderView'
 
 // rowData
 const rowData = []
-for (var i = 0; i < 100; i++) {
+for (var i = 0; i < 10; i++) {
     rowData.push({
         a: Math.random(),
         b: Math.random(),
@@ -35,12 +35,13 @@ export default () => {
             checkboxSelection: true,//设置为ture显示为复选框
             headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
             'pinned': 'left', //固定再左边
-            width: 100 //列的宽度
+            // width: 100 //列的宽度
         },
         {
             headerName: '单据编号',
             field: 'a',
-            hide: true
+            hide: true,
+            cellRenderer: 'testRenderer'
         },
         {
             headerName: '销售组织',
@@ -103,6 +104,11 @@ export default () => {
             headerName: '备注',
             field: 'p'
         },
+        {
+            headerName: '操作',
+            filed: 'a',
+            cellRenderer: 'actionRenderer'
+        }
     ]
     // state
     const [agInstance, setAgInstance] = useState(null)
@@ -192,7 +198,6 @@ export default () => {
                 return <SliderView form={form} type="view"/>
         }
     }
-
     return (
         <>
             <OperatorButtons events={events}/>

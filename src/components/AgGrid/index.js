@@ -1,7 +1,7 @@
 // name 属性是用来在LocalStorage里存储表头信息时用到的标识，看是哪一个组件表格
 import React, {PureComponent} from 'react'
-import {Pagination} from 'antd'
-import { AgGridReact } from 'ag-grid-react'
+import {Pagination, Button} from 'antd'
+import {AgGridReact} from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
@@ -11,8 +11,12 @@ import './index.less'
 export default class AgGridDemo extends PureComponent {
     // 表格默认属性
     static defaultProps = {
-        onRowDoubleClick: () => {console.log('rowDoubleCLicke')},
-        getAgInstance: () => {console.log('getAgInstance')},
+        onRowDoubleClick: () => {
+            console.log('rowDoubleCLicke')
+        },
+        getAgInstance: () => {
+            console.log('getAgInstance')
+        },
         enablePagination: true
     }
 
@@ -220,7 +224,7 @@ export default class AgGridDemo extends PureComponent {
                     alwaysShowVerticalScroll={true}
                     // 默认表格配置
                     defaultColDef={{
-                        // editable: true,
+                        editable: true,
                         filter: true,
                         resizable: true,
                         sortable: true,
@@ -266,12 +270,42 @@ export default class AgGridDemo extends PureComponent {
                     onColumnVisible={this.onColumnVisible}
                     // 双击行
                     onRowDoubleClicked={this.props.onRowDoubleClick}
+                    // 渲染器，返回组件
+                    context={{
+                        componentParent: this
+                    }}
+                    frameworkComponents={{
+                        // testRenderer: function (params) {
+                        //     return <span className="textRenderer">{params.value}</span>
+                        // },
+                        actionRenderer: props  => {
+                            const handleClick = () => {
+                                console.log('---------------cell render props----------------------')
+                                console.log(props)
+                                console.log(props.context.componentParent.props.name)
+                                console.log(props.api.getRowNode(props.node.rowIndex))
+                                console.log('------------------------------------------------------')
+                                // 假删除, 到时候还要改成接口
+                                props.api.updateRowData({
+                                    remove: [props.data]
+                                })
+                            }
+                            return (
+                                <>
+                                    <Button onClick={handleClick} type="primary" size="small">删除</Button>
+                                    <Button type="primary" size="small">编辑</Button>
+                                </>
+                            )
+                        }
+                    }}
+
                 >
                 </AgGridReact>
                 {
                     this.props.enablePagination ?
                         <Pagination
                             showSizeChanger
+                            hideOnSinglePage={true}
                             onShowSizeChange={this.onShowSizeChange}
                             defaultCurrent={1}
                             total={500}
