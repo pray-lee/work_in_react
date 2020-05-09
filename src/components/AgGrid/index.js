@@ -1,5 +1,6 @@
 // name 属性是用来在LocalStorage里存储表头信息时用到的标识，看是哪一个组件表格
 import React, {PureComponent} from 'react'
+import {Pagination} from 'antd'
 import { AgGridReact } from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
@@ -8,6 +9,13 @@ import './index.less'
 
 
 export default class AgGridDemo extends PureComponent {
+    // 表格默认属性
+    static defaultProps = {
+        onRowDoubleClick: () => {console.log('rowDoubleCLicke')},
+        getAgInstance: () => {console.log('getAgInstance')},
+        enablePagination: true
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -176,6 +184,26 @@ export default class AgGridDemo extends PureComponent {
         window.localStorage.setItem(this.props.name, columnState)
     }
 
+    // pagination fns
+    onShowSizeChange = (current, pageSize) => {
+        console.log(current, pageSize)
+    }
+
+    onChange = (page, pageSize) => {
+        console.log(page, pageSize)
+        this.getRows(page, pageSize)
+    }
+
+    getRows = (page, pageSize) => {
+        // 请求数据
+        console.log(`请求第${page}页，每页有数据${pageSize}条。`)
+        this.renderAgTable([])
+    }
+
+    renderAgTable = rows => {
+        this.gridApi.setRowData(rows)
+    }
+
     componentDidMount() {
         const columnDefs = this.props.columns.slice()
         this.setState({
@@ -190,6 +218,13 @@ export default class AgGridDemo extends PureComponent {
                 {/*<Button onClick={this.onButtonClick}>get row</Button>*/}
                 <AgGridReact
                     alwaysShowVerticalScroll={true}
+                    // 默认表格配置
+                    defaultColDef={{
+                        // editable: true,
+                        filter: true,
+                        resizable: true,
+                        sortable: true,
+                    }}
                     columnDefs={this.state.columnDefs}
                     rowData={this.props.rowData}
                     enableCharts={true}
@@ -211,16 +246,10 @@ export default class AgGridDemo extends PureComponent {
                     // 设置语言
                     localeText={this.localeText}
                     // 分页相关
-                    // pagination={true}
-                    // suppressPaginationPanel={true}
+                    pagination={true}
+                    suppressPaginationPanel={true}
                     // paginationAutoPageSize={true}
                     // floatingFilter={true}
-                    defaultColDef={{
-                        // editable: true,
-                        filter: true,
-                        resizable: true,
-                        sortable: true,
-                    }}
                     // 键盘操作
                     onCellKeyDown={this.onCellKeyDown}
                     onCellKeyPress={this.onCellKeyPress}
@@ -239,14 +268,22 @@ export default class AgGridDemo extends PureComponent {
                     onRowDoubleClicked={this.props.onRowDoubleClick}
                 >
                 </AgGridReact>
+                {
+                    this.props.enablePagination ?
+                        <Pagination
+                            showSizeChanger
+                            onShowSizeChange={this.onShowSizeChange}
+                            defaultCurrent={1}
+                            total={500}
+                            onChange={this.onChange}
+                            showTotal={total => `共有${total}条`}
+                        />
+                        :
+                        null
+                }
+
             </div>
         )
     }
 }
 
-// 表格默认属性
-AgGridDemo.defaultProps = {
-    onRowDoubleClick: () => {console.log('rowDoubleCLicke')},
-    getAgInstance: () => {console.log('getAgInstance')}
-
-}

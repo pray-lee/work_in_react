@@ -1,6 +1,6 @@
 import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
-import PaginationTable from '../../../components/PaginationAgGrid'
+import Table from '../../../components/AgGrid'
 
 // rowData
 let rowData = []
@@ -106,49 +106,22 @@ export default () => {
     ]
     // state
     const [agInstance, setAgInstance] = useState(null)
-    const [currentPage, setCurrentPage] = useState(1)
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance, currentPage])
+    }, [agInstance])
 
-    // 设置页数
-    const setCurrentPageFn = page => {
-        setCurrentPage(page)
-        rowData = []
-        rowData.push({
-            a: Math.floor(Math.random() * (10, 100)),
-            b: Math.floor(Math.random() * (10, 100)),
-            c: Math.floor(Math.random() * (10, 100)),
-            d: Math.floor(Math.random() * (10, 100)),
-            e: Math.floor(Math.random() * (10, 100)),
-            f: Math.floor(Math.random() * (10, 100)),
-            g: Math.floor(Math.random() * (10, 100)),
-            h: Math.floor(Math.random() * (10, 100)),
-            i: Math.floor(Math.random() * (10, 100)),
-            j: Math.floor(Math.random() * (10, 100)),
-            k: Math.floor(Math.random() * (10, 100)),
-            l: Math.floor(Math.random() * (10, 100)),
-            m: Math.floor(Math.random() * (10, 100)),
-            n: Math.floor(Math.random() * (10, 100)),
-            o: Math.floor(Math.random() * (10, 100)),
-            p: Math.floor(Math.random() * (10, 100)),
-        })
-    }
     return (
         <>
             <OperatorButtons />
             <div style={{height: '60vh'}}>
-                <PaginationTable
+                <Table
                     name="Yingfuguanli"
                     columns={columns}
                     rowData={rowData}
                     getAgInstance={getAgInstance}
-                    total="50"
-                    setCurrentPageFn={setCurrentPageFn}
-                    currentPage={currentPage}
                 >
-                </PaginationTable>
+                </Table>
             </div>
         </>
     )

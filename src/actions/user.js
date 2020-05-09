@@ -45,6 +45,12 @@ export const requestLogin = userInfo => {
         //     }
         // })
         dispatch(loginSuccess({}))
+        window.localStorage.setItem('userInfo', JSON.stringify({
+            id: '',
+            name: 'haha',
+            isLogin: true
+        }))
+        window.localStorage.setItem('authToken', 'aksjdfkjasdfaskdfk')
     }
 }
 
