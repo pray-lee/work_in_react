@@ -15,7 +15,7 @@ export default class AgGridDemo extends PureComponent {
             console.log('rowDoubleCLicke')
         },
         getAgInstance: () => {
-            console.log('getAgInstance')
+                console.log('getAgInstance')
         },
         enablePagination: true
     }
@@ -293,7 +293,7 @@ export default class AgGridDemo extends PureComponent {
                             // ********************这里还有个条件渲染************************
                             return (
                                 <>
-                                    <Button onClick={handleClick} type="primary" size="small">删除</Button>
+                                    <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
                                     <Button type="primary" size="small">编辑</Button>
                                 </>
                             )
@@ -305,6 +305,9 @@ export default class AgGridDemo extends PureComponent {
                 {
                     this.props.enablePagination ?
                         <Pagination
+                            style={{paddingTop: 10}}
+                            size="small"
+                            // simple={true}
                             showSizeChanger
                             hideOnSinglePage={true}
                             onShowSizeChange={this.onShowSizeChange}

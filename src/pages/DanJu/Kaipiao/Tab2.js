@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Form, Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import axios from '../../../request'
+// import axios from '../../../request'
 
 class AliyunOSSUpload extends React.Component {
     state = {

@@ -135,7 +135,7 @@ export default () => {
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance])
+    }, [])
 
 // 装载完成把方法赋值进去
     useEffect(() => {
@@ -171,13 +171,10 @@ export default () => {
         switch (type) {
             case 'view':
                 return <SliderView form={form} type="view"/>
-                break
             case 'add':
                 return <SliderView form={form} type="add"/>
-                break
             case 'edit':
                 return <SliderView form={form} type="edit"/>
-                break
             default:
                 return <SliderView form={form} type="view"/>
         }

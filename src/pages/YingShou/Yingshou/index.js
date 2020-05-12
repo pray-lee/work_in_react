@@ -1,7 +1,6 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/AgGrid'
-import { Pagination } from 'antd'
 
 // rowData
 let rowData = []
@@ -110,7 +109,7 @@ export default () => {
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance])
+    }, [])
 
     return (
         <>

@@ -1,11 +1,11 @@
-import React, {useState, useCallback, useEffect} from 'react'
+import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/AgGrid'
-import { Pagination } from 'antd'
+// import { Pagination } from 'antd'
 
 // rowData
 let rowData = []
-for(let i = 0; i < 500000; i++) {
+for(let i = 0; i < 500; i++) {
     rowData.push({
         a: Math.random(),
         b: Math.random(),
@@ -101,7 +101,7 @@ export default () => {
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance])
+    }, [])
 
     return (
         <>

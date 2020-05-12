@@ -1,6 +1,6 @@
 import actionType from "./actionType";
-import {message} from 'antd'
-import axios from '../request'
+// import {message} from 'antd'
+// import axios from '../request'
 
 export const loginStart = () => ({
     type: actionType.LOGIN_START

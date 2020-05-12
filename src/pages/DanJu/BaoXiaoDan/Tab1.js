@@ -3,9 +3,6 @@ import {Button} from 'antd'
 import Table from '../../../components/AgGrid'
 
 export default class Tab1 extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     state={
         columns: [
             {

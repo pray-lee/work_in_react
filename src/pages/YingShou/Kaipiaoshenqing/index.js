@@ -99,7 +99,7 @@ export default () => {
 
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance])
+    }, [])
     return (
         <>
             <OperatorButtons />

@@ -160,11 +160,11 @@ export default React.memo(() => {
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance])
+    }, [])
 
     const getTabAgInstance = useCallback(instance => {
         setTagAgInstance(instance)
-    }, [tagAgInstance])
+    }, [])
 
     // doubleClick show drawer
     const onRowDoubleCLickCallback = useCallback((agEvent) => {

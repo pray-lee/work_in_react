@@ -125,7 +125,7 @@ export default () => {
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
-    }, [agInstance])
+    }, [])
 
     return (
         <>
