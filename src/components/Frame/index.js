@@ -26,10 +26,12 @@ class Frame extends React.PureComponent {
     state = {
         collapsed: false
     }
+
     componentDidMount() {
         // 请求菜单
         this.props.getRouteConfig()
     }
+
     handleTopMenuClick = ({key}) => {
         key === '/login' ?
             this.props.loginFailed() :
