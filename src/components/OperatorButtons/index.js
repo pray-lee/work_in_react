@@ -40,9 +40,7 @@ class OperatorButtons extends React.PureComponent {
                     <Button size="small" icon={<SelectOutlined/>}>全选</Button>
                     {
                         !!events ?
-                            <Button size="small" icon={<PlusOutlined/>} onClick={events.add}>新增</Button>
-                            :
-                            null
+                            <Button size="small" icon={<PlusOutlined/>} onClick={events.add}>新增</Button> : null
                     }
                     <Button size="small" icon={<CopyOutlined/>}>复制</Button>
                     <Button size="small" type="primary" danger>红冲</Button>

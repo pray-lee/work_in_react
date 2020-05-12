@@ -21,7 +21,7 @@ export default () => {
     }
     return (
         <>
-            <Tabs defaultActiveKey="1" onChange={callback} size="small">
+            <Tabs defaultActiveKey="1" onChange={callback} size="small" animated={false}>
                 <TabPane
                     tab={
                         <span>

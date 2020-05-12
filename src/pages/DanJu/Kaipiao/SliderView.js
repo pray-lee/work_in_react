@@ -146,6 +146,7 @@ export default props => {
             <Tabs
                 defaultActiveKey="1"
                 onChange={callback}
+                animated={false}
             >
                 <TabPane key="1" tab="应收详情">
                     <Tab1 form={props.form} type={type}></Tab1>

@@ -7,7 +7,7 @@ import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
 // 展示数据
 const rowData = [];
-for (let i = 1; i <= 100; i++) {
+for (let i = 1; i < 100; i++) {
     rowData.push({
         a: Math.random(),
         b: Math.random(),

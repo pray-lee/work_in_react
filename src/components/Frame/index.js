@@ -55,6 +55,7 @@ class Frame extends React.PureComponent {
     )
 
     render() {
+        const {location} = this.props
         return (
             <Layout className="my-layout">
                 <Header className="header ck-header">
