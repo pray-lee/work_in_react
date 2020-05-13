@@ -1,33 +1,10 @@
 import React, {useState, useCallback, useEffect} from "react";
 import {Form} from 'antd'
 import moment from 'moment'
-import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/AgGrid'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
+import CommonLayout from '../../../components/CommonLayout'
 
-// rowData
-const rowData = []
-for (var i = 0; i < 10; i++) {
-    rowData.push({
-        a: Math.random(),
-        b: Math.random(),
-        c: Math.random(),
-        d: Math.random(),
-        e: Math.random(),
-        f: Math.random(),
-        g: Math.random(),
-        h: Math.random(),
-        i: Math.random(),
-        j: Math.random(),
-        k: Math.random(),
-        l: Math.random(),
-        m: Math.random(),
-        n: Math.random(),
-        o: Math.random(),
-        p: Math.random(),
-    })
-}
 export default () => {
     const columns = [
         {
@@ -143,13 +120,12 @@ export default () => {
         console.log(form.getFieldsValue())
     }, [form])
 
-    console.log(agInstance)
-    if(!!agInstance){
+    if(agInstance) {
         console.log(agInstance.columnApi.getColumnState())
     }
-
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
+        console.log(instance)
         setAgInstance(instance)
     }, [])
 
@@ -200,10 +176,20 @@ export default () => {
     }
     return (
         <>
-            <OperatorButtons events={events}/>
-            <div style={{height: '65vh'}}>
-                <Table name="Wodeyingshou" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
-            </div>
+            {/*<OperatorButtons events={events}/>*/}
+            {/*<div style={{height: '65vh'}}>*/}
+            {/*    <Table name="Wodeyingshou" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>*/}
+            {/*</div>*/}
+            <CommonLayout
+                tableAttr={{
+                    name: 'Wodeyingshou',
+                    columns: columns,
+                    getAgInstance,
+                }}
+                operatorButtonAttr={{
+                    events
+                }}
+            />
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

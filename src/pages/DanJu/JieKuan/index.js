@@ -1,10 +1,9 @@
 import React, {useState, useCallback, useEffect} from "react";
 import {Form} from 'antd'
 import moment from 'moment'
-import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/AgGrid'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
+import CommonLayout from "../../../components/CommonLayout";
 
 // rowData
 const rowData = []
@@ -189,10 +188,21 @@ export default () => {
 
     return (
         <>
-            <OperatorButtons events={events}/>
-            <div style={{height: '85vh'}}>
-                <Table name="JieKuan" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
-            </div>
+            {/*<OperatorButtons events={events}/>*/}
+            {/*<div style={{height: '85vh'}}>*/}
+            {/*    <Table name="JieKuan" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>*/}
+            {/*</div>*/}
+            <CommonLayout
+                tableAttr={{
+                    name: 'JieKuan',
+                    columns: columns,
+                    rowData: rowData,
+                    getAgInstance
+                }}
+                operatorButtonAttr={{
+                    events
+                }}
+            />
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

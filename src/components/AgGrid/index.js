@@ -6,16 +6,24 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
 import './index.less'
+import {connect} from 'react-redux'
+import {requestTable} from '../../actions/tableLoading'
 
+const mapState = state => {
+    return {
+        tableData: state.tableData
+    }
+}
 
-export default class AgGridDemo extends PureComponent {
+@connect(mapState, {requestTable})
+class AgGridDemo extends PureComponent {
     // 表格默认属性
     static defaultProps = {
         onRowDoubleClick: () => {
             console.log('rowDoubleCLicke')
         },
         getAgInstance: () => {
-                console.log('getAgInstance')
+            console.log('getAgInstance')
         },
         enablePagination: true
     }
@@ -136,6 +144,7 @@ export default class AgGridDemo extends PureComponent {
             const columnState = JSON.parse(userColumns)
             this.columnApi.setColumnState(columnState)
         }
+
     }
 
     // 键盘操作
@@ -200,11 +209,13 @@ export default class AgGridDemo extends PureComponent {
 
     getRows = (page, pageSize) => {
         // 请求数据
-        console.log(`请求第${page}页，每页有数据${pageSize}条。`)
-        this.renderAgTable([])
+        this.props.requestTable()
+        console.log(`请求第${page}页，每页有数据${pageSize}条。`,)
+        this.renderAgTable(this.props.tableData.data)
     }
 
     renderAgTable = rows => {
+        console.log(rows)
         this.gridApi.setRowData(rows)
     }
 
@@ -217,6 +228,8 @@ export default class AgGridDemo extends PureComponent {
 
     render() {
         console.log('render aginstance')
+        console.log(this.props)
+        const {data} = this.props.tableData
         return (
             <div className="ag-theme-balham" style={{width: '100%', height: '100%'}}>
                 {/*<Button onClick={this.onButtonClick}>get row</Button>*/}
@@ -230,7 +243,7 @@ export default class AgGridDemo extends PureComponent {
                         sortable: true,
                     }}
                     columnDefs={this.state.columnDefs}
-                    rowData={this.props.rowData}
+                    rowData={data}
                     enableCharts={true}
                     rowSelection="multiple"
                     // 点击不选中单元格
@@ -278,7 +291,7 @@ export default class AgGridDemo extends PureComponent {
                         // testRenderer: function (params) {
                         //     return <span className="textRenderer">{params.value}</span>
                         // },
-                        actionRenderer: props  => {
+                        actionRenderer: props => {
                             const handleClick = () => {
                                 console.log('---------------cell render props----------------------')
                                 console.log(props)
@@ -325,3 +338,4 @@ export default class AgGridDemo extends PureComponent {
     }
 }
 
+export default AgGridDemo

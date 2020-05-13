@@ -10,6 +10,8 @@ import {loginFailed} from "../../actions/user";
 import {getRouteConfig} from "../../actions/route";
 import LeftNav from "../LeftNav";
 
+import {Animated} from 'react-animated-css'
+
 const {Header, Content} = Layout
 
 const mapState = state => {
@@ -95,7 +97,12 @@ class Frame extends React.PureComponent {
                                         key={item.pathname}
                                         render={routeProps => (
                                             <Suspense fallback={null}>
-                                                <item.component/>
+                                                <Animated
+                                                    animationIn="zoomIn"
+                                                    animationInDuration={380}
+                                                >
+                                                    <item.component/>
+                                                </Animated>
                                             </Suspense>)}
                                     >
                                     </Route>)

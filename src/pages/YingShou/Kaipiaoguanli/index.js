@@ -1,7 +1,6 @@
 import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/AgGrid'
-// import { Pagination } from 'antd'
 
 // rowData
 let rowData = []
