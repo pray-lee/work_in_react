@@ -7,7 +7,7 @@ import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
 import './index.less'
 import {connect} from 'react-redux'
-import {requestTable} from '../../actions/tableLoading'
+import {requestTable} from '../../actions/tableData'
 
 const mapState = state => {
     return {
@@ -20,7 +20,7 @@ class AgGridDemo extends PureComponent {
     // 表格默认属性
     static defaultProps = {
         onRowDoubleClick: () => {
-            console.log('rowDoubleCLicke')
+            console.log('rowDoubleClicked')
         },
         getAgInstance: () => {
             console.log('getAgInstance')
@@ -204,19 +204,13 @@ class AgGridDemo extends PureComponent {
 
     onChange = (page, pageSize) => {
         console.log(page, pageSize)
+        console.log('------------------------')
         this.getRows(page, pageSize)
     }
 
     getRows = (page, pageSize) => {
         // 请求数据
         this.props.requestTable()
-        console.log(`请求第${page}页，每页有数据${pageSize}条。`,)
-        this.renderAgTable(this.props.tableData.data)
-    }
-
-    renderAgTable = rows => {
-        console.log(rows)
-        this.gridApi.setRowData(rows)
     }
 
     componentDidMount() {
@@ -224,6 +218,8 @@ class AgGridDemo extends PureComponent {
         this.setState({
             columnDefs
         })
+        // 初始化完成先调用第一页的数据
+        this.props.requestTable()
     }
 
     render() {
@@ -231,7 +227,7 @@ class AgGridDemo extends PureComponent {
         console.log(this.props)
         const {data} = this.props.tableData
         return (
-            <div className="ag-theme-balham" style={{width: '100%', height: '100%'}}>
+            <div className="ag-theme-balham" style={{width: '100%', height: '100%', overflow: 'auto'}}>
                 {/*<Button onClick={this.onButtonClick}>get row</Button>*/}
                 <AgGridReact
                     alwaysShowVerticalScroll={true}

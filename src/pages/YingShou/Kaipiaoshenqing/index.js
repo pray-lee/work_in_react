@@ -1,28 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/AgGrid'
-
-// rowData
-const rowData = []
-for(var i = 0; i < 5000; i++) {
-    rowData.push({
-        a: Math.random(),
-        b: Math.random(),
-        c: Math.random(),
-        d: Math.random(),
-        e: Math.random(),
-        f: Math.random(),
-        g: Math.random(),
-        h: Math.random(),
-        i: Math.random(),
-        j: Math.random(),
-        l: Math.random(),
-        m: Math.random(),
-        n: Math.random(),
-        o: Math.random(),
-        p: Math.random(),
-    })
-}
+import CommonLayout from "../../../components/CommonLayout";
 
 export default () => {
     const columns = [
@@ -102,10 +79,13 @@ export default () => {
     }, [])
     return (
         <>
-            <OperatorButtons />
-            <div style={{height: '85vh'}}>
-                <Table name="Kaipiaoshenqing" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
-            </div>
+            <CommonLayout
+                tableAttr={{
+                    name: "Kaipiaoshenqing",
+                    columns,
+                    getAgInstance
+                }}
+            />
         </>
     )
 }

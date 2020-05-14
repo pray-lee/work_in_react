@@ -31,6 +31,7 @@ class Frame extends React.PureComponent {
 
     componentDidMount() {
         // 请求菜单
+        console.log('------------------请求菜单--------------')
         this.props.getRouteConfig()
     }
 

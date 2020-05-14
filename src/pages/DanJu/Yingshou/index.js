@@ -4,89 +4,88 @@ import moment from 'moment'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
 import CommonLayout from '../../../components/CommonLayout'
-
+const columns = [
+    {
+        headerName: '',//选择列头部显示的文字，可以为空
+        checkboxSelection: true,//设置为ture显示为复选框
+        headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
+        'pinned': 'left', //固定再左边
+        // width: 100 //列的宽度
+    },
+    {
+        headerName: '单据编号',
+        field: 'a',
+        hide: true,
+        cellRenderer: 'testRenderer'
+    },
+    {
+        headerName: '销售组织',
+        field: 'b'
+    },
+    {
+        headerName: '提交人',
+        field: 'c'
+    },
+    {
+        headerName: '销售部门',
+        field: 'd',
+        colId: 'd'
+    },
+    {
+        headerName: '客户名称',
+        field: 'e'
+    },
+    {
+        headerName: '发票类型',
+        field: 'f'
+    },
+    {
+        headerName: '销售类型',
+        field: 'g'
+    },
+    {
+        headerName: '预算类型',
+        field: 'h'
+    },
+    {
+        headerName: '核算维度',
+        field: 'i'
+    },
+    {
+        headerName: '税率（%）',
+        field: 'j'
+    },
+    {
+        headerName: '价税合计',
+        field: 'k'
+    },
+    {
+        headerName: '未申请开票金额',
+        field: 'l'
+    },
+    {
+        headerName: '提交日期',
+        field: 'm'
+    },
+    {
+        headerName: '单据状态',
+        field: 'n'
+    },
+    {
+        headerName: '业务日期',
+        field: 'o'
+    },
+    {
+        headerName: '备注',
+        field: 'p'
+    },
+    {
+        headerName: '操作',
+        filed: 'a',
+        cellRenderer: 'actionRenderer'
+    }
+]
 export default () => {
-    const columns = [
-        {
-            headerName: '',//选择列头部显示的文字，可以为空
-            checkboxSelection: true,//设置为ture显示为复选框
-            headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
-            'pinned': 'left', //固定再左边
-            // width: 100 //列的宽度
-        },
-        {
-            headerName: '单据编号',
-            field: 'a',
-            hide: true,
-            cellRenderer: 'testRenderer'
-        },
-        {
-            headerName: '销售组织',
-            field: 'b'
-        },
-        {
-            headerName: '提交人',
-            field: 'c'
-        },
-        {
-            headerName: '销售部门',
-            field: 'd',
-            colId: 'd'
-        },
-        {
-            headerName: '客户名称',
-            field: 'e'
-        },
-        {
-            headerName: '发票类型',
-            field: 'f'
-        },
-        {
-            headerName: '销售类型',
-            field: 'g'
-        },
-        {
-            headerName: '预算类型',
-            field: 'h'
-        },
-        {
-            headerName: '核算维度',
-            field: 'i'
-        },
-        {
-            headerName: '税率（%）',
-            field: 'j'
-        },
-        {
-            headerName: '价税合计',
-            field: 'k'
-        },
-        {
-            headerName: '未申请开票金额',
-            field: 'l'
-        },
-        {
-            headerName: '提交日期',
-            field: 'm'
-        },
-        {
-            headerName: '单据状态',
-            field: 'n'
-        },
-        {
-            headerName: '业务日期',
-            field: 'o'
-        },
-        {
-            headerName: '备注',
-            field: 'p'
-        },
-        {
-            headerName: '操作',
-            filed: 'a',
-            cellRenderer: 'actionRenderer'
-        }
-    ]
     // state
     const [agInstance, setAgInstance] = useState(null)
     const [visible, setVisible] = useState(false)
@@ -123,9 +122,8 @@ export default () => {
     if(agInstance) {
         console.log(agInstance.columnApi.getColumnState())
     }
-    // 获取ag实例
+    // 获取ag实例 ????
     const getAgInstance = useCallback(instance => {
-        console.log(instance)
         setAgInstance(instance)
     }, [])
 
@@ -150,7 +148,6 @@ export default () => {
             setHasFooter(true)
             setVisible(true)
         }
-
         setEvents({
             view,
             edit,
@@ -159,7 +156,7 @@ export default () => {
     }, [])
 
     // 侧滑框的视图
-    function drawerContent(type) {
+    const drawerContent = useCallback((type) =>{
         switch (type) {
             case 'view':
                 return <SliderView form={form} type="view"/>
@@ -173,13 +170,10 @@ export default () => {
             default:
                 return <SliderView form={form} type="view"/>
         }
-    }
+    }, [type])
+    console.log('-------------------------render-----------------------')
     return (
         <>
-            {/*<OperatorButtons events={events}/>*/}
-            {/*<div style={{height: '65vh'}}>*/}
-            {/*    <Table name="Wodeyingshou" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>*/}
-            {/*</div>*/}
             <CommonLayout
                 tableAttr={{
                     name: 'Wodeyingshou',

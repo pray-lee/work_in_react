@@ -5,6 +5,7 @@ const rowData = {
     isLoading: false
 }
 
+console.log('-----------------reducers--------------------------')
 export default (state = rowData, action) => {
     const payload = action.payload
     switch (action.type) {

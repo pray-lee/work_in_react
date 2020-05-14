@@ -18,7 +18,7 @@ export const tableLoadingEnd = () => ({
 export const requestTable = () => {
 // test data
     const rowData = []
-    for (var i = 0; i < 100; i++) {
+    for (var i = 0; i < Math.floor(Math.random()*(10, 50)); i++) {
         rowData.push({
             a: Math.random(),
             b: Math.random(),
@@ -40,9 +40,9 @@ export const requestTable = () => {
     }
     return dispatch => {
        dispatch(tableLoadingStart())
-       setTimeout(() => {
-           console.log('action', rowData)
+       const t = setTimeout(() => {
            dispatch(tableLoadingSuccess(rowData))
+           clearTimeout(t)
        }, 2000)
     }
 }

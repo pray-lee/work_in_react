@@ -1,8 +1,9 @@
 import React, {useState, useCallback} from 'react'
 import {Button} from 'antd'
-import OperatorButtons from "../../../components/OperatorButtons";
-import Table from '../../../components/AgGrid'
+import CommonLayout from "../../../components/CommonLayout";
 import Drawer from '../../../components/Drawer'
+import {connect} from "react-redux";
+import {requestTable} from "../../../actions/tableData";
 
 const columnsTab = [
     {
@@ -127,27 +128,7 @@ const columns = [
     },
 ]
 
-// rowData
-const rowData = []
-for (var i = 0; i < 100; i++) {
-    rowData.push({
-        a: Math.random(),
-        b: Math.random(),
-        c: Math.random(),
-        d: Math.random(),
-        e: Math.random(),
-        g: Math.random(),
-        h: Math.random(),
-        i: Math.random(),
-        j: Math.random(),
-        k: Math.random(),
-        m: Math.random(),
-        o: Math.random(),
-        p: Math.random(),
-    })
-}
-
-export default React.memo(() => {
+const Component =  React.memo(props => {
     // state
     const [agInstance, setAgInstance] = useState(null)
     const [tagAgInstance, setTagAgInstance] = useState(null)
@@ -167,34 +148,41 @@ export default React.memo(() => {
     }, [])
 
     // doubleClick show drawer
-    const onRowDoubleCLickCallback = useCallback((agEvent) => {
+    const onRowDoubleClickCallback = useCallback((agEvent) => {
         console.log(agEvent)
         setVisible(true)
+        props.requestTable()
     }, [])
+
     return (
         <>
-            <OperatorButtons />
-            <div style={{height: "80vh"}}>
-                <Table
-                    name="Shenqinghexiao"
-                    columns={columns}
-                    rowData={rowData}
-                    getAgInstance={getAgInstance}
-                    onRowDoubleClick={onRowDoubleCLickCallback}
-                >
-                </Table>
-                <Drawer width={"50vw"} title="待核销明细" hasFooter={false} onClose={onClose} visible={visible}>
-                    <Button type="primary">核销</Button>
-                    <Table
-                        name="ShenqinghexiaoTab"
-                        columns={columnsTab}
-                        rowData={rowData}
-                        getAgInstance={getTabAgInstance}
-                    >
-                    </Table>
-                </Drawer>
-            </div>
+            <CommonLayout
+                tableAttr={{
+                    name: 'Shenqinghexiao',
+                    columns,
+                    getAgInstance,
+                    onRowDoubleClick: onRowDoubleClickCallback
+                }}
+            />
+            <Drawer width={"50vw"} title="待核销明细" hasFooter={false} onClose={onClose} visible={visible}>
+                <Button type="primary">核销</Button>
+                <CommonLayout
+                    tableAttr={{
+                        name:'ShenqinghexiaoTab',
+                        columns:columnsTab,
+                        getAgInstance:getTabAgInstance,
+                    }}
+                    showOperatorButtons={false}
+                />
+            </Drawer>
         </>
     )
 })
 
+const mapState = state => {
+    return {
+        tableData: state.tableData
+    }
+}
+
+export default connect(mapState, {requestTable})(Component)
