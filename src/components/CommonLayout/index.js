@@ -7,7 +7,6 @@ import {Spin} from 'antd'
 const CommonLayout = React.memo(props => {
     const {isLoading} = useSelector(state => state.tableData)
     const {tableAttr, operatorButtonAttr, showOperatorButtons} = props
-    console.log('table parent ..... render..........')
     return (
         <Spin spinning={isLoading}>
             {
@@ -25,7 +24,6 @@ const CommonLayout = React.memo(props => {
         </Spin>
     )
 })
-
 
 CommonLayout.defaultProps = {
     showOperatorButtons: true,

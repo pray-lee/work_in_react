@@ -6,16 +6,7 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
 import './index.less'
-import {connect} from 'react-redux'
-import {requestTable} from '../../actions/tableData'
 
-const mapState = state => {
-    return {
-        tableData: state.tableData
-    }
-}
-
-@connect(mapState, {requestTable})
 class AgGridDemo extends PureComponent {
     // 表格默认属性
     static defaultProps = {
@@ -25,6 +16,7 @@ class AgGridDemo extends PureComponent {
         getAgInstance: () => {
             console.log('getAgInstance')
         },
+        getData: () => {},
         enablePagination: true
     }
 
@@ -210,7 +202,7 @@ class AgGridDemo extends PureComponent {
 
     getRows = (page, pageSize) => {
         // 请求数据
-        this.props.requestTable()
+        this.props.getData()
     }
 
     componentDidMount() {
@@ -218,17 +210,14 @@ class AgGridDemo extends PureComponent {
         this.setState({
             columnDefs
         })
-        // 初始化完成先调用第一页的数据
-        this.props.requestTable()
+        console.log(this.props)
+        this.props.getData()
     }
 
     render() {
         console.log('render aginstance')
-        console.log(this.props)
-        const {data} = this.props.tableData
         return (
-            <div className="ag-theme-balham" style={{width: '100%', height: '100%', overflow: 'auto'}}>
-                {/*<Button onClick={this.onButtonClick}>get row</Button>*/}
+            <div className="ag-theme-balham" style={{width: '100%', height: '100%'}}>
                 <AgGridReact
                     alwaysShowVerticalScroll={true}
                     // 默认表格配置
@@ -239,7 +228,7 @@ class AgGridDemo extends PureComponent {
                         sortable: true,
                     }}
                     columnDefs={this.state.columnDefs}
-                    rowData={data}
+                    rowData={this.props.rowData}
                     enableCharts={true}
                     rowSelection="multiple"
                     // 点击不选中单元格
@@ -284,9 +273,9 @@ class AgGridDemo extends PureComponent {
                         componentParent: this
                     }}
                     frameworkComponents={{
-                        // testRenderer: function (params) {
-                        //     return <span className="textRenderer">{params.value}</span>
-                        // },
+                        testRenderer: function (params) {
+                            return <span className="textRenderer">{params.value}</span>
+                        },
                         actionRenderer: props => {
                             const handleClick = () => {
                                 console.log('---------------cell render props----------------------')
@@ -328,7 +317,6 @@ class AgGridDemo extends PureComponent {
                         :
                         null
                 }
-
             </div>
         )
     }

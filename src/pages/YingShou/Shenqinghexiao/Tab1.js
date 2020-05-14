@@ -2,8 +2,6 @@ import React, {useState, useCallback} from 'react'
 import {Button} from 'antd'
 import CommonLayout from "../../../components/CommonLayout";
 import Drawer from '../../../components/Drawer'
-import {connect} from "react-redux";
-import {requestTable} from "../../../actions/tableData";
 
 const columnsTab = [
     {
@@ -15,7 +13,7 @@ const columnsTab = [
     },
     {
         headerName: 'a',
-        field: 'aa'
+        field: 'a'
     },
     {
         headerName: 'b',
@@ -128,11 +126,14 @@ const columns = [
     },
 ]
 
-const Component =  React.memo(props => {
+export default  React.memo(props => {
     // state
     const [agInstance, setAgInstance] = useState(null)
     const [tagAgInstance, setTagAgInstance] = useState(null)
     const [visible, setVisible] = useState(false)
+    // rowData
+    const [rowData, setRowData] = useState([])
+    const [tabRowData, setTabRowData] = useState([])
     // 关闭drawer
     const onClose = useCallback(() => {
         setVisible(false)
@@ -151,8 +152,16 @@ const Component =  React.memo(props => {
     const onRowDoubleClickCallback = useCallback((agEvent) => {
         console.log(agEvent)
         setVisible(true)
-        props.requestTable()
     }, [])
+
+    // test code ....
+    const renderData = () => {
+        setTabRowData([
+            {
+                a: Math.random()
+            }
+        ])
+    }
 
     return (
         <>
@@ -160,17 +169,20 @@ const Component =  React.memo(props => {
                 tableAttr={{
                     name: 'Shenqinghexiao',
                     columns,
+                    rowData: [{a: 3}],
                     getAgInstance,
                     onRowDoubleClick: onRowDoubleClickCallback
                 }}
             />
-            <Drawer width={"50vw"} title="待核销明细" hasFooter={false} onClose={onClose} visible={visible}>
+            <Drawer width={"65vw"} title="待核销明细" hasFooter={false} onClose={onClose} visible={visible}>
                 <Button type="primary">核销</Button>
                 <CommonLayout
                     tableAttr={{
                         name:'ShenqinghexiaoTab',
                         columns:columnsTab,
                         getAgInstance:getTabAgInstance,
+                        rowData: tabRowData,
+                        getData: renderData
                     }}
                     showOperatorButtons={false}
                 />
@@ -179,10 +191,3 @@ const Component =  React.memo(props => {
     )
 })
 
-const mapState = state => {
-    return {
-        tableData: state.tableData
-    }
-}
-
-export default connect(mapState, {requestTable})(Component)
