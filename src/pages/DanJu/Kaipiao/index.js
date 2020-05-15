@@ -3,7 +3,8 @@ import {Form} from 'antd'
 import moment from 'moment'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
-import CommonLayout from "../../../components/CommonLayout";
+import OperatorButtons from "../../../components/OperatorButtons";
+import Table from '../../../components/AgGrid'
 // 展示数据
 const rowData = [];
 for (let i = 1; i < 100; i++) {
@@ -175,19 +176,8 @@ export default () => {
 
     return (
         <>
-            {/*<OperatorButtons events={events}/>*/}
-            {/*<Table name="Kaipiao" columns={columns} rowData={rowData} getAgInstance={getAgInstance} />*/}
-            <CommonLayout
-                tableAttr={{
-                    name: 'Kaipiao',
-                    columns: columns,
-                    rowData: rowData,
-                    getAgInstance
-                }}
-                operatorButtonAttr={{
-                    events
-                }}
-            />
+            <OperatorButtons events={events}/>
+            <Table name="Kaipiao" columns={columns} rowData={rowData} getAgInstance={getAgInstance} />
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

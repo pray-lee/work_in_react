@@ -3,7 +3,8 @@ import {Form} from 'antd'
 import moment from 'moment'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
-import CommonLayout from '../../../components/CommonLayout'
+import OperatorButtons from "../../../components/OperatorButtons";
+import Table from '../../../components/AgGrid'
 const columns = [
     {
         headerName: '',//选择列头部显示的文字，可以为空
@@ -174,16 +175,12 @@ export default () => {
     console.log('-------------------------render-----------------------')
     return (
         <>
-            <CommonLayout
-                tableAttr={{
-                    name: 'Wodeyingshou',
-                    columns: columns,
-                    getAgInstance,
-                }}
-                operatorButtonAttr={{
-                    events
-                }}
-            />
+            <OperatorButtons events={events} />
+            <Table
+                name="Wodeyingshou"
+                columns={columns}
+                getAgInstance={getAgInstance}
+            ></Table>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

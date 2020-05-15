@@ -3,7 +3,8 @@ import {Form} from 'antd'
 import moment from 'moment'
 import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
-import CommonLayout from "../../../components/CommonLayout";
+import Table from '../../../components/AgGrid'
+import OperatorButtons from "../../../components/OperatorButtons";
 
 // rowData
 const rowData = []
@@ -188,21 +189,10 @@ export default () => {
 
     return (
         <>
-            {/*<OperatorButtons events={events}/>*/}
-            {/*<div style={{height: '85vh'}}>*/}
-            {/*    <Table name="BaoXiaoDan" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>*/}
-            {/*</div>*/}
-            <CommonLayout
-                tableAttr={{
-                    name: 'BaoXiaoDan',
-                    columns: columns,
-                    rowData: rowData,
-                    getAgInstance
-                }}
-                operatorButtonAttr={{
-                    events
-                }}
-            />
+            <OperatorButtons events={events}/>
+            <div style={{height: '85vh'}}>
+                <Table name="BaoXiaoDan" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
+            </div>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

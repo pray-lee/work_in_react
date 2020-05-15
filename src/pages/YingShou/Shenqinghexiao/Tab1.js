@@ -1,7 +1,10 @@
 import React, {useState, useCallback} from 'react'
 import {Button} from 'antd'
-import CommonLayout from "../../../components/CommonLayout";
+import Table from '../../../components/AgGrid'
+import OperatorButtons from "../../../components/OperatorButtons";
 import Drawer from '../../../components/Drawer'
+import {connect} from "react-redux";
+import {tableLoadingStart, tableLoadingEnd} from "../../../actions/tableData";
 
 const columnsTab = [
     {
@@ -126,14 +129,15 @@ const columns = [
     },
 ]
 
-export default  React.memo(props => {
+const Tab1 = React.memo(props => {
     // state
     const [agInstance, setAgInstance] = useState(null)
     const [tagAgInstance, setTagAgInstance] = useState(null)
     const [visible, setVisible] = useState(false)
+    const [loading, setLoading] = useState(false)
     // rowData
-    const [rowData, setRowData] = useState([])
-    const [tabRowData, setTabRowData] = useState([])
+    const [rowData, setRowData] = useState([{a: Math.random()}])
+    const [tabRowData, setTabRowData] = useState([{a: Math.random()}])
     // 关闭drawer
     const onClose = useCallback(() => {
         setVisible(false)
@@ -154,40 +158,44 @@ export default  React.memo(props => {
         setVisible(true)
     }, [])
 
-    // test code ....
-    const renderData = () => {
-        setTabRowData([
-            {
-                a: Math.random()
-            }
-        ])
+    // row data test
+    const requestRowData = setData => {
+        console.log('request row data')
+    }
+    const requestTabRowData = setData => {
+        console.log('request tab row data')
+        setTabRowData([{a: Math.random()}])
     }
 
     return (
         <>
-            <CommonLayout
-                tableAttr={{
-                    name: 'Shenqinghexiao',
-                    columns,
-                    rowData: [{a: 3}],
-                    getAgInstance,
-                    onRowDoubleClick: onRowDoubleClickCallback
-                }}
+            <OperatorButtons />
+            <Table
+                name="Shenqinghexiao"
+                columns={columns}
+                getAgInstance={getAgInstance}
+                onRowDoubleClick={onRowDoubleClickCallback}
+                rowData={rowData}
+                getData={requestRowData}
             />
             <Drawer width={"65vw"} title="待核销明细" hasFooter={false} onClose={onClose} visible={visible}>
                 <Button type="primary">核销</Button>
-                <CommonLayout
-                    tableAttr={{
-                        name:'ShenqinghexiaoTab',
-                        columns:columnsTab,
-                        getAgInstance:getTabAgInstance,
-                        rowData: tabRowData,
-                        getData: renderData
-                    }}
-                    showOperatorButtons={false}
+                <Table
+                    name="ShenqinghexiaoTab"
+                    columns={columnsTab}
+                    getAgInstance={getTabAgInstance}
+                    rowData={tabRowData}
+                    getData={requestTabRowData}
                 />
             </Drawer>
         </>
     )
 })
 
+const mapState = state => {
+    return {
+        tableData: state.tableData
+    }
+}
+
+export default connect(mapState, {tableLoadingStart, tableLoadingEnd})(Tab1)

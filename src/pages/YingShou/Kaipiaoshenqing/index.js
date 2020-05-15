@@ -1,5 +1,6 @@
 import React, {useState, useCallback} from 'react'
-import CommonLayout from "../../../components/CommonLayout";
+import OperatorButtons from "../../../components/OperatorButtons";
+import Table from "../../../components/AgGrid";
 
 export default () => {
     const columns = [
@@ -79,12 +80,11 @@ export default () => {
     }, [])
     return (
         <>
-            <CommonLayout
-                tableAttr={{
-                    name: "Kaipiaoshenqing",
-                    columns,
-                    getAgInstance
-                }}
+            <OperatorButtons />
+            <Table
+                name="Kaipiaoshenqing"
+                columns={columns}
+                getAgInstance={getAgInstance}
             />
         </>
     )

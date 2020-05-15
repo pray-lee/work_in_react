@@ -217,7 +217,7 @@ class AgGridDemo extends PureComponent {
     render() {
         console.log('render aginstance')
         return (
-            <div className="ag-theme-balham" style={{width: '100%', height: '100%'}}>
+            <div className="ag-theme-balham" style={{width: '100%', height: '65vh'}}>
                 <AgGridReact
                     alwaysShowVerticalScroll={true}
                     // 默认表格配置
