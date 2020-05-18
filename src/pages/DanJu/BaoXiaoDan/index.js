@@ -109,6 +109,8 @@ export default () => {
     const [hasFooter, setHasFooter] = useState(true)
     const [title, setTitle] = useState('查看')
     const [type, setType] = useState('查看')
+    const [data, setData] = useState(rowData)
+    const [loading, setLoading] = useState(false)
     let [events, setEvents] = useState({})
     // form
     const [form] = Form.useForm()
@@ -140,6 +142,16 @@ export default () => {
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
     }, [])
+
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
+        }, 2000)
+    }
 
 // 装载完成把方法赋值进去
     useEffect(() => {
@@ -191,7 +203,15 @@ export default () => {
         <>
             <OperatorButtons events={events}/>
             <div style={{height: '85vh'}}>
-                <Table name="BaoXiaoDan" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
+                <Table
+                    name="BaoXiaoDan"
+                    columns={columns}
+                    rowData={data}
+                    getAgInstance={getAgInstance}
+                    setTableData={setTableData}
+                    loading={loading}
+                >
+                </Table>
             </div>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>

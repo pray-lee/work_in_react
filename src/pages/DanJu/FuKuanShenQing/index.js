@@ -104,6 +104,8 @@ export default () => {
     const [hasFooter, setHasFooter] = useState(true)
     const [title, setTitle] = useState('查看')
     const [type, setType] = useState('查看')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(rowData)
     let [events, setEvents] = useState({})
     // form
     const [form] = Form.useForm()
@@ -179,11 +181,28 @@ export default () => {
         }
     }
 
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+           setLoading(false)
+            setData([{a:Math.random()}])
+            clearTimeout(t)
+        }, 2000)
+    }
+
     return (
         <>
             <OperatorButtons events={events}/>
             <div style={{height: '65vh'}}>
-                <Table name="FuKuanShenQing" columns={columns} rowData={rowData} getAgInstance={getAgInstance}></Table>
+                <Table
+                    name="FuKuanShenQing"
+                    columns={columns}
+                    rowData={data}
+                    getAgInstance={getAgInstance}
+                    loading={loading}
+                    setTableData={setTableData}
+                >
+                </Table>
             </div>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>

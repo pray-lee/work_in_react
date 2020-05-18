@@ -74,10 +74,23 @@ export default () => {
     ]
     // state
     const [agInstance, setAgInstance] = useState(null)
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
+
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
     }, [])
+
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
+        }, 2000)
+    }
 
     return (
         <>
@@ -85,6 +98,9 @@ export default () => {
             <Table
                 name="Yingshouguanli"
                 columns={columns}
+                rowData={data}
+                loading={loading}
+                setTableData={setTableData}
                 getAgInstance={getAgInstance}
             />
         </>

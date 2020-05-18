@@ -4,46 +4,46 @@ import Table from '../../../components/AgGrid'
 
 export default class Tab1 extends React.Component {
     state={
-        columns: [
-            {
-                headerName: '',//选择列头部显示的文字，可以为空
-                checkboxSelection: true,//设置为ture显示为复选框
-                headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
-                'pinned': 'left', //固定再左边
-                width: 80 //列的宽度
-            },
-            {
-                headerName: '销售类型',
-                field: 'a',
-            },
-            {
-                headerName: '核算维度',
-                field: 'b',
-            },
-            {
-                headerName: '预算类型',
-                field: 'c',
-            },
-            {
-                headerName: '含税销售金额',
-                field: 'd',
-            },
-            {
-                headerName: '未开票申请金额',
-                field: 'e',
-            },
-            {
-                headerName: '本期开票申请金额',
-                field: 'f',
-            },
-            {
-                headerName: '开票内容',
-                field: 'g',
-            },
-        ],
-        rowData: [],
-        agInstance: null
+        data: [],
+        agInstance: null,
     }
+    columns = [
+        {
+            headerName: '',//选择列头部显示的文字，可以为空
+            checkboxSelection: true,//设置为ture显示为复选框
+            headerCheckboxSelection: true, //表头是否也显示复选框，全选反选用
+            'pinned': 'left', //固定再左边
+            width: 80 //列的宽度
+        },
+        {
+            headerName: '销售类型',
+            field: 'a',
+        },
+        {
+            headerName: '核算维度',
+            field: 'b',
+        },
+        {
+            headerName: '预算类型',
+            field: 'c',
+        },
+        {
+            headerName: '含税销售金额',
+            field: 'd',
+        },
+        {
+            headerName: '未开票申请金额',
+            field: 'e',
+        },
+        {
+            headerName: '本期开票申请金额',
+            field: 'f',
+        },
+        {
+            headerName: '开票内容',
+            field: 'g',
+        },
+    ]
     // ag instance
     getAgInstance = instance => {
         this.setState({
@@ -86,7 +86,7 @@ export default class Tab1 extends React.Component {
                     <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
                     <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
                     <div style={{height: '55vh'}}>
-                        <Table name="KaipiaoTab" columns={this.state.columns} rowData={this.state.rowData} getAgInstance={this.getAgInstance}></Table>
+                        <Table name="KaipiaoTab" columns={this.columns} rowData={this.state.data} getAgInstance={this.getAgInstance} enablePagination={false}></Table>
                     </div>
                 </div>
             </>

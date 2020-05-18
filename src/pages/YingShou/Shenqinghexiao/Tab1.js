@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react'
-import {Button} from 'antd'
+import {Button, Spin} from 'antd'
 import Table from '../../../components/AgGrid'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Drawer from '../../../components/Drawer'
@@ -136,8 +136,8 @@ const Tab1 = React.memo(props => {
     const [visible, setVisible] = useState(false)
     const [loading, setLoading] = useState(false)
     // rowData
-    const [rowData, setRowData] = useState([{a: Math.random()}])
-    const [tabRowData, setTabRowData] = useState([{a: Math.random()}])
+    const [data, setData] = useState([{a: Math.random()}])
+    const [tabData, setTabData] = useState([{a: Math.random()}])
     // 关闭drawer
     const onClose = useCallback(() => {
         setVisible(false)
@@ -159,12 +159,23 @@ const Tab1 = React.memo(props => {
     }, [])
 
     // row data test
-    const requestRowData = setData => {
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setData([{a: Math.random()}])
+            setLoading(false)
+            clearTimeout(t)
+        }, 2000)
         console.log('request row data')
     }
-    const requestTabRowData = setData => {
+    const setTabTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setTabData(data)
+            clearTimeout(t)
+        }, 2000)
         console.log('request tab row data')
-        setTabRowData([{a: Math.random()}])
     }
 
     return (
@@ -175,8 +186,9 @@ const Tab1 = React.memo(props => {
                 columns={columns}
                 getAgInstance={getAgInstance}
                 onRowDoubleClick={onRowDoubleClickCallback}
-                rowData={rowData}
-                getData={requestRowData}
+                rowData={data}
+                setTableData={setTableData}
+                loading={loading}
             />
             <Drawer width={"65vw"} title="待核销明细" hasFooter={false} onClose={onClose} visible={visible}>
                 <Button type="primary">核销</Button>
@@ -184,8 +196,9 @@ const Tab1 = React.memo(props => {
                     name="ShenqinghexiaoTab"
                     columns={columnsTab}
                     getAgInstance={getTabAgInstance}
-                    rowData={tabRowData}
-                    getData={requestTabRowData}
+                    rowData={tabData}
+                    setTableData={setTabTableData}
+                    loading={loading}
                 />
             </Drawer>
         </>

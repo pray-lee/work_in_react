@@ -2,30 +2,6 @@ import React, {useState, useCallback} from 'react'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Table from '../../../components/AgGrid'
 
-// rowData
-let rowData = []
-for(let i = 0; i < 10; i++) {
-    rowData.push({
-        a: Math.random(),
-        b: Math.random(),
-        c: Math.random(),
-        d: Math.random(),
-        e: Math.random(),
-        f: Math.random(),
-        g: Math.random(),
-        h: Math.random(),
-        i: Math.random(),
-        j: Math.random(),
-        k: Math.random(),
-        l: Math.random(),
-        m: Math.random(),
-        n: Math.random(),
-        o: Math.random(),
-        p: Math.random(),
-        s: Math.random(),
-    })
-}
-
 export default () => {
     const columns = [
         {
@@ -122,10 +98,22 @@ export default () => {
     ]
     // state
     const [agInstance, setAgInstance] = useState(null)
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
     }, [])
+
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
+        }, 2000)
+    }
 
     return (
         <>
@@ -134,9 +122,10 @@ export default () => {
                 <Table
                     name="Fukuanguanli"
                     columns={columns}
-                    rowData={rowData}
+                    rowData={data}
+                    loading={loading}
+                    setTableData={setTableData}
                     getAgInstance={getAgInstance}
-                    enablePagination={false}
                 >
                 </Table>
             </div>

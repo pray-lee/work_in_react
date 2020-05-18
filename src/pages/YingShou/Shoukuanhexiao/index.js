@@ -57,32 +57,18 @@ const columns = [
 export default () => {
     // state
     const [loading, setLoading] = useState(true)
-    const [rowData, setRowData] = useState([])
+    const [data, setData] = useState([])
     const [agInstance, setAgInstance] = useState(null)
 
-    // 数据获取
-    useEffect(() => {
-        setTimeout(() => {
-            const result = []
-            for (let i = 0; i < 50000; i++) {
-                result.push({
-                    a: Math.random(),
-                    b: Math.random(),
-                    c: Math.random(),
-                    d: Math.random(),
-                    e: Math.random(),
-                    f: Math.random(),
-                    g: Math.random(),
-                    h: Math.random(),
-                    i: Math.random(),
-                    j: Math.random(),
-                })
-            }
-            setLoading(loading => loading = false)
-            setRowData(data => [...result])
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
         }, 2000)
-    }, []);
-
+    }
 
     // 获取ag实例
     const getAgInstance = useCallback(instance => {
@@ -90,12 +76,11 @@ export default () => {
     }, [])
     return (
         <>
-           <Spin spinning={loading}>
-               <OperatorButtons/>
-               <div style={{height: '60vh'}}>
-                   <Table name="Shoukuanhexiao" columns={columns} rowData={rowData} getAgInstance={getAgInstance}/>
-               </div>
-           </Spin>
+            <OperatorButtons/>
+            <div style={{height: '60vh'}}>
+                <Table name="Shoukuanhexiao" columns={columns} rowData={data} getAgInstance={getAgInstance}
+                       loading={loading} setTableData={setTableData}/>
+            </div>
         </>
     )
 }

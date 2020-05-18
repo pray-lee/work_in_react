@@ -74,10 +74,24 @@ export default () => {
     ]
     // state
     const [agInstance, setAgInstance] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState([])
 
+    // 获取实例
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
     }, [])
+
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
+        }, 2000)
+    }
+
     return (
         <>
             <OperatorButtons />
@@ -85,6 +99,9 @@ export default () => {
                 name="Kaipiaoshenqing"
                 columns={columns}
                 getAgInstance={getAgInstance}
+                setTableData={setTableData}
+                rowData={data}
+                loading={loading}
             />
         </>
     )

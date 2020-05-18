@@ -1,12 +1,22 @@
 // name 属性是用来在LocalStorage里存储表头信息时用到的标识，看是哪一个组件表格
 import React, {PureComponent} from 'react'
-import {Pagination, Button} from 'antd'
+import {Pagination, Button, Spin} from 'antd'
 import {AgGridReact} from 'ag-grid-react'
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import 'ag-grid-enterprise';
 import './index.less'
 
+/**
+ * name: 表示表格名称,必传 string
+ * columns: 表头 []
+ * rowData: 表格数据 []
+ * getAgInstance: 获取ag表格实例 传递params参数
+ * loading: 加载状态 false/true
+ * setTableData: 点击分页时候用到，重新设置表格组件的值
+ * enablePagination: 是否启用分页
+ * setTableData: 设置data的函数
+ */
 class AgGridDemo extends PureComponent {
     // 表格默认属性
     static defaultProps = {
@@ -16,8 +26,10 @@ class AgGridDemo extends PureComponent {
         getAgInstance: () => {
             console.log('getAgInstance')
         },
-        getData: () => {},
-        enablePagination: true
+        setTableData: () => {
+        },
+        enablePagination: true,
+        loading: false
     }
 
     constructor(props) {
@@ -136,7 +148,6 @@ class AgGridDemo extends PureComponent {
             const columnState = JSON.parse(userColumns)
             this.columnApi.setColumnState(columnState)
         }
-
     }
 
     // 键盘操作
@@ -202,7 +213,7 @@ class AgGridDemo extends PureComponent {
 
     getRows = (page, pageSize) => {
         // 请求数据
-        this.props.getData()
+        this.props.setTableData()
     }
 
     componentDidMount() {
@@ -211,113 +222,115 @@ class AgGridDemo extends PureComponent {
             columnDefs
         })
         console.log(this.props)
-        this.props.getData()
+        this.props.setTableData()
     }
 
     render() {
         console.log('render aginstance')
         return (
-            <div className="ag-theme-balham" style={{width: '100%', height: '65vh'}}>
-                <AgGridReact
-                    alwaysShowVerticalScroll={true}
-                    // 默认表格配置
-                    defaultColDef={{
-                        editable: true,
-                        filter: true,
-                        resizable: true,
-                        sortable: true,
-                    }}
-                    columnDefs={this.state.columnDefs}
-                    rowData={this.props.rowData}
-                    enableCharts={true}
-                    rowSelection="multiple"
-                    // 点击不选中单元格
-                    // suppressCellSelection={true}
-                    // 点一个选一个，false的话是按住ctrl建
-                    // rowMultiSelectWithClick={true}
-                    // 单机不选择行，必须点checkbox
-                    suppressRowClickSelection={true}
-                    // 不显示横向滚动条
-                    // suppressHorizontalScroll={true}
-                    // 始终显示列菜单按钮，默认鼠标移入才显示
-                    suppressMenuHide={true}
-                    // 范围选择
-                    enableRangeSelection={true}
-                    onGridReady={params => this.onGridReady(params)}
-                    animateRows={true}
-                    // 设置语言
-                    localeText={this.localeText}
-                    // 分页相关
-                    pagination={true}
-                    suppressPaginationPanel={true}
-                    // paginationAutoPageSize={true}
-                    // floatingFilter={true}
-                    // 键盘操作
-                    onCellKeyDown={this.onCellKeyDown}
-                    onCellKeyPress={this.onCellKeyPress}
-                    onCellEditingStopped={function (event) {
-                        console.log(event.data)
-                        var itxst = JSON.stringify(event.data);
-                        console.log(itxst)
-                    }}
-                    // 图表相关
-                    getChartToolbarItems={this.getChartToolbarItems}
-                    // 右侧菜单封装
-                    getContextMenuItems={this.getContextMenuItems}
-                    // 用户隐藏表头操作触发的回调
-                    onColumnVisible={this.onColumnVisible}
-                    // 双击行
-                    onRowDoubleClicked={this.props.onRowDoubleClick}
-                    // 渲染器，返回组件,渲染器设置好了以后，直接去对应的表头信息里加字符串就好了
-                    context={{
-                        componentParent: this
-                    }}
-                    frameworkComponents={{
-                        testRenderer: function (params) {
-                            return <span className="textRenderer">{params.value}</span>
-                        },
-                        actionRenderer: props => {
-                            const handleClick = () => {
-                                console.log('---------------cell render props----------------------')
-                                console.log(props)
-                                console.log(props.context.componentParent.props.name)
-                                console.log(props.api.getRowNode(props.node.rowIndex))
-                                console.log('------------------------------------------------------')
-                                // 假删除, 到时候还要改成接口
-                                props.api.updateRowData({
-                                    remove: [props.data]
-                                })
+            <Spin spinning={this.props.loading}>
+                <div className="ag-theme-balham" style={{width: '100%', height: '65vh'}}>
+                    <AgGridReact
+                        alwaysShowVerticalScroll={true}
+                        // 默认表格配置
+                        defaultColDef={{
+                            editable: true,
+                            filter: true,
+                            resizable: true,
+                            sortable: true,
+                        }}
+                        columnDefs={this.state.columnDefs}
+                        rowData={this.props.rowData}
+                        enableCharts={true}
+                        rowSelection="multiple"
+                        // 点击不选中单元格
+                        // suppressCellSelection={true}
+                        // 点一个选一个，false的话是按住ctrl建
+                        // rowMultiSelectWithClick={true}
+                        // 单机不选择行，必须点checkbox
+                        suppressRowClickSelection={true}
+                        // 不显示横向滚动条
+                        // suppressHorizontalScroll={true}
+                        // 始终显示列菜单按钮，默认鼠标移入才显示
+                        suppressMenuHide={true}
+                        // 范围选择
+                        enableRangeSelection={true}
+                        onGridReady={params => this.onGridReady(params)}
+                        animateRows={true}
+                        // 设置语言
+                        localeText={this.localeText}
+                        // 分页相关
+                        pagination={true}
+                        suppressPaginationPanel={true}
+                        // paginationAutoPageSize={true}
+                        // floatingFilter={true}
+                        // 键盘操作
+                        onCellKeyDown={this.onCellKeyDown}
+                        onCellKeyPress={this.onCellKeyPress}
+                        onCellEditingStopped={function (event) {
+                            console.log(event.data)
+                            var itxst = JSON.stringify(event.data);
+                            console.log(itxst)
+                        }}
+                        // 图表相关
+                        getChartToolbarItems={this.getChartToolbarItems}
+                        // 右侧菜单封装
+                        getContextMenuItems={this.getContextMenuItems}
+                        // 用户隐藏表头操作触发的回调
+                        onColumnVisible={this.onColumnVisible}
+                        // 双击行
+                        onRowDoubleClicked={this.props.onRowDoubleClick}
+                        // 渲染器，返回组件,渲染器设置好了以后，直接去对应的表头信息里加字符串就好了
+                        context={{
+                            componentParent: this
+                        }}
+                        frameworkComponents={{
+                            testRenderer: function (params) {
+                                return <span className="textRenderer">{params.value}</span>
+                            },
+                            actionRenderer: props => {
+                                const handleClick = () => {
+                                    console.log('---------------cell render props----------------------')
+                                    console.log(props)
+                                    console.log(props.context.componentParent.props.name)
+                                    console.log(props.api.getRowNode(props.node.rowIndex))
+                                    console.log('------------------------------------------------------')
+                                    // 假删除, 到时候还要改成接口
+                                    props.api.updateRowData({
+                                        remove: [props.data]
+                                    })
+                                }
+                                // ********************这里还有个条件渲染************************
+                                return (
+                                    <>
+                                        <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
+                                        <Button type="primary" size="small">编辑</Button>
+                                    </>
+                                )
                             }
-                            // ********************这里还有个条件渲染************************
-                            return (
-                                <>
-                                    <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
-                                    <Button type="primary" size="small">编辑</Button>
-                                </>
-                            )
-                        }
-                    }}
+                        }}
 
-                >
-                </AgGridReact>
-                {
-                    this.props.enablePagination ?
-                        <Pagination
-                            style={{paddingTop: 10}}
-                            size="small"
-                            // simple={true}
-                            showSizeChanger
-                            hideOnSinglePage={true}
-                            onShowSizeChange={this.onShowSizeChange}
-                            defaultCurrent={1}
-                            total={500}
-                            onChange={this.onChange}
-                            showTotal={total => `共有${total}条`}
-                        />
-                        :
-                        null
-                }
-            </div>
+                    >
+                    </AgGridReact>
+                    {
+                        this.props.enablePagination ?
+                            <Pagination
+                                style={{paddingTop: 10}}
+                                size="small"
+                                // simple={true}
+                                showSizeChanger
+                                hideOnSinglePage={true}
+                                onShowSizeChange={this.onShowSizeChange}
+                                defaultCurrent={1}
+                                total={500}
+                                onChange={this.onChange}
+                                showTotal={total => `共有${total}条`}
+                            />
+                            :
+                            null
+                    }
+                </div>
+            </Spin>
         )
     }
 }

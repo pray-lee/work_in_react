@@ -77,33 +77,23 @@ const columns = [
       field: 'p'
    },
 ]
-// rowData
-const rowData = []
-for (var i = 0; i < 100; i++) {
-   rowData.push({
-      a: Math.random(),
-      b: Math.random(),
-      c: Math.random(),
-      d: Math.random(),
-      e: Math.random(),
-      f: Math.random(),
-      g: Math.random(),
-      h: Math.random(),
-      i: Math.random(),
-      j: Math.random(),
-      k: Math.random(),
-      l: Math.random(),
-      m: Math.random(),
-      n: Math.random(),
-      o: Math.random(),
-      p: Math.random(),
-   })
-}
+
 export default () => {
    const [agInstance, setAgInstance] = useState(null)
+   const [data, setData] = useState([])
+   const [loading, setLoading] = useState(false)
    const getAgInstance = useCallback(instance => {
       setAgInstance(instance)
    }, [])
+   // 设置数据
+   const setTableData = data => {
+      setLoading(true)
+      const t = setTimeout(() => {
+         setLoading(false)
+         setData(data)
+         clearTimeout(t)
+      }, 2000)
+   }
    return (
        <>
          <OperatorButtons/>
@@ -111,8 +101,10 @@ export default () => {
             <Table
                 name="FukuanhexiaoTab1"
                 columns={columns}
-                rowData={rowData}
+                rowData={data}
+                setTableData={setTableData}
                 getAgInstance={getAgInstance}
+                loading={loading}
             >
             </Table>
          </div>
