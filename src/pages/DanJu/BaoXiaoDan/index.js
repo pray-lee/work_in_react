@@ -187,13 +187,13 @@ export default () => {
         switch (type) {
             case 'view':
                 return <SliderView form={form} type="view"/>
-                // break
+            // break
             case 'add':
                 return <SliderView form={form} type="add"/>
-                // break
+            // break
             case 'edit':
                 return <SliderView form={form} type="edit"/>
-                // break
+            // break
             default:
                 return <SliderView form={form} type="view"/>
         }
@@ -202,17 +202,15 @@ export default () => {
     return (
         <>
             <OperatorButtons events={events}/>
-            <div style={{height: '85vh'}}>
-                <Table
-                    name="BaoXiaoDan"
-                    columns={columns}
-                    rowData={data}
-                    getAgInstance={getAgInstance}
-                    setTableData={setTableData}
-                    loading={loading}
-                >
-                </Table>
-            </div>
+            <Table
+                name="BaoXiaoDan"
+                columns={columns}
+                rowData={data}
+                getAgInstance={getAgInstance}
+                setTableData={setTableData}
+                loading={loading}
+            >
+            </Table>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

@@ -29,13 +29,15 @@ class AgGridDemo extends PureComponent {
         setTableData: () => {
         },
         enablePagination: true,
-        loading: false
+        loading: false,
+        tableHeight: 600
     }
 
     constructor(props) {
         super(props);
         this.state = {
             columnDefs: [],
+            tableHeight: '600px'
         }
     }
 
@@ -216,22 +218,35 @@ class AgGridDemo extends PureComponent {
         this.props.setTableData()
     }
 
+    // 动态设置表格高度
+    setTableHeight = () => {
+        // 设置表格高度
+        const operatorHeight = document.querySelector('.ant-row').offsetHeight
+        let paginationDom = document.querySelector('.ant-pagination')
+        const paginationHeight = paginationDom ? paginationDom.offsetHeight : 0
+        const headerHeight = document.querySelector('.ck-header').offsetHeight
+        return operatorHeight + paginationHeight + headerHeight + 24
+    }
+
     componentDidMount() {
         const columnDefs = this.props.columns.slice()
-        this.setState({
-            columnDefs
-        })
-        console.log(this.props)
         this.props.setTableData()
+        const height = this.setTableHeight()
+        this.setState({
+            columnDefs,
+            tableHeight: `calc(100vh - ${height}px)`
+        })
+
     }
 
     render() {
         console.log('render aginstance')
         return (
             <Spin spinning={this.props.loading}>
-                <div className="ag-theme-balham" style={{width: '100%', height: '65vh'}}>
+                <div className="ag-theme-balham" style={{height: this.state.tableHeight}}>
                     <AgGridReact
                         alwaysShowVerticalScroll={true}
+                        className="adsfasfadsf"
                         // 默认表格配置
                         defaultColDef={{
                             editable: true,
@@ -315,9 +330,10 @@ class AgGridDemo extends PureComponent {
                     {
                         this.props.enablePagination ?
                             <Pagination
-                                style={{paddingTop: 10}}
+                                style={{
+                                    paddingTop: 10,
+                                }}
                                 size="small"
-                                // simple={true}
                                 showSizeChanger
                                 hideOnSinglePage={true}
                                 onShowSizeChange={this.onShowSizeChange}
