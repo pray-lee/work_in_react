@@ -108,16 +108,16 @@ export default class Tab1 extends React.Component {
                 <div className="button-area">
                     <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
                     <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
-                    <div style={{height: '55vh'}}>
                         <Table
                             name="BaoXiaoDanTab"
+                            enablePagination={false}
                             columns={this.columns}
                             rowData={this.state.data}
                             getAgInstance={this.getAgInstance}
-                            loading={this.state.loading}>
+                            loading={this.state.loading}
                             setTableData={this.setTableData}
+                        >
                         </Table>
-                    </div>
                 </div>
             </>
         )

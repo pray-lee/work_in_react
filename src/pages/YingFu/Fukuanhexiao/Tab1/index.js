@@ -97,7 +97,6 @@ export default () => {
    return (
        <>
          <OperatorButtons/>
-         <div style={{height: '85vh'}}>
             <Table
                 name="FukuanhexiaoTab1"
                 columns={columns}
@@ -107,7 +106,6 @@ export default () => {
                 loading={loading}
             >
             </Table>
-         </div>
        </>
    )
 }

@@ -27,6 +27,7 @@ class AgGridDemo extends PureComponent {
             console.log('getAgInstance')
         },
         setTableData: () => {
+            console.log('setTableData fn')
         },
         enablePagination: true,
         loading: false,
@@ -225,7 +226,9 @@ class AgGridDemo extends PureComponent {
         let paginationDom = document.querySelector('.ant-pagination')
         const paginationHeight = paginationDom ? paginationDom.offsetHeight : 0
         const headerHeight = document.querySelector('.ck-header').offsetHeight
-        return operatorHeight + paginationHeight + headerHeight + 24
+        const tabDom = document.querySelector('.ant-tabs-bar')
+        const tabHeight = tabDom ? (tabDom.offsetHeight + 16) : 0
+        return operatorHeight + paginationHeight + headerHeight + tabHeight + 24
     }
 
     componentDidMount() {
@@ -236,97 +239,104 @@ class AgGridDemo extends PureComponent {
             columnDefs,
             tableHeight: `calc(100vh - ${height}px)`
         })
-
+        window.onresize = () => {
+            const height = this.setTableHeight()
+            this.setState({
+                tableHeight: `calc(100vh - ${height}px)`
+            })
+        }
     }
 
     render() {
         console.log('render aginstance')
+        console.log(this.props)
         return (
-            <Spin spinning={this.props.loading}>
-                <div className="ag-theme-balham" style={{height: this.state.tableHeight}}>
-                    <AgGridReact
-                        alwaysShowVerticalScroll={true}
-                        className="adsfasfadsf"
-                        // 默认表格配置
-                        defaultColDef={{
-                            editable: true,
-                            filter: true,
-                            resizable: true,
-                            sortable: true,
-                        }}
-                        columnDefs={this.state.columnDefs}
-                        rowData={this.props.rowData}
-                        enableCharts={true}
-                        rowSelection="multiple"
-                        // 点击不选中单元格
-                        // suppressCellSelection={true}
-                        // 点一个选一个，false的话是按住ctrl建
-                        // rowMultiSelectWithClick={true}
-                        // 单机不选择行，必须点checkbox
-                        suppressRowClickSelection={true}
-                        // 不显示横向滚动条
-                        // suppressHorizontalScroll={true}
-                        // 始终显示列菜单按钮，默认鼠标移入才显示
-                        suppressMenuHide={true}
-                        // 范围选择
-                        enableRangeSelection={true}
-                        onGridReady={params => this.onGridReady(params)}
-                        animateRows={true}
-                        // 设置语言
-                        localeText={this.localeText}
-                        // 分页相关
-                        pagination={true}
-                        suppressPaginationPanel={true}
-                        // paginationAutoPageSize={true}
-                        // floatingFilter={true}
-                        // 键盘操作
-                        onCellKeyDown={this.onCellKeyDown}
-                        onCellKeyPress={this.onCellKeyPress}
-                        onCellEditingStopped={function (event) {
-                            console.log(event.data)
-                            var itxst = JSON.stringify(event.data);
-                            console.log(itxst)
-                        }}
-                        // 图表相关
-                        getChartToolbarItems={this.getChartToolbarItems}
-                        // 右侧菜单封装
-                        getContextMenuItems={this.getContextMenuItems}
-                        // 用户隐藏表头操作触发的回调
-                        onColumnVisible={this.onColumnVisible}
-                        // 双击行
-                        onRowDoubleClicked={this.props.onRowDoubleClick}
-                        // 渲染器，返回组件,渲染器设置好了以后，直接去对应的表头信息里加字符串就好了
-                        context={{
-                            componentParent: this
-                        }}
-                        frameworkComponents={{
-                            testRenderer: function (params) {
-                                return <span className="textRenderer">{params.value}</span>
-                            },
-                            actionRenderer: props => {
-                                const handleClick = () => {
-                                    console.log('---------------cell render props----------------------')
-                                    console.log(props)
-                                    console.log(props.context.componentParent.props.name)
-                                    console.log(props.api.getRowNode(props.node.rowIndex))
-                                    console.log('------------------------------------------------------')
-                                    // 假删除, 到时候还要改成接口
-                                    props.api.updateRowData({
-                                        remove: [props.data]
-                                    })
+            <div className="table-wrapper">
+                <Spin spinning={this.props.loading}>
+                    <div className="ag-theme-balham" style={{height: this.state.tableHeight}}>
+                        <AgGridReact
+                            alwaysShowVerticalScroll={true}
+                            // 默认表格配置
+                            defaultColDef={{
+                                editable: true,
+                                filter: true,
+                                resizable: true,
+                                sortable: true,
+                            }}
+                            columnDefs={this.state.columnDefs}
+                            rowData={this.props.rowData}
+                            enableCharts={true}
+                            rowSelection="multiple"
+                            // 点击不选中单元格
+                            // suppressCellSelection={true}
+                            // 点一个选一个，false的话是按住ctrl建
+                            // rowMultiSelectWithClick={true}
+                            // 单机不选择行，必须点checkbox
+                            suppressRowClickSelection={true}
+                            // 不显示横向滚动条
+                            // suppressHorizontalScroll={true}
+                            // 始终显示列菜单按钮，默认鼠标移入才显示
+                            suppressMenuHide={true}
+                            // 范围选择
+                            enableRangeSelection={true}
+                            onGridReady={params => this.onGridReady(params)}
+                            animateRows={true}
+                            // 设置语言
+                            localeText={this.localeText}
+                            // 分页相关
+                            pagination={true}
+                            suppressPaginationPanel={true}
+                            // paginationAutoPageSize={true}
+                            // floatingFilter={true}
+                            // 键盘操作
+                            onCellKeyDown={this.onCellKeyDown}
+                            onCellKeyPress={this.onCellKeyPress}
+                            onCellEditingStopped={function (event) {
+                                console.log(event.data)
+                                var itxst = JSON.stringify(event.data);
+                                console.log(itxst)
+                            }}
+                            // 图表相关
+                            getChartToolbarItems={this.getChartToolbarItems}
+                            // 右侧菜单封装
+                            getContextMenuItems={this.getContextMenuItems}
+                            // 用户隐藏表头操作触发的回调
+                            onColumnVisible={this.onColumnVisible}
+                            // 双击行
+                            onRowDoubleClicked={this.props.onRowDoubleClick}
+                            // 渲染器，返回组件,渲染器设置好了以后，直接去对应的表头信息里加字符串就好了
+                            context={{
+                                componentParent: this
+                            }}
+                            frameworkComponents={{
+                                testRenderer: function (params) {
+                                    return <span className="textRenderer">{params.value}</span>
+                                },
+                                actionRenderer: props => {
+                                    const handleClick = () => {
+                                        console.log('---------------cell render props----------------------')
+                                        console.log(props)
+                                        console.log(props.context.componentParent.props.name)
+                                        console.log(props.api.getRowNode(props.node.rowIndex))
+                                        console.log('------------------------------------------------------')
+                                        // 假删除, 到时候还要改成接口
+                                        props.api.updateRowData({
+                                            remove: [props.data]
+                                        })
+                                    }
+                                    // ********************这里还有个条件渲染************************
+                                    return (
+                                        <>
+                                            <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
+                                            <Button type="primary" size="small">编辑</Button>
+                                        </>
+                                    )
                                 }
-                                // ********************这里还有个条件渲染************************
-                                return (
-                                    <>
-                                        <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
-                                        <Button type="primary" size="small">编辑</Button>
-                                    </>
-                                )
-                            }
-                        }}
+                            }}
 
-                    >
-                    </AgGridReact>
+                        >
+                        </AgGridReact>
+                    </div>
                     {
                         this.props.enablePagination ?
                             <Pagination
@@ -345,8 +355,8 @@ class AgGridDemo extends PureComponent {
                             :
                             null
                     }
-                </div>
-            </Spin>
+                </Spin>
+            </div>
         )
     }
 }
