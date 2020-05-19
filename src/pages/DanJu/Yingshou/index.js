@@ -93,6 +93,8 @@ export default () => {
     const [hasFooter, setHasFooter] = useState(true)
     const [title, setTitle] = useState('查看')
     const [type, setType] = useState('查看')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState([])
     let [events, setEvents] = useState({})
     // form
     const [form] = Form.useForm()
@@ -125,8 +127,19 @@ export default () => {
     }
     // 获取ag实例 ????
     const getAgInstance = useCallback(instance => {
+        console.log(11)
         setAgInstance(instance)
     }, [])
+
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
+        }, 2000)
+    }
 
 // 装载完成把方法赋值进去
     useEffect(() => {
@@ -180,6 +193,9 @@ export default () => {
                 name="Wodeyingshou"
                 columns={columns}
                 getAgInstance={getAgInstance}
+                loading={loading}
+                rowData={data}
+                setTableData={setTableData}
             ></Table>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>

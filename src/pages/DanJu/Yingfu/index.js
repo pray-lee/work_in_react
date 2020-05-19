@@ -5,27 +5,6 @@ import Drawer from '../../../components/Drawer'
 import SliderView from './SliderView'
 import Table from '../../../components/AgGrid'
 import OperatorButtons from "../../../components/OperatorButtons";
-// 展示数据
-const rowData = [];
-for (let i = 1; i <= 100; i++) {
-    rowData.push({
-        a: Math.random(),
-        b: Math.random(),
-        c: Math.random(),
-        d: Math.random(),
-        e: Math.random(),
-        f: Math.random(),
-        g: Math.random(),
-        h: Math.random(),
-        i: Math.random(),
-        j: Math.random(),
-        k: Math.random(),
-        l: Math.random(),
-        m: Math.random(),
-        n: Math.random(),
-        o: Math.random(),
-    });
-}
 export default () => {
     const columns = [
         {
@@ -95,6 +74,8 @@ export default () => {
     const [hasFooter, setHasFooter] = useState(true)
     const [title, setTitle] = useState('查看')
     const [type, setType] = useState('查看')
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState([])
     let [events, setEvents] = useState({})
     // form
     const [form] = Form.useForm()
@@ -123,6 +104,17 @@ export default () => {
     const getAgInstance = useCallback(instance => {
         setAgInstance(instance)
     }, [])
+
+    // 设置数据
+    const setTableData = data => {
+        setLoading(true)
+        const t = setTimeout(() => {
+            setLoading(false)
+            setData(data)
+            clearTimeout(t)
+        }, 2000)
+    }
+
     // 装载完成把方法赋值进去
     useEffect(() => {
         //这里要定义点击事件传递给OperatorButtons======================================================
@@ -171,7 +163,7 @@ export default () => {
     return (
         <>
             <OperatorButtons events={events}/>
-            <Table name="Yingfu" columns={columns} rowData={rowData} getAgInstance={getAgInstance}/>
+            <Table name="Yingfu" columns={columns} rowData={data} getAgInstance={getAgInstance} loading={loading} setTableData={setTableData}/>
             <Drawer visible={visible} hasFooter={hasFooter} title={title} onClose={onClose} onSubmit={onSubmit}>
                 <Form {...formLayout} form={form} initialValues={initialValues}>
                     {drawerContent(type)}

@@ -100,7 +100,7 @@ class Frame extends React.PureComponent {
                                             <Suspense fallback={null}>
                                                 <Animated
                                                     animationIn="zoomIn"
-                                                    animationInDuration={380}
+                                                    animationInDuration={240}
                                                 >
                                                     <item.component/>
                                                 </Animated>
