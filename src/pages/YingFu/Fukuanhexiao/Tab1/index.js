@@ -56,26 +56,6 @@ const columns = [
       headerName: '待核销金额',
       field: 'k'
    },
-   {
-      headerName: '已付款金额',
-      field: 'l'
-   },
-   {
-      headerName: '未核销金额',
-      field: 'm'
-   },
-   {
-      headerName: '提交人',
-      field: 'n'
-   },
-   {
-      headerName: '是否有发票',
-      field: 'o'
-   },
-   {
-      headerName: '合同编号',
-      field: 'p'
-   },
 ]
 
 export default () => {

@@ -3,8 +3,6 @@ import {Button, Spin} from 'antd'
 import Table from '../../../components/AgGrid'
 import OperatorButtons from "../../../components/OperatorButtons";
 import Drawer from '../../../components/Drawer'
-import {connect} from "react-redux";
-import {tableLoadingStart, tableLoadingEnd} from "../../../actions/tableData";
 
 const columnsTab = [
     {
@@ -205,10 +203,4 @@ const Tab1 = React.memo(props => {
     )
 })
 
-const mapState = state => {
-    return {
-        tableData: state.tableData
-    }
-}
-
-export default connect(mapState, {tableLoadingStart, tableLoadingEnd})(Tab1)
+export default Tab1

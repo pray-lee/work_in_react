@@ -13,9 +13,9 @@ import './index.less'
  * rowData: 表格数据 []
  * getAgInstance: 获取ag表格实例 传递params参数
  * loading: 加载状态 false/true
- * setTableData: 点击分页时候用到，重新设置表格组件的值
  * enablePagination: 是否启用分页
- * setTableData: 设置data的函数
+ * setTableData: 设置渲染表格数据的函数
+ * action: 渲染操作栏的React node
  */
 class AgGridDemo extends PureComponent {
     // 表格默认属性
@@ -233,12 +233,14 @@ class AgGridDemo extends PureComponent {
 
     componentDidMount() {
         const columnDefs = this.props.columns.slice()
+        // 装在完成渲染一次
         this.props.setTableData()
         const height = this.setTableHeight()
         this.setState({
             columnDefs,
             tableHeight: `calc(100vh - ${height}px)`
         })
+        // resize的时候重新计算表格高度
         window.onresize = () => {
             const height = this.setTableHeight()
             this.setState({
@@ -249,7 +251,6 @@ class AgGridDemo extends PureComponent {
 
     render() {
         console.log('render aginstance')
-        console.log(this.props)
         return (
             <div className="table-wrapper">
                 <Spin spinning={this.props.loading}>
@@ -312,26 +313,27 @@ class AgGridDemo extends PureComponent {
                                 testRenderer: function (params) {
                                     return <span className="textRenderer">{params.value}</span>
                                 },
-                                actionRenderer: props => {
-                                    const handleClick = () => {
-                                        console.log('---------------cell render props----------------------')
-                                        console.log(props)
-                                        console.log(props.context.componentParent.props.name)
-                                        console.log(props.api.getRowNode(props.node.rowIndex))
-                                        console.log('------------------------------------------------------')
-                                        // 假删除, 到时候还要改成接口
-                                        props.api.updateRowData({
-                                            remove: [props.data]
-                                        })
-                                    }
-                                    // ********************这里还有个条件渲染************************
-                                    return (
-                                        <>
-                                            <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
-                                            <Button type="primary" size="small">编辑</Button>
-                                        </>
-                                    )
-                                }
+                                // actionRenderer: props => {
+                                //     const handleClick = () => {
+                                //         console.log('---------------cell render props----------------------')
+                                //         console.log(props)
+                                //         console.log(props.context.componentParent.props.name)
+                                //         console.log(props.api.getRowNode(props.node.rowIndex))
+                                //         console.log('------------------------------------------------------')
+                                //         // 假删除, 到时候还要改成接口
+                                //         props.api.updateRowData({
+                                //             remove: [props.data]
+                                //         })
+                                //     }
+                                //     // ********************这里还有个条件渲染************************
+                                //     return (
+                                //         <>
+                                //             <Button danger onClick={handleClick} type="primary" size="small">删除</Button>
+                                //             <Button type="primary" size="small">编辑</Button>
+                                //         </>
+                                //     )
+                                // }
+                                actionRenderer: this.props.action
                             }}
 
                         >
