@@ -24,4 +24,3 @@ module.exports = override(
     // 装饰器
     addDecoratorsLegacy()
 )
-
