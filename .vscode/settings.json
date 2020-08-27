@@ -1,7 +1,7 @@
 {
-    "editor.fontSize": 13,
     "editor.renderIndentGuides": false,
     "editor.overviewRulerBorder": false,
     "editor.hideCursorInOverviewRuler": true,
-    "editor.fontFamily": "JetBrains Monos, Menlo, Monaco, 'Courier New', monospace"
+    "editor.fontFamily": "JetBrains Mono, Menlo, Monaco, 'Courier New', monospace",
+    "editor.formatOnType": true
 }

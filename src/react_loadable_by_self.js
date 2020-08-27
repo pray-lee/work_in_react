@@ -1,14 +1,12 @@
 import React, {Component} from "react";
 // 实现一个简易的loadable
 
-const Loadable = ({
-                               loader,
-                               loading: Loading
-                           }) => {
+const Loadable = ({loader, loading: Loading}) => {
     return class extends Component {
         state = {
             LoadedComponent: null
         }
+
         componentDidMount() {
             loader()
                 .then(res => {

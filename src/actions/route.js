@@ -30,7 +30,13 @@ export const getRouteConfig = () => {
                        },
                        {
                            title: '我的报销单',
-                           pathname: '/DanJu/BaoXiaoDan'
+                           pathname: '/DanJu/BaoXiaoDan',
+                           children: [
+                               {
+                                   title: '三级菜单',
+                                   pathname: '/DanJu/BaoXiaoDan/third'
+                               }
+                           ]
                        }
                    ]
                },

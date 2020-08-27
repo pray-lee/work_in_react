@@ -10,7 +10,7 @@ import {
     Redirect
 } from "react-router-dom";
 // 设置中文
-import {ConfigProvider} from 'antd'
+import {ConfigProvider} from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
 import {mainRoutes} from "./routes";
 // 日期组件中文化
@@ -34,7 +34,7 @@ ReactDOM.render(
             </Router>
         </Provider>
     </ConfigProvider>,
-document.getElementById('root')
+    document.getElementById('root')
 )
 ;
 
