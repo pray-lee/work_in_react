@@ -5,13 +5,13 @@ const initState = {
             hasRead: false,
             id: 1,
             title: '11111',
-            desc: 'alksdjfklasdjfjasdfjkasjdfjajsdfjasdfj',
+            desc: '财咖，会计行业龙头老大',
         },
         {
             hasRead: false,
             id: 2,
             title: '2222',
-            desc: 'a中国人民站起来了lksdjfklasdjfjasdfjkasjdfjajsdfjasdfj',
+            desc: '财咖订阅，一个人人人人人',
         }
     ],
     isLoading: false

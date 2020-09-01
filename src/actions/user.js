@@ -44,10 +44,14 @@ export const requestLogin = userInfo => {
         //         message.error('用户名或密码错误')
         //     }
         // })
-        dispatch(loginSuccess({}))
+        dispatch(loginSuccess({
+            id: '',
+            username: '勇爷',
+            isLogin: true
+        }))
         window.localStorage.setItem('userInfo', JSON.stringify({
             id: '',
-            name: 'haha',
+            username: '勇爷',
             isLogin: true
         }))
         window.localStorage.setItem('authToken', 'aksjdfkjasdfaskdfk')

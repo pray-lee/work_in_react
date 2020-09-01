@@ -15,6 +15,7 @@ import {Animated} from 'react-animated-css'
 const {Header, Content} = Layout
 
 const mapState = state => {
+    console.log(state, 'state.......')
     return {
         notificationsCount: state.notifications.list.filter(item => !item.hasRead).length,
         userInfo: state.user,

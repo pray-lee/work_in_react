@@ -2,13 +2,7 @@ import React from 'react'
 import {Button} from 'antd'
 import Table from '../../../components/AgGrid'
 
-export default class Tab1 extends React.Component {
-    state={
-        loading: false,
-        data: [],
-        agInstance: null
-    }
-    columns = [
+const columns = [
         {
             headerName: '',//选择列头部显示的文字，可以为空
             checkboxSelection: true,//设置为ture显示为复选框
@@ -41,6 +35,13 @@ export default class Tab1 extends React.Component {
             field: 'remark',
         },
     ]
+
+export default class Tab1 extends React.Component {
+    state={
+        loading: false,
+        data: [],
+        agInstance: null
+    }
     // ag instance
     getAgInstance = instance => {
         this.setState({
@@ -82,7 +83,7 @@ export default class Tab1 extends React.Component {
                     <Button type="primary" onClick={this.add} disabled={type==='view'}>添加</Button>
                     <Button type="primary" danger onClick={this.del} disabled={type==='view'}>删除</Button>
                     <div style={{height: '55vh'}}>
-                        <Table name="YingfuTab" columns={this.columns} rowData={this.state.data} getAgInstance={this.getAgInstance} loading={this.state.loading}></Table>
+                        <Table name="YingfuTab" columns={columns} rowData={this.state.data} getAgInstance={this.getAgInstance} loading={this.state.loading}></Table>
                     </div>
                 </div>
             </>

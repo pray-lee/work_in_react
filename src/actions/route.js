@@ -92,6 +92,16 @@ export const getRouteConfig = () => {
                        },
                    ]
                },
+               {
+                   title: '基础设置',
+                   pathname: '/JiShuSheZhi',
+                   children: [
+                       {
+                           title: '菜单管理',
+                           pathname: '/JiChuSheZhi/CaiDan'
+                       }
+                   ]
+               }
            ]
           dispatch({
               type: actionType.GET_ROUTE_CONFIG,

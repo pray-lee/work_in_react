@@ -23,12 +23,16 @@ class AgGridDemo extends PureComponent {
         onRowDoubleClick: () => {
             console.log('rowDoubleClicked')
         },
+        onRowClick: () => {
+            console.log('rowClicked')
+        },
         getAgInstance: () => {
             console.log('getAgInstance')
         },
         setTableData: () => {
             console.log('setTableData fn')
         },
+        columns: [],
         enablePagination: true,
         loading: false,
         tableHeight: 600
@@ -303,6 +307,8 @@ class AgGridDemo extends PureComponent {
                             getContextMenuItems={this.getContextMenuItems}
                             // 用户隐藏表头操作触发的回调
                             onColumnVisible={this.onColumnVisible}
+                            // 单击
+                            onRowClicked={this.props.onRowClick}
                             // 双击行
                             onRowDoubleClicked={this.props.onRowDoubleClick}
                             // 渲染器，返回组件,渲染器设置好了以后，直接去对应的表头信息里加字符串就好了
