@@ -226,13 +226,13 @@ class AgGridDemo extends PureComponent {
     // 动态设置表格高度
     setTableHeight = () => {
         // 设置表格高度
-        const operatorHeight = document.querySelector('.ant-row').offsetHeight
-        let paginationDom = document.querySelector('.ant-pagination')
-        const paginationHeight = paginationDom ? paginationDom.offsetHeight : 0
-        const headerHeight = document.querySelector('.ck-header').offsetHeight
-        const tabDom = document.querySelector('.ant-tabs-bar')
-        const tabHeight = tabDom ? (tabDom.offsetHeight + 16) : 0
-        return operatorHeight + paginationHeight + headerHeight + tabHeight + 24
+        // const operatorHeight = document.querySelector('.ant-row').offsetHeight || 0
+        // let paginationDom = document.querySelector('.ant-pagination')
+        // const paginationHeight = paginationDom ? paginationDom.offsetHeight : 0
+        // const headerHeight = document.querySelector('.ck-header').offsetHeight
+        // const tabDom = document.querySelector('.ant-tabs-bar')
+        // const tabHeight = tabDom ? (tabDom.offsetHeight + 16) : 0
+        // return operatorHeight + paginationHeight + headerHeight + tabHeight + 24
     }
 
     componentDidMount() {
@@ -273,7 +273,7 @@ class AgGridDemo extends PureComponent {
                             enableCharts={true}
                             rowSelection="multiple"
                             // 点击不选中单元格
-                            // suppressCellSelection={true}
+                            suppressCellSelection={true}
                             // 点一个选一个，false的话是按住ctrl建
                             // rowMultiSelectWithClick={true}
                             // 单机不选择行，必须点checkbox
