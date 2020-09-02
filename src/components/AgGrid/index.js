@@ -267,6 +267,7 @@ class AgGridDemo extends PureComponent {
                                 filter: true,
                                 resizable: true,
                                 sortable: true,
+
                             }}
                             columnDefs={this.state.columnDefs}
                             rowData={this.props.rowData}

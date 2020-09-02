@@ -14,11 +14,12 @@ import Table from '../../../components/AgGrid'
 const columns = [
     {
         headerName: '菜单顺序',
-        field: 'order'
+        field: 'order',
     },
     {
         headerName: '菜单名称',
-        field: 'name'
+        field: 'name',
+        rowGroup: true,
     },
     {
         headerName: '菜单图标',
@@ -45,22 +46,25 @@ const action = params => {
     }
     return (
         <>
-            <Button onClick={handleClick}>abc</Button>
-            <Button>edf</Button>
-            <Button>xoo</Button>
+            <Button onClick={handleClick}>删除</Button>
+            <Button>页面控件权限</Button>
+            <Button>数据规则</Button>
         </>
     )
 }
 
 // rowData
 const rowData = []
-for (let i = 0; i < 10; i++) {
+for (var i = 0; i < 100; i++) {
     rowData.push({
-        order: i++,
-        name: i++,
-        address: i++
+        order: i,
+        name: `我的菜单`,
+        address: 'address' + i,
+        style: 'style' + i,
+        icon: 'icon' + i
     })
 }
+console.log(rowData)
 
 export default props => {
     return (
