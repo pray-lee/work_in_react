@@ -33,6 +33,10 @@ class AgGridDemo extends PureComponent {
             console.log('setTableData fn')
         },
         columns: [],
+        // 默认表头配置
+        defaultColDef: [],
+        // 自动分组设置
+        autoGroupColumnDef: {},
         enablePagination: true,
         loading: false,
         tableHeight: 600
@@ -267,9 +271,10 @@ class AgGridDemo extends PureComponent {
                                 filter: true,
                                 resizable: true,
                                 sortable: true,
-
+                                ...this.props.defaultColDef
                             }}
                             columnDefs={this.state.columnDefs}
+                            autoGroupColumnDef={this.props.autoGroupColumnDef}
                             rowData={this.props.rowData}
                             enableCharts={true}
                             rowSelection="multiple"
