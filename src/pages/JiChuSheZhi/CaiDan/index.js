@@ -82,7 +82,6 @@ for (var i = 0; i < 100; i++) {
         icon: 'icon' + i
     })
 }
-console.log(rowData)
 
 export default props => {
     return (
@@ -92,8 +91,8 @@ export default props => {
                         icon={<PlusCircleOutlined style={{fontSize: '12px'}}/>}>菜单录入</Button>
                 <Button className={classNames(antBtnSm)} type="primary" size="small"
                         icon={<EditOutlined style={{fontSize: '12px'}}/>}>菜单编辑</Button>
-                {/*菜单表格*/}
             </div>
+            {/*菜单表格*/}
             <Table
                 name="menu"
                 columns={columns}
